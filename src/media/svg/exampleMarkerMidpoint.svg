@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+    "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+         width="640" height="300"
+         viewBox="0 0 1280 600"  >
+	
+	<!-- Matthew Bystedt http://apike.ca 2012 -->
+	
+	<!-- Pattern Definition -->
+	<defs>
+        
+        <marker id="myMarker1" viewBox="0 0 10 10" refX="5" refY="5" 
+            markerUnits="strokeWidth" orient="auto"
+              markerWidth="5" markerHeight="5">
+            <circle cx="5" cy="5" r="5" stroke="green" fill="none" />
+        </marker>
+	</defs>	
+	<!-- Background -->
+	
+	<svg x="120" y="50" width="1100" height="500" preserveAspectRatio="none"
+         viewBox="0 -15 66 30">
+         
+         <defs>
+		<pattern id="gridPattern" patternUnits="userSpaceOnUse" 
+				x="0" y="0" width="3.3" height="2.5"
+				viewBox="0 0 3.3 2.5" overflow="visible">
+				
+			<line x1="0" y1="2.5" x2="3.3" y2="2.5" stroke="black" stroke-width=".06"/>
+			<line x1="3.3" y1="0" x2="3.3" y2="2.5" stroke="black" stroke-width=".03"/>
+		</pattern>
+		</defs>
+		<rect x="0" y="-15" width="66" height="30" fill="url(#gridPattern)" opacity=".5"/>
+		
+		<polyline points="0,14.6 6.6,14.5 13.2,14.5 19.8,14.5 26.4,14.5 29.7,14.5 
+			30.36,-13.4 31.02,-13.4 33,-13.4 39.6,-13.4 46.2,-13.4 52.8,-13.4 
+			59.4,-13.4 66,-13.4" fill="none" stroke="blue" stroke-width=".1mm" marker-mid="url(#myMarker1)"/>
+	</svg>
+	
+	<rect x="120" y="50" width="1100" height="500" stroke="black" fill="none"/>	
+	
+</svg>

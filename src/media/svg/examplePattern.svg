@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+    "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+         width="480" height="180"
+         viewBox="0 0 640 240" onload="updateTimer(evt)" >
+	
+	<!-- Matthew Bystedt http://apike.ca 2012 -->
+
+    <script type="text/ecmascript"> <![CDATA[
+
+    var animate = 0;
+    var val = 0;
+    var bVal = 0;
+
+    function startAnim (evt, anim) {
+        animate = anim;
+        setTimeout("updateTimer()", 50);
+    }
+    
+    function updateTimer(evt) {
+		var document = window.document;
+		var rootElem = document.rootElement;
+		
+        var shape = document.getElementById("snow1");
+		
+        shape.setAttributeNS(null, "x", Math.sin(val)*7 - 10);
+        shape.setAttributeNS(null, "y", Math.cos(val)*7 - 10);
+        shape.setAttributeNS(null, "transform", "rotate(" + -val*20 + ")");
+
+        shape = document.getElementById("snow2");
+        shape.setAttributeNS(null, "x", Math.sin(val-3.14159265359)*7 - 10);
+        shape.setAttributeNS(null, "y", Math.cos(val-3.14159265359)*7 - 10);
+        shape.setAttributeNS(null, "transform", "rotate(" + val*40 + ")");
+
+        shape = document.getElementById("snowPattern");
+        shape.setAttributeNS(null, "y", bVal);
+        
+        if (animate == 1) {
+            val = val + 0.1;
+            bVal = bVal + 1;
+            if (bVal > 80) {
+                bVal = 0;
+            }
+            setTimeout("updateTimer(null)", 50);
+        }
+    }
+    
+    ]]></script>	
+	<!-- Pattern Definition -->
+	<defs>
+		<pattern id="snowPattern" patternUnits="userSpaceOnUse"
+				x="0" y="0" width="80" height="80"
+				viewBox="-20 -20 40 40"  >
+            
+			<image id="snow1" x="-5" y="-5" width="20" height="20" xlink:href="sc-snowflakes7.png" />
+			<image id="snow2" x="5" y="5" width="20" height="20" xlink:href="sc-snowflakes7.png" />
+		</pattern>
+	</defs>
+
+    <image x="0" y="0" width="100%" height="100%" xlink:href="sc-snowback2.jpg" opacity="0.5" />
+
+	<!-- Background -->
+	<rect id="background" x="0" y="0" width="100%" height="100%" fill="url(#snowPattern)" onmouseover="startAnim(evt, 1)" onmouseout="startAnim(evt, 0)" />
+    
+    <text x="50%" y="90%" stroke="black" font-size="30" text-anchor="middle">Let it snow!</text>
+</svg>

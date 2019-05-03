@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+    "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+         width="640" height="200"
+         viewBox="0 0 640 200" >
+	
+	<!-- Matthew Bystedt http://apike.ca 2014 -->
+	
+	<defs>
+		<!-- Pattern Definition -->
+		<pattern id="checkerPattern" patternUnits="userSpaceOnUse"
+				x="0" y="0" width="20" height="20"
+				viewBox="0 0 10 10" >
+				
+			<line x1="0" y1="0" x2="10" y2="0" stroke="lightblue" fill="none" stroke-dasharray="2,2" />
+			<line x1="0" y1="0" x2="0" y2="10" stroke="lightblue" fill="none" stroke-dasharray="2,2" />
+		</pattern>
+		
+		<!-- Filter Definition -->
+		
+    <filter id="tileImages" x="0" y="0" width="100%" height="100%">
+      <feImage result="imgSource" xlink:href="cat.jpg" width="20%" height="25%" preserveAspectRatio="xMidYMid slice"  />
+      <feTile in="imgSource" />
+    </filter>
+    
+    
+    <filter id="tileSelf" x="20" y="20" width="600" height="160" filterUnits="userSpaceOnUse">
+      <feOffset in="SourceGraphic" x="20" y="20" width="100" height="30" />
+      <feTile /><!-- By default, in is the previous result. -->
+    </filter>
+
+	</defs>
+
+	<!-- Background -->
+	<rect x="0" y="0" width="100%" height="100%" fill="url(#checkerPattern)" />
+	
+	<!-- Example -->
+	<rect id="tileFilterRect" x="20" y="20" width="600" height="160" filter="url(#tileImages)" />
+	
+	<circle cx="70" cy="80" r="50" fill="white" fill-opacity=".5" filter="url(#tileSelf)" />
+	<g display="none">
+    <circle cx="70" cy="80" r="50" stroke="white" stroke-width="1" fill="none" opacity=".5" />
+    <rect x="20" y="20" width="100" height="30"  stroke="red" stroke-width="1" fill="none"/>
+    <set begin="tileFilterRect.mouseover" attributeName="display" to="inline" />
+    <set begin="tileFilterRect.mouseout" attributeName="display" to="none" />
+	</g>
+
+</svg>

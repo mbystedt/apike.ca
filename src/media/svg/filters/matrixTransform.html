@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" lang="en" xml:lang="en">
+<head>
+<title>Embedded SVG</title>
+</head>
+
+<link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.10.4.custom.min.css">
+<link rel="stylesheet" href="css/embed.css">
+
+<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.10.4.custom.min.js"></script>
+<script type="text/javascript" src="js/jquery.ui.touch-punch.min.js"></script>
+
+<script type="text/javascript">
+	$(function() {
+		function showFilter(type, value, transformText) {
+			
+			if (type == "translate") {
+				$("#translate-x-text").text(value.x);
+				$("#translate-y-text").text(value.y);
+			} else if (type == "scale") {
+        $("#scale-x-text").text(value.x);
+				$("#scale-y-text").text(value.y);			
+			} else if (type == "rotate") {
+        $("#rotate-r-text").text(value.r);
+        $("#rotate-x-text").text(value.x);
+				$("#rotate-y-text").text(value.y);			
+			} else if (type == "skewx") {
+        $("#skewx-x-text").text(value.x);
+			} else if (type == "skewy") {
+        $("#skewy-y-text").text(value.y);
+			}
+			
+			$("#filterText").val('transform="' + transformText + '"');
+		}
+		
+		showFilter('translate', {x: 0, y: 0}, "translate(0,0)");
+		
+		function showTranslate(event, ui) {
+			var mtTargetElem = document.getElementById("mtTarget"),
+			  values = {
+			      x: $("#slider-translate-x").slider("value"), 
+			      y: $("#slider-translate-y").slider("value")
+			    },
+			  transformText = "translate(" + values.x + ", " + values.y + ")";
+			
+			mtTargetElem.setAttributeNS(null, "transform", transformText);
+			showFilter('translate', values, transformText);
+		}
+		
+		function showScale(event, ui) {
+			var mtTargetElem = document.getElementById("mtTarget"),
+			  values = {
+			      x: $("#slider-scale-x").slider("value")/20, 
+			      y: $("#slider-scale-y").slider("value")/20
+			    },
+			  transformText = "scale(" + values.x + ", " + values.y + ")";
+			
+			mtTargetElem.setAttributeNS(null, "transform", transformText);
+			showFilter('scale', values, transformText);
+		}
+				
+    function showRotate(event, ui) {
+			var mtTargetElem = document.getElementById("mtTarget"),
+  			mtRotateCenterElem = document.getElementById("mtRotateCenter"),
+			  values = {
+			      r: $("#slider-rotate-r").slider("value"), 
+			      x: $("#slider-rotate-x").slider("value"), 
+			      y: $("#slider-rotate-y").slider("value")
+			    },
+			  transformText = "rotate(" + values.r + ", " + values.x + ", " + values.y + ")";
+			
+			mtTargetElem.setAttributeNS(null, "transform", transformText);
+			mtRotateCenterElem.setAttributeNS(null, "cx", values.x);
+			mtRotateCenterElem.setAttributeNS(null, "cy", values.y);
+			showFilter('rotate', values, transformText);
+		}
+		
+		function showSkewX(event, ui) {
+			var mtTargetElem = document.getElementById("mtTarget"),
+			  values = {
+			      x: $("#slider-skew-x").slider("value")/20,
+			    },
+			  transformText = "skewX(" + values.x + ")";
+			
+			mtTargetElem.setAttributeNS(null, "transform", transformText);
+			showFilter('skewx', values, transformText);
+		}
+		
+		function showSkewY(event, ui) {
+			var mtTargetElem = document.getElementById("mtTarget"),
+			  values = {
+			      y: $("#slider-skew-y").slider("value")/20,
+			    },
+			  transformText = "skewY(" + values.y + ")";
+			
+			mtTargetElem.setAttributeNS(null, "transform", transformText);
+			showFilter('skewy', values, transformText);
+		}
+		
+		function isNumber(n) {
+			return !isNaN(parseFloat(n)) && isFinite(n);
+		}
+		
+		function showMatrix(event, ui) {
+			var mtTargetElem = document.getElementById("mtTarget"),
+			  transformText = "",
+			  matrixInputs = $("#tabs-6 input");
+			
+			matrixInputs.each(function(index) {
+				var val = $(this).val();
+				
+				if (!isNumber(val)) {
+					$(this).val(0);
+					val = 0;
+				}
+			});
+			
+			transformText = "matrix(" + 
+			  $(matrixInputs[0]).val() + ", " + 
+			  $(matrixInputs[3]).val() + ", " + 
+			  $(matrixInputs[1]).val() + ", " + 
+			  $(matrixInputs[4]).val() + ", " + 
+			  $(matrixInputs[2]).val() + ", " + 
+			  $(matrixInputs[5]).val() +
+			  ")";
+			
+			mtTargetElem.setAttributeNS(null, "transform", transformText);
+			showFilter('matrix', null, transformText);
+		}
+		
+		$("#tabs-6 input").change(showMatrix);
+				
+		$( "#tabs" ).tabs({
+			activate: function( event, ui ) {
+				var active = $( "#tabs" ).tabs( "option", "active" ),
+				  mtRotateCenterElem = document.getElementById("mtRotateCenter");
+				
+				mtRotateCenterElem.setAttributeNS(null, "visibility", "hidden");
+
+				if (active == 0) {
+					showTranslate(event, null);
+				} else if (active == 1) {
+					showScale(event, null);
+				} else if (active == 2) {
+					showRotate(event, null);
+					mtRotateCenterElem.setAttributeNS(null, "visibility", "visible");
+				} else if (active == 3) {
+					showSkewX(event, null);
+				} else if (active == 4) {
+					showSkewY(event, null);
+				} else if (active == 5) {
+					showMatrix(event, null);
+				}
+			}
+		});
+		
+        $( "#slider-translate-x" ).slider({
+            min: -100,
+            max: 100,
+            value: 0,
+            slide: showTranslate
+        });
+        
+        $( "#slider-translate-y" ).slider({
+            min: -50,
+            max: 50,
+            value: 0,
+            slide: showTranslate
+        });
+        
+        $( "#slider-scale-x" ).slider({
+            min: -100,
+            max: 100,
+            value: 20,
+            slide: showScale
+        });
+        
+        $( "#slider-scale-y" ).slider({
+            min: -100,
+            max: 100,
+            value: 20,
+            slide: showScale
+        });
+        
+         $( "#slider-rotate-r" ).slider({
+            min: -360,
+            max: 360,
+            value: 0,
+            slide: showRotate
+        });
+        
+        $( "#slider-rotate-x" ).slider({
+            min: -100,
+            max: 100,
+            value: 0,
+            slide: showRotate
+        });
+        
+        $( "#slider-rotate-y" ).slider({
+            min: -50,
+            max: 50,
+            value: 0,
+            slide: showRotate
+        });
+        
+        $( "#slider-skew-x" ).slider({
+            min: -600,
+            max: 600,
+            value: 0,
+            slide: showSkewX
+        });
+        
+        $( "#slider-skew-y" ).slider({
+            min: -300,
+            max: 300,
+            value: 0,
+            slide: showSkewY
+        });
+        
+    });
+</script>
+
+<body>
+
+<div class="content">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink"
+    id="svg-doc"
+    width="630" height="350"
+	viewBox="-315 -175 630 350" 
+    zoomAndPan="disable" >
+    <!-- Pattern Definition -->
+	<defs>
+		<pattern id="checkerPattern" patternUnits="userSpaceOnUse"
+				x="0" y="0" width="20" height="20"
+				viewBox="0 0 10 10" >
+				
+			<line x1="0" y1="0" x2="10" y2="0" stroke="lightblue" fill="none" stroke-dasharray="2,2" />
+			<line x1="0" y1="0" x2="0" y2="10" stroke="lightblue" fill="none" stroke-dasharray="2,2" />
+		</pattern>
+	</defs>
+
+	<!-- Background -->
+	<rect x="-50%" y="-50%" width="100%" height="100%" fill="url(#checkerPattern)" />
+		<line x1="0%" y1="-100%" x2="0%" y2="100%" stroke="black" />
+		<line x1="-100%" y1="0%" x2="100%" y2="0%" stroke="black" />
+
+	<g id="mtTarget" opacity=".95">
+  	<image x="-200" y="-134" width="400" height="268" xlink:href="images/dragonfly.jpg" />
+  	<text x="-190" y="-110" font-size="20" fill="white">Transformed Text!</text>
+	</g>
+	
+	<circle id="mtRotateCenter" cx="0" cy="0" r="2" fill="red" visibility="hidden"/>
+	
+</svg>
+
+<div id="tabs" style="width:620px">
+	<ul>
+		<li><a href="#tabs-1">Translate</a></li>
+		<li><a href="#tabs-2">Scale</a></li>
+		<li><a href="#tabs-3">Rotate</a></li>
+		<li><a href="#tabs-4">SkewX</a></li>
+		<li><a href="#tabs-5">SkewY</a></li>
+		<li><a href="#tabs-6">Matrix</a></li>
+	</ul>
+	<div id="tabs-1" class="tabContent">
+		<p>X: <span id="translate-x-text">0</span></p>
+		<div id="slider-translate-x" class="slider-margin"></div>
+		<p>Y: <span id="translate-y-text">0</span></p>
+		<div id="slider-translate-y" class="slider-margin"></div>
+	</div>
+	
+	<div id="tabs-2" class="tabContent">
+		<p>X: <span id="scale-x-text">1</span></p>
+		<div id="slider-scale-x" class="slider-margin"></div>
+		<p>Y: <span id="scale-y-text">1</span></p>
+		<div id="slider-scale-y" class="slider-margin"></div>
+	</div>
+	
+	<div id="tabs-3" class="tabContent">
+	  <p>Angle: <span id="rotate-r-text">1</span></p>
+		<div id="slider-rotate-r" class="slider-margin"></div>
+		
+		<div class="two-col-slider" style="float:right;">
+		<p>Y: <span id="rotate-y-text">1</span></p>
+		<div id="slider-rotate-y" class="slider-margin"></div>
+		</div>
+		
+		<div class="two-col-slider">
+		<p>X: <span id="rotate-x-text">1</span></p>
+		<div id="slider-rotate-x" class="slider-margin"></div>
+		</div>
+	</div>
+	
+	<div id="tabs-4" class="tabContent">
+		<p>X: <span id="skewx-x-text">1</span></p>
+		<div id="slider-skew-x" class="slider-margin"></div>
+	</div>
+
+	<div id="tabs-5" class="tabContent">
+	
+		<p>Y: <span id="skewy-y-text">1</span></p>
+		<div id="slider-skew-y" class="slider-margin"></div>
+	</div>
+
+	<div id="tabs-6" class="tabContent">
+		<p>Matrix: </p>
+		<div class="colorMatrix">
+		<div>|<input name="a" type="number" step="0.1" value="1" /><input name="c" type="number" step="0.1" value="0" /><input name="e" type="number" step="0.1" value="0" />|&nbsp;&nbsp;&nbsp;<span>[ a c e ]</span></div>
+		<div>|<input name="b" type="number" step="0.1" value="0" /><input name="d" type="number" step="0.1" value="1" /><input name="f" type="number" step="0.1" value="0" />|&nbsp;&nbsp;&nbsp;<span>[ b d f ]</span></div>
+		<div>|<input name="x" type="number" step="0.1" value="0" disabled="disabled" /><input name="y" type="number" step="0.1" value="0" disabled="disabled" /><input name="z" type="number" step="0.1" value="1" disabled="disabled" />|&nbsp;&nbsp;&nbsp;<span>[ 0 0 1 ] =&gt; matrix(a, b, c, d, e, f)</span></div>
+		</div>
+	</div>
+</div>
+
+<textarea id="filterText"></textarea>
+</div>
+
+</body>
+</html>

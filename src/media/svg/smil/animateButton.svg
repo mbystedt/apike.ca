@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+    "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+         width="200" height="100"
+         viewBox="0 0 200 100"  
+         xmlns:a="http://www.adobe.com/svg10-extensions" a:timeline="independent"
+         >
+	
+	<!-- Matthew Bystedt http://apike.ca 2012 -->
+	
+	<!-- Pattern Definition -->
+	<defs>
+		<pattern id="rulerPattern" patternUnits="userSpaceOnUse"
+				x="0" y="0" width="10" height="10"
+				viewBox="0 0 10 10" >
+				
+			<line x1="0" y1="0" x2="10" y2="0" stroke="lightblue" fill="none" stroke-dasharray="2,2" />
+			<line x1="0" y1="0" x2="0" y2="10" stroke="lightblue" fill="none" stroke-dasharray="2,2" />
+		</pattern>
+
+        <filter id="closeDropShadow">
+            <desc>Produces a 3D effect as if the item was close to the surface</desc>
+                    <feGaussianBlur in="SourceAlpha" stdDeviation="1" result="blur"/>
+                    <feOffset in="blur" dx="3" dy="3" result="offsetBlur"/>
+                    <feMerge>
+                            <feMergeNode in="offsetBlur"/>
+                            <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+        </filter>
+
+	</defs>
+
+	<!-- Background -->
+	<rect x="0" y="0" width="100%" height="100%" fill="url(#rulerPattern)" stroke="black" />
+
+	<!-- Animate Example -->
+
+    <a:audio xlink:href="plate.wav" begin="pulser.click+6.2s" />
+
+	<rect id="pulser" x="40" y="25" width="120" height="50" rx="10" ry="10" fill="blue" stroke="black" filter="url(#closeDropShadow)" >
+        <animate begin="mouseover" end="mouseout;click" dur="2s" repeatCount="indefinite" attributeName="fill" from="blue" values="lightblue; blue; lightblue" fill="freeze" />
+        <animate begin="click" dur="1.0s" repeatCount="5" attributeName="fill" values="red; peachpuff; lightgoldenrodyellow; plum; white; red" fill="freeze" /> 
+        <animate begin="click+4.5s" dur="2.0s" attributeName="y" calcMode="linear" values="0; 1; 2; 4; 8; 16; 32; 64; 128; 256;" additive="sum" fill="freeze"  /> 
+        <set begin="click+6.4s" attributeName="opacity" to="0" fill="freeze"  /> 
+        <set begin="click+12.0s" attributeName="fill" to="blue" /> 
+        <set begin="click+12.0s" attributeName="opacity" to="1" /> 
+    </rect>
+    
+    <text x="100" y="15" text-anchor="middle">Click to Start!</text>
+    
+</svg>

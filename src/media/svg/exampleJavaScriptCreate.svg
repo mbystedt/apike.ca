@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+    "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+         width="640" height="300"
+         viewBox="0 0 640 300" onload="" >
+	
+	<!-- Matthew Bystedt http://apike.ca 2012 -->
+	
+	<!-- Pattern Definition -->
+	<defs>
+		<pattern id="checkerPattern" patternUnits="userSpaceOnUse"
+				x="0" y="0" width="20" height="20"
+				viewBox="0 0 10 10" >
+				
+			<rect x="0" y="0" width="5" height="5" fill="lightblue" />
+			<rect x="5" y="5" width="5" height="5" fill="lightblue" />
+		</pattern> 
+		
+		<linearGradient id="groundGrad" r="100%" spreadMethod="reflect">
+            <stop offset="5%" stop-color="#323c21" />
+            <stop offset="95%" stop-color="#484b43" />
+        </linearGradient>
+        
+        <radialGradient id="skyGrad" r="100%" fy="70%" spreadMethod="reflect">
+            <stop offset="5%" stop-color="#2d385b" />
+            <stop offset="95%" stop-color="#111522" />
+        </radialGradient>
+        
+		<polygon id="star" points="100,10 40,180 190,60 10,60 160,180 100,10" stroke-width="4" />
+		
+<script type="text/ecmascript"><![CDATA[
+
+var xmlns = "http://www.w3.org/2000/svg";
+var xlinkns = "http://www.w3.org/1999/xlink";
+var timer = null;
+var timerInterval = 50;
+var opacityDecrease = .01;
+var count = 0;
+var starAddFreq = 2;
+var opacityDecFreq = 1;
+
+
+    function decreaseOpacity() {
+    	var starGroup = document.getElementById("starGroup");
+    	var i = 0;
+    	var delArray = new Array();
+    	for (; i < starGroup.childNodes.length; i++) {
+    		var opacity = starGroup.childNodes[i].getAttributeNS(null, "opacity") - opacityDecrease;
+    		if (opacity <= 0) {
+    			delArray.push(starGroup.childNodes[i]);
+    		} else {
+    			starGroup.childNodes[i].setAttributeNS(null, "opacity", opacity);
+    		}
+    	}
+    	
+    	for (i = 0; i < delArray.length; i++) {
+    		starGroup.removeChild(delArray[i]);
+    	}
+    }
+    
+    function randomColor() {
+    	return '#'+Math.floor(Math.random()*16777215).toString(16);
+    }
+    
+    function randomPos(low, high) {
+    	return Math.floor(Math.random()* (high-low)) + low;
+    }
+    
+    function addElement() {
+    	var starGroup = document.getElementById("starGroup");
+    	
+    	var useElem = document.createElementNS(xmlns, "use");
+    	
+    	useElem.setAttributeNS(null, "x", randomPos(-800,6800));
+    	useElem.setAttributeNS(null, "y", randomPos(-700,3300));
+    	useElem.setAttributeNS(null, "transform", "scale(.1)");
+    	
+    	useElem.setAttributeNS(null, "fill", randomColor());
+    	useElem.setAttributeNS(null, "stroke", randomColor());
+    	useElem.setAttributeNS(null, "opacity", 1);
+
+    	useElem.setAttributeNS(xlinkns, "xlink:href", "#star");
+    	
+    	starGroup.appendChild(useElem);
+    }
+    
+    function doStars() {
+    	if (timer != null) {
+    		count++;
+    		
+    		if ((count % opacityDecFreq) == 0) {
+				decreaseOpacity();
+			}
+			if ((count % starAddFreq) == 0) {
+				addElement();
+			}
+			
+			timer = setTimeout(doStars, timerInterval);
+    	}
+    }
+    
+    function startStopStars() {
+    	if (timer != null) {
+    		timer = null;
+    		return;
+    	}
+    	
+    	timer = setTimeout(doStars, timerInterval);
+    }
+]]></script>
+		
+	</defs>
+
+	<!-- Background -->
+	<rect x="0" y="0" width="100%" height="100%" fill="url(#skyGrad)" />
+	
+	<g id="starGroup"></g>
+	
+	
+	<ellipse cx="200" cy="520" rx="600" ry="300" fill="url(#groundGrad)" />
+	<ellipse cx="500" cy="560" rx="600" ry="300" fill="url(#groundGrad)" />
+	
+	<g onclick="startStopStars()">
+		<rect x="450" y="280" height="20" width="190" fill="green" />
+		<text x="470" y="295">Click Here to Start/Stop</text>
+	</g>
+</svg>

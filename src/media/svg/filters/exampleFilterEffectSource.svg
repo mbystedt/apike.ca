@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+    "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+         width="640" height="360"
+         viewBox="0 0 640 360" >
+	
+	<!-- Matthew Bystedt http://apike.ca 2012 -->
+	
+	
+	<defs>
+		<!-- Pattern Definition -->
+		<pattern id="checkerPattern" patternUnits="userSpaceOnUse"
+				x="0" y="0" width="20" height="20"
+				viewBox="0 0 10 10" >
+				
+			<line x1="0" y1="0" x2="10" y2="0" stroke="lightblue" fill="none" stroke-dasharray="2,2" />
+			<line x1="0" y1="0" x2="0" y2="10" stroke="lightblue" fill="none" stroke-dasharray="2,2" />
+		</pattern>
+		
+		<!-- Filter Definition -->
+		<filter id="SourceGraphic"><feMerge>
+		  <feMergeNode in="SourceGraphic" />
+		</feMerge></filter>
+		<filter id="SourceAlpha"><feMerge>
+		  <feMergeNode in="SourceAlpha" />
+		</feMerge></filter>
+		<filter id="FillPaint"><feMerge>
+		  <feMergeNode in="FillPaint" />
+		</feMerge></filter>
+		<filter id="StrokePaint"><feMerge>
+		  <feMergeNode in="StrokePaint" />
+		</feMerge></filter>
+		<filter id="BackgroundImage">
+		  <feFlood in="flood-color" flood-color="black" result="flood" />
+		  <feMerge>
+		    <feMergeNode in="flood" />
+		    <feMergeNode in="BackgroundImage" />
+		</feMerge>
+		</filter>
+		<filter id="BackgroundAlpha">
+		  <feOffset in="BackgroundAlpha" dx="0" dy="0" />
+		</filter>
+		
+		<filter id="ShiftBGAndBlur" 
+            filterUnits="userSpaceOnUse" x="0" y="0" width="640" height="360">
+      <feOffset in="BackgroundImage" dx="0" dy="125" />
+      <feGaussianBlur stdDeviation="8" />
+    </filter>
+	</defs>
+
+	<!-- Background -->
+	<g enable-background="new">
+    <rect x="0" y="0" width="100%" height="100%" fill="url(#checkerPattern)" />
+	
+    <!-- Gaussian Examples -->
+    <g fill="skyblue" fill-opacity=".5" stroke="blue" stroke-width="20" stroke-dasharray="3,6,8,11">
+      <circle cx="80" cy="80" r="50" />
+      <circle cx="240" cy="80" r="50" filter="url(#SourceGraphic)" />
+      <circle cx="400" cy="80" r="50" filter="url(#SourceAlpha)" />
+      <circle cx="560" cy="80" r="50" filter="url(#FillPaint)" />
+      <circle cx="240" cy="250" r="50" filter="url(#StrokePaint)" />
+      <circle cx="400" cy="250" r="50" filter="url(#BackgroundImage)" />
+      <circle cx="560" cy="250" r="50" filter="url(#BackgroundAlpha)" />
+    </g>
+	</g>
+	
+  
+
+	<text x="80" y="160" text-anchor="middle" font-size="15">Source</text>
+	<text x="240" y="160" text-anchor="middle" font-size="15">SourceGraphic</text>
+	<text x="400" y="160" text-anchor="middle" font-size="15">SourceAlpha</text>
+	<text x="560" y="160" text-anchor="middle" font-size="15">FillPaint</text>
+	<text x="240" y="330" text-anchor="middle" font-size="15">StrokePaint</text>
+	<text x="400" y="330" text-anchor="middle" font-size="15">BackgroundImage</text>
+	<text x="400" y="350" text-anchor="middle" font-size="15">(on black)</text>
+	<text x="560" y="330" text-anchor="middle" font-size="15">BackgroundAlpha</text>
+</svg>

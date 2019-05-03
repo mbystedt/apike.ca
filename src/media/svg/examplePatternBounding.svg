@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+    "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+         width="640" height="180"
+         viewBox="0 0 1280 360"  >
+	
+	<!-- Matthew Bystedt http://apike.ca 2012 -->
+	
+	<!-- Pattern Definition -->
+	<defs>
+		<pattern id="checkerPattern" patternUnits="userSpaceOnUse"
+				x="0" y="0" width="20" height="20"
+				viewBox="0 0 10 10" >
+			<g id="checkerPatternInner">
+			<rect x="0" y="0" width="5" height="5" fill="lightblue" />
+			<rect x="5" y="5" width="5" height="5" fill="lightblue" />
+			</g>
+		</pattern>
+	</defs>
+	
+	<!-- Filled Sample -->
+	
+	<rect x="680" y="40" width="560" height="280" fill="url(#checkerPattern)" 
+		stroke-width="2" stroke="black" />	
+	<text x="680" y="30" font-size="25">Rectangle filled with example pattern</text>
+	
+	
+	<text x="30" y="70" font-size="30px" fill="blue">(0,0)</text>
+	
+	<g fill="green">
+		<text x="310" y="320" font-size="30px">View box (10,10)</text>
+		<circle cx="300" cy="300" r="7px" />
+	</g>
+	
+	<g transform="translate(100, 100)">
+		<g transform="scale(20)">
+			<use x="0" y="0" width="10" height="10" xlink:href="#checkerPatternInner" />
+			<g stroke-width=".1px">
+				<rect x="0" y="0" width="10" height="10" stroke="green" fill="none"/>
+				<line x1="-100%" y1="0" x2="20" y2="0" stroke="blue"/>
+				<line x1="0" y1="-100%" x2="0" y2="100%" stroke="blue"/>
+			</g>
+		</g>
+		
+		<circle cx="0" cy="0" r="7px" fill="blue"/>
+	</g>
+</svg>

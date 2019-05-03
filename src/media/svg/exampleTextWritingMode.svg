@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+    "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+         width="370" height="250"
+         viewBox="0 0 370 250"  >
+	
+	<!-- Matthew Bystedt http://apike.ca 2012 -->
+	
+	<!-- Pattern Definition -->
+	<defs>
+		<pattern id="checkerPattern" patternUnits="userSpaceOnUse"
+				x="0" y="0" width="20" height="20"
+				viewBox="0 0 10 10" >
+				
+			<rect x="0" y="0" width="5" height="5" fill="#eee" />
+			<rect x="5" y="5" width="5" height="5" fill="#eee" />
+		</pattern> 
+	</defs>
+
+	<!-- Background -->
+	<rect x="0" y="0" width="100%" height="100%" fill="url(#checkerPattern)" />
+	
+	<!-- Text Examples -->
+  <text x="300px" y="125px" letter-spacing="10px" writing-mode="tb-rl" fill="black" font-size="40" text-anchor="middle">御神籤</text>
+  	
+	
+  <g writing-mode="tb-rl" fill="black" font-size="20" glyph-orientation-vertical="auto" transform="translate(190, 0)">
+    <text y="50px" letter-spacing="10px" text-anchor="middle">方角</text>
+    <text y="100px">東の方よし</text>
+  </g>
+
+  <g writing-mode="tb-rl" fill="black" font-size="14" glyph-orientation-vertical="90" transform="translate(210, 0)">
+    <text y="50px"  text-anchor="middle" >Direction</text>
+    <text y="100px">East is good</text>
+  </g>
+  
+  
+  <g writing-mode="tb-rl" fill="black" font-size="20" glyph-orientation-vertical="auto" transform="translate(120, 0)">
+    <text y="50px" letter-spacing="10px" text-anchor="middle">旅立</text>
+    <text y="100px">よし</text>
+  </g>
+
+  <g writing-mode="tb-rl" fill="black" font-size="14" glyph-orientation-vertical="90" transform="translate(140, 0)">
+    <text y="50px" text-anchor="middle" >Take a Trip</text>
+    <text y="100px">Good</text>
+  </g>
+  
+  <g writing-mode="tb-rl" fill="black" font-size="20" glyph-orientation-vertical="auto" transform="translate(50, 0)">
+    <text y="50px" letter-spacing="10px" text-anchor="middle">待人</text>
+    <text y="100px">来たる</text>
+  </g>
+
+  <g writing-mode="tb-rl" fill="black" font-size="14" glyph-orientation-vertical="90" transform="translate(70, 0)">
+    <text y="50px" text-anchor="middle" >Waiting For</text>
+    <text y="100px">Person coming</text>
+  </g>
+
+
+
+
+
+</svg>

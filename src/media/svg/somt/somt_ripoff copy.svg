@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+    "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+         width="550" height="400"
+         viewBox="0 0 550 400"  >
+	
+	<!-- Matthew Bystedt http://pike.port5.com 2004 -->
+	<!-- Secret of Mana (c) Square -->
+	<!-- Secret of Mana Theater (This file is a parady of it) is at http://www.manatheater.com/index.htm -->
+	
+    <rect x="0" y="0" width="100%" height="100%" fill="black" />
+
+	<!-- Load scene -->
+
+
+    <g id="loadGroup">
+        <set attributeName="visibility" begin="playButton.activate+0s" attributeType="CSS" dur="0s" to="hidden" fill="freeze" />
+        <text x="50%" y="50%" fill="white">Loading...</text>
+
+    </g>
+
+    <g id="playButton" visibility="hidden" opacity="0">
+        <set attributeName="visibility" begin="0s" attributeType="CSS" dur="0s" to="visible" fill="freeze" />
+        <set attributeName="visibility" begin="playButton.activate+0s" attributeType="CSS" dur="0s" to="hidden" fill="freeze" />
+        <animate attributeName="opacity" begin="0s" attributeType="CSS" dur="1s" from="0.0" to="1.0" fill="freeze" />
+        
+        <rect x="150" y="150" width="250" height="100" rx="5" ry="5" fill="green" />
+        
+        <text x="180" y="225" font-size="85">Play!</text>
+        
+        <rect x="150" y="150" width="250" height="100" rx="5" ry="5" fill="green" fill-opacity="0.1" stroke="white" stroke-width="5" />
+    </g>
+
+	<!-- Intro scene -->
+
+    <g id="introGroup" visibility="hidden" opacity="0" externalResourcesRequired="true" >
+        <set id="IAni" attributeName="visibility" begin="playButton.activate+0s;replayButton.activate+0s" attributeType="CSS" dur="0s" from="hidden" to="visible" fill="freeze" />
+        <animate attributeName="opacity" begin="IAni.begin+0s" attributeType="CSS" dur="1s" from="0.0" to="1.0" fill="freeze" />
+        <set id="IAniEnd" attributeName="visibility" begin="IAni.begin+8s;IAniButEnd.begin+0s" attributeType="CSS" from="visible" to="hidden" fill="freeze" />
+        
+        <rect x="0" y="0" width="100%" height="100%" fill="black" />
+        
+        <image x="135" y="90" width="281" height="88" xlink:href="title.png" />
+        
+        <defs>
+            <linearGradient id="title_anim_grad" x2="0%" y2="100%"  >
+                <stop offset="0%" stop-color="white" />
+                <stop offset="33%" stop-color="white" />
+                <stop offset="66%" stop-color="black" />
+                <stop offset="100%" stop-color="black" />
+            </linearGradient>
+            
+            <mask id="scanMask">
+                <rect x="135" y="-82" width="281" height="378" fill="url(#title_anim_grad)">
+                    <animate attributeName="y" begin="IAni.begin+1.5s" dur="5s" from="-82" to="170" fill="freeze" />
+                </rect>
+            </mask>
+        </defs>
+
+        <image x="135" y="170" width="281" height="126" xlink:href="title_animate.png" mask="url(#scanMask)" />        
+    
+        <text x="10" y="97%" fill="gray">Secret of Mana (c) Square</text>
+        <text x="490" y="97%" fill="white">Skip Intro
+        <set attributeName="visibility" begin="replayButton.activate+0s" attributeType="CSS" from="hidden" to="visible" fill="freeze" />
+        <set id="IAniButEnd" attributeName="visibility" begin="activate" attributeType="CSS" from="visible" to="hidden" fill="freeze" /></text>
+    </g>
+
+
+	<!-- Scene -->
+
+    <g id="fileGroup" visibility="hidden" externalResourcesRequired="true" >
+        <set id="IGroup" attributeName="visibility" begin="IAniEnd.begin+0s" attributeType="CSS" dur="0s" from="hidden" to="visible" fill="freeze" />
+        <set id="IGroup" attributeName="visibility" begin="replayButton.activate+0s" attributeType="CSS" dur="0s" from="visible" to="hidden" fill="freeze" />
+
+        <defs>
+            <linearGradient id="text_grad" x2="0%" y2="100%"  >
+                <stop offset="0%" stop-color="black" />
+                <stop offset="10%" stop-color="white" />
+                <stop offset="90%" stop-color="white" />
+                <stop offset="100%" stop-color="black" />
+            </linearGradient>
+            
+            <mask id="textMask">
+                <rect x="30" y="15" width="495" height="95" fill="url(#text_grad)" />
+            </mask>
+        </defs>
+
+        <image x="0" y="0" width="550" height="400" xlink:href="background.jpg" image-rendering="optimizeSpeed" />
+
+        <g>
+            <image x="243" y="225" width="64" height="128" xlink:href="seth.png" />
+
+
+
+            <rect x="270" y="279" width="10" height="6" stroke="black" fill="red">
+                <animate attributeName="y" begin="IGroup.end+0.5s;mouth2.end+0s" end="IGroup.end+30.5s" dur="0.5s" from="279" to="282" fill="freeze" />
+                <animate id="mouth1" attributeName="height" begin="IGroup.end+0.5s;mouth2.end+0s" end="IGroup.end+30.5s" dur="0.5s" from="6" to="1" fill="freeze" />
+                <animate id="mouth2" attributeName="height" begin="mouth1.end+0s" end="IGroup.end+30.5s" dur="0.5s" from="1" to="6" fill="freeze" />
+                <animate attributeName="y" begin="mouth1.end+0s" end="IGroup.end+30.5s" dur="0.5s" from="282" to="279" fill="freeze" />
+                
+            </rect>
+
+            <rect x="270" y="279" width="10" height="6" stroke="black" fill="red" visibility="hidden">
+                <set attributeName="visibility" to="visible" begin="IGroup.end+2s" />
+                <set attributeName="visibility" to="hidden" begin="IGroup.end+8s" />
+                <set attributeName="visibility" to="visible" begin="IGroup.end+30.5s" />
+                <set attributeName="visibility" to="hidden" begin="replayButton.activate+0s" />
+
+            </rect>
+
+            <rect x="272" y="295" width="6" height="75" rx="5" ry="5" stroke="black" fill="gray" />
+            <rect x="270" y="285" width="10" height="18" stroke="black" fill="gray" />
+            
+        </g>
+
+        <g id="Text" opacity="0">
+            <animate attributeName="opacity" begin="IGroup.end+0.5s" dur="1s" from="0" to="1" fill="freeze" />
+            <animate attributeName="opacity" begin="IGroup.end+35.5s" dur="1s" from="1" to="0" fill="freeze" />
+
+            <rect x="25" y="10" width="500" height="100" rx="5" ry="5" fill-opacity="1" fill="blue" stroke="white" stroke-width="4" />
+
+            <g mask="url(#textMask)">
+                <text y="110" fill="white" font-size="14" transform="translate(30)" text-rendering="optimizeSpeed">
+                    <tspan x="0" dy="1em">My name is Seth.</tspan>
+                    <tspan x="0" dy="2em">...</tspan>
+                    <tspan x="0" dy="2em" font-style="italic">-He forgot his lines, AGAIN! Let me at him!-</tspan>
+
+                    <tspan x="0" dy="1em">Hey, don't rush me!</tspan>
+                    
+                    <tspan x="0" dy="2em">My name is Seth.</tspan>
+                    <tspan x="0" dy="1em">I'm not a hero by choice,</tspan>
+                    <tspan x="0" dy="1em">but it wasn't an accident I was chosen. It was my hair.</tspan>
+                    <tspan x="0" dy="1em">I'm not a wimp. I wield the Mana sword (and Fawn knows it!) <tspan font-style="italic">-Ewww!-</tspan></tspan>
+
+                    <tspan x="0" dy="2em">I'm on a mission from the Great Pancake.</tspan>
+                    <tspan x="0" dy="1em">I believe in syrup not jam and butter!</tspan>
+                    <tspan x="0" dy="1em">and will not run from my duty because,</tspan>
+                    <tspan x="0" dy="1em">I do have a clue and a plan!</tspan>
+                    
+                    <tspan x="0" dy="2em">My name is SETH!</tspan>
+                    <tspan x="0" dy="1em">and I AM THE MANA KNIGHT!</tspan>
+                    <tspan x="0" dy="2em">...</tspan>
+                    <tspan x="0" dy="2em">Thank-you</tspan>
+                    <animate attributeName="y" begin="IGroup.end+0.5s" dur="30s" from="110" to="-280" fill="freeze" />
+                </text>                
+            </g>        
+        </g>
+    </g>
+
+    <g id="replayButton" visibility="hidden">
+        <set attributeName="visibility" begin="IGroup.end+40s;" attributeType="CSS" dur="0s" from="hidden" to="visible" fill="freeze" />
+        <set attributeName="visibility" begin="replayButton.activate+0s" attributeType="CSS" dur="0s" from="visible" to="hidden" fill="freeze" />
+        
+        <rect x="150" y="100" width="250" height="100" rx="5" ry="5" fill="green" />
+        
+        <text x="180" y="175" font-size="85">Play!</text>
+        
+        <rect x="150" y="100" width="250" height="100" rx="5" ry="5" fill="green" fill-opacity="0.1" stroke="white" stroke-width="5" />
+    </g>
+
+</svg>

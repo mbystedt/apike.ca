@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+    "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+         width="200" height="200"
+         viewBox="0 0 200 200"  >
+	
+	<!-- Matthew Bystedt http://apike.ca 2012 -->
+	
+	<!-- Pattern Definition -->
+	<defs>
+		<pattern id="rulerPattern" patternUnits="userSpaceOnUse"
+				x="0" y="0" width="10" height="10"
+				viewBox="0 0 10 10" >
+				
+			<line x1="0" y1="0" x2="10" y2="0" stroke="lightblue" fill="none" stroke-dasharray="2,2" />
+			<line x1="0" y1="0" x2="0" y2="10" stroke="lightblue" fill="none" stroke-dasharray="2,2" />
+		</pattern>
+
+        <marker id="marker2" viewBox="0 0 10 10" refX="1" refY="5" 
+            markerUnits="strokeWidth" orient="auto"
+              markerWidth="4" markerHeight="3">
+            <polyline points="0,0 10,5 0,10 1,5" fill="darkgreen" />
+        </marker>
+
+	</defs>
+
+	<!-- Background -->
+	<rect x="0" y="0" width="100%" height="100%" fill="url(#rulerPattern)" stroke="black" />
+
+	<!-- Path Line Example -->
+    
+    <path id="myAniPath" d="M10,150 A15 15 180 0 1 70 140 A15 25 180 0 0 130 130 A15 55 180 0 1 190 120 A15 10 170 0 1 10 150" stroke="lightgreen" stroke-width="2" fill="none" marker-mid="url(#marker2)"  />
+
+	<rect x="-10" y="-5" width="20" height="10" fill="none" stroke="black" >
+        <animateMotion  begin="startButton.click" dur="10s" repeatCount="1" rotate="auto" fill="freeze" >
+            <mpath xlink:href="#myAniPath" />
+        </animateMotion>
+    </rect>
+    
+	<rect id="startButton" x="20" y="20" width="60" height="20" fill="green" />
+    
+    <line stroke="black" stroke-width="2" x1="20" y1="20" x2="20" y2="40" >
+        <animate begin="startButton.click" attributeName="x1" from="20" to="80" dur="10s" repeatCount="1" fill="freeze" />
+        <animate begin="startButton.click" attributeName="x2" from="20" to="80" dur="10s" repeatCount="1" fill="freeze" />
+    </line>
+</svg>

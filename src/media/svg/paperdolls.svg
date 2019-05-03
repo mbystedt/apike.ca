@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+    "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg onload="init(evt)" xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" width="800px" height="600px" viewBox="0 0 800 600" 
+     xml:space="preserve" >
+	 
+    <!-- CSc 405 Project 3 - Part II
+	
+		Paper Dolls
+		
+		Matthew Bystedt - mbystedt@uvic.ca
+	-->
+
+<!-- ECMAScript -->
+<script type="text/ecmascript"><![CDATA[
+
+  function init(evt) {
+    svgDocument = evt.target.ownerDocument;
+    
+    makecolours(evt, 550, 360);
+  }
+    
+	function IntToHex(n) {
+		var result = n.toString(16);
+		if (result.length==1) result = "0"+result;
+		return result;
+	}
+	// Globals
+	var svgns = "http://www.w3.org/2000/svg";
+
+	var attributeClass = 0;
+	var attributeStyle = new Array(20);
+	var numStyles = new Array(20);
+	
+	
+	setup();
+	function setup() {
+		numStyles[1] = 3;
+		var i=0;
+		while (i < 20) {
+			attributeStyle[i] = 0;
+			i++;
+		}		
+	}
+
+	// Creates the colour panel when the file is loaded.
+
+	// Creates the colour panel. Could be improved. Does not display the full
+	// colour wheel
+	function makecolours(evt, basex, basey) {
+		var xVal = 0;
+		var yVal = 0;
+		var conXVal = 0;
+		var conYVal = 0;
+		var rVal = 0;
+		var gVal = 0;
+		var bVal = 0;
+		
+		while (xVal < 16 ) {
+			while (yVal < 16 ) {
+				
+				var shape = svgDocument.createElementNS(svgns, "rect");
+				shape.setAttributeNS(null, "x", 5 + basex + xVal*10);
+				shape.setAttributeNS(null, "y", 5 + basey + yVal*10);
+				shape.setAttributeNS(null, "width",  10);
+				shape.setAttributeNS(null, "height", 10);
+				shape.setAttributeNS(null, "fill", "#" + IntToHex(xVal * 16) + IntToHex((15-xVal)*16) + IntToHex(yVal * 16));
+				shape.setAttributeNS(null, "onclick", "setColour(evt, \"" + "#" + IntToHex(xVal * 16) + IntToHex((15-xVal)*16) + IntToHex(yVal * 16) + "\")");
+				svgDocument.documentElement.appendChild(shape);
+				yVal++;
+			}
+			yVal = 0;
+			xVal++;
+		}
+   }
+
+	// Sets the attribute class which being edited.
+	function setClass (evt, theClass) {
+		attributeClass = theClass;
+	}
+
+	// Sets the style of the attribute class being edited.
+	function setClassStyle (evt, theStyle) {
+		var theOldObject;
+		var theObject;
+
+		if ( attributeClass == 0 )
+			return;
+				
+		if ( attributeClass == 1 ) {		
+			theOldObject = svgDocument.getElementById("hair" + attributeStyle[attributeClass]);
+			theObject = svgDocument.getElementById("hair" + theStyle);
+		} else if ( attributeClass == 2 ) {
+			theOldObject = svgDocument.getElementById("shirt" + attributeStyle[attributeClass]);
+			theObject = svgDocument.getElementById("shirt" + theStyle);		
+		} else if ( attributeClass == 3 ) {
+			theOldObject = svgDocument.getElementById("pants" + attributeStyle[attributeClass]);
+			theObject = svgDocument.getElementById("pants" + theStyle);		
+		} else if ( attributeClass == 4 ) {
+			theObject = svgDocument.getElementById("butterfly");
+		} else if ( attributeClass == 5 ) {
+			// boy / girl transistion
+			theOldObject = svgDocument.getElementById("girl");
+			theObject = svgDocument.getElementById("eyebrows");
+		}
+		
+		if ( attributeClass < 4) { // clothes and hair
+			theOldObject.setAttribute("opacity", 0.0);		
+			theObject.setAttribute("opacity", 1.0);		
+		} else if ( attributeClass == 4) { // Butterfly
+			if ( theStyle == 1 ) {
+				theObject.setAttribute("opacity", 1.0);		
+			} else {
+				theObject.setAttribute("opacity", 0.0);			
+			}		
+		} else if ( attributeClass == 5) { // Gender
+			if ( theStyle == 1 ) {
+				theOldObject.setAttribute("opacity", 0.0);		
+				theObject.setAttribute("opacity", 0.4);		
+			} else {
+				theOldObject.setAttribute("opacity", 0.4);			
+				theObject.setAttribute("opacity", 1.0);			
+			}			
+		} else if ( attributeClass == 6) { // Skin colour
+			var skincolor;
+			if ( theStyle == 0 ) {
+				skincolor = "#FAE8BF";
+			} else if ( theStyle == 1 ) {
+				skincolor = "#DBC291";			
+			} else {
+				skincolor = "#604D26";				
+			}
+			
+			svgDocument.getElementById("arms0").setAttribute("fill", skincolor);
+			svgDocument.getElementById("arms1").setAttribute("fill", skincolor);
+			svgDocument.getElementById("hand0").setAttribute("fill", skincolor);
+			svgDocument.getElementById("hand1").setAttribute("fill", skincolor);
+			svgDocument.getElementById("face0").setAttribute("fill", skincolor);
+			svgDocument.getElementById("face1").setAttribute("fill", skincolor);
+			svgDocument.getElementById("face2").setAttribute("fill", skincolor);
+			svgDocument.getElementById("leg0").setAttribute("fill", skincolor);
+			svgDocument.getElementById("leg1").setAttribute("fill", skincolor);
+			svgDocument.getElementById("chest").setAttribute("fill", skincolor);
+		}
+		attributeStyle[attributeClass] = theStyle;
+	}
+	
+	// Sets the colour of the current class and a style. Only works with some classes.
+    function setColour(evt, colour) {
+		var theObject;
+		
+		if ( attributeClass == 0 )
+			return;
+
+		if ( attributeClass == 1 ) {
+			theObject = svgDocument.getElementById("hair" + attributeStyle[attributeClass]);	  
+		} else if ( attributeClass == 2 ) {
+			theObject = svgDocument.getElementById("shirt" + attributeStyle[attributeClass]);	  		
+		} else if ( attributeClass == 3 ) {
+			theObject = svgDocument.getElementById("pants" + attributeStyle[attributeClass]);	  		
+		}
+		theObject.setAttribute("fill", colour);		
+	}
+
+    function overbutton(evt) {
+      var rect = evt.target;
+	  rect.setAttribute("fill", "#CCCCFF");
+	}
+
+    function leavebutton(evt) {
+      var rect = evt.target;
+	  rect.setAttribute("fill", "#7777FF");
+	}
+
+        function changeColor(evt) {
+            var rect = evt.target;
+            
+            rect.setAttributeNS(null, "fill", "purple")
+        }
+	
+  ]]> </script>
+
+  <!-- SVG Definitions -->
+	<defs>
+		<radialGradient id="MyGradient" gradientUnits="userSpaceOnUse"
+						cx="400" cy="300" r="800">
+			<stop offset="0%" stop-color="red" />
+			<stop offset="50%" stop-color="blue" />
+			<stop offset="100%" stop-color="red" />
+		</radialGradient>		
+
+  	<path id="cord" d="M0,0 C0,5 10,50 20,65 40,70 60,65 70,50 80,5 70,-4 40,-10 10,-4 0,0 0,0"/>
+	
+		<g id="dialogBox">
+			<rect x="3" y="3" rx="5" ry="5" width="80" height="25" fill="#7777FF" onmouseover="overbutton(evt)" onmouseout="leavebutton(evt)" id="button" />
+			<rect x="0" y="0" rx="5" ry="5" width="86" height="31" stroke="black" stroke-width="2.0" fill="none" />
+		</g>
+		
+		<g id="tab">
+			<polygon fill="black" points="0,20 20,0 100,0 100,20" />
+		</g>
+	</defs>
+	
+	<!-- Fill the drawing area with blue -->
+	<rect x="0" y="0" width="800" height="600" fill="url(#MyGradient)" />
+
+	<!-- The top tabs. Unused. -->
+	<use x="15" y="20" xlink:href="#tab" />
+	<use x="130" y="20" xlink:href="#tab" />
+	
+	<!-- The viewer panel -->
+	<rect x="10" y="40" rx="10" ry="10" width="450" height="540" fill="white" opacity=".8"/>
+	<rect x="10" y="40" rx="10" ry="10" width="450" height="540" stroke="black" stroke-width="4.0" fill="none" opacity=".5"/>
+	<svg x="10" y="40" width="450" height="25">
+	<rect x="0" y="0" rx="10" ry="10" width="450" height="35" fill="black" opacity=".8"/>
+	<text style="fill:white;font-size:20;text-anchor:middle;" x="225" y="20" startOffset="0">Viewer</text>	
+	</svg>
+
+	<!-- The attribute panel -->
+	<rect x="480" y="40" rx="10" ry="10" width="300" height="270" fill="white" opacity=".8"/>
+	<rect x="480" y="40" rx="10" ry="10" width="300" height="270" stroke="black" stroke-width="4.0" fill="none" opacity=".5" />
+	<svg x="480" y="40" width="300" height="25">
+	<rect x="0" y="0" rx="10" ry="10" width="300" height="35" fill="black" opacity=".8"/>
+	<text style="fill:white;font-size:20;text-anchor:middle;" x="150" y="20" startOffset="0">Attributes</text>	
+	</svg>
+
+	<!-- The attributes -->
+	<g transform="translate(480, 75)">
+	<text style="fill:black;font-size:12;text-anchor:left;" x="10" y="10" startOffset="0" 
+		onclick="setClass(evt, 1)">Hair Style:</text>
+		<text style="fill:blue;font-size:12;text-anchor:left;" x="70" y="10" startOffset="0" 
+			onclick="setClass(evt, 1); setClassStyle(evt, 0)">Original</text>
+		<text style="fill:blue;font-size:12;text-anchor:left;" x="120" y="10" startOffset="0"
+			onclick="setClass(evt, 1); setClassStyle(evt, 1)">Punk</text>
+		<text style="fill:blue;font-size:12;text-anchor:left;" x="160" y="10" startOffset="0"
+			onclick="setClass(evt, 1); setClassStyle(evt, 2)">None</text>
+	<text style="fill:black;font-size:12;text-anchor:left;" x="10" y="35" startOffset="0"
+		onclick="setClass(evt, 2)">Shirt Style:</text>
+		<text style="fill:blue;font-size:12;text-anchor:left;" x="75" y="35" startOffset="0" 
+			onclick="setClass(evt, 2); setClassStyle(evt, 0)">T-Shirt</text>
+		<text style="fill:blue;font-size:12;text-anchor:left;" x="120" y="35" startOffset="0"
+			onclick="setClass(evt, 2); setClassStyle(evt, 1)">Sweater</text>
+		<text style="fill:blue;font-size:12;text-anchor:left;" x="175" y="35" startOffset="0"
+			onclick="setClass(evt, 2); setClassStyle(evt, 2)">Sweaty</text>
+				
+	<text style="fill:black;font-size:12;text-anchor:left;" x="10" y="60" startOffset="0"
+		onclick="setClass(evt, 3)">Pants Style:</text>
+		<text style="fill:blue;font-size:12;text-anchor:left;" x="80" y="60" startOffset="0" 
+			onclick="setClass(evt, 3); setClassStyle(evt, 0)">Jeans</text>
+		<text style="fill:blue;font-size:12;text-anchor:left;" x="125" y="60" startOffset="0"
+			onclick="setClass(evt, 3); setClassStyle(evt, 1)">Skirt</text>
+		<text style="fill:blue;font-size:12;text-anchor:left;" x="165" y="60" startOffset="0"
+			onclick="setClass(evt, 3); setClassStyle(evt, 2)">Shorts</text>
+	<text style="fill:black;font-size:12;text-anchor:left;" x="10" y="85" startOffset="0">'MSN' Butterfly:</text>
+		<text style="fill:blue;font-size:12;text-anchor:left;" x="100" y="85" startOffset="0" 
+			onclick="setClass(evt, 4); setClassStyle(evt, 1)">Yes</text>
+		<text style="fill:blue;font-size:12;text-anchor:left;" x="140" y="85" startOffset="0" 
+			onclick="setClass(evt, 4); setClassStyle(evt, 0)">No</text>				
+
+	<text style="fill:black;font-size:12;text-anchor:left;" x="10" y="110" startOffset="0">Gender:</text>
+		<text style="fill:blue;font-size:12;text-anchor:left;" x="100" y="110" startOffset="0" 
+			onclick="setClass(evt, 5); setClassStyle(evt, 1)">Male</text>
+		<text style="fill:blue;font-size:12;text-anchor:left;" x="140" y="110" startOffset="0" 
+			onclick="setClass(evt, 5); setClassStyle(evt, 0)">Female</text>
+			
+	<text style="fill:black;font-size:12;text-anchor:left;" x="10" y="135" startOffset="0">Skin Colour:</text>
+		<text style="fill:blue;font-size:12;text-anchor:left;" x="100" y="135" startOffset="0" 
+			onclick="setClass(evt, 6); setClassStyle(evt, 0)">White</text>
+		<text style="fill:blue;font-size:12;text-anchor:left;" x="140" y="135" startOffset="0" 
+			onclick="setClass(evt, 6); setClassStyle(evt, 1)">Asian</text>
+		<text style="fill:blue;font-size:12;text-anchor:left;" x="180" y="135" startOffset="0" 
+			onclick="setClass(evt, 6); setClassStyle(evt, 2)">African</text>			
+	</g>
+	
+	<!-- The colour panel -->
+	<g transform="translate(0, 290)">
+  <rect x="480" y="40" rx="10" ry="10" width="300" height="250" fill="white" opacity=".8"/>
+  <rect x="480" y="40" rx="10" ry="10" width="300" height="250" stroke="black" stroke-width="4.0" fill="none" opacity=".5" />
+	<svg x="480" y="40" width="300" height="25">
+	<rect x="0" y="0" rx="10" ry="10" width="300" height="35" fill="black" opacity=".8"/>
+	<text style="fill:white;font-size:20;text-anchor:middle;" x="150" y="20" startOffset="0">Colours</text>	
+	</svg>
+	<!-- Ink wells -->
+	
+	</g>
+
+<g transform="translate(100, 100)">
+			<!-- Face -->
+			<g transform="translate(-10, 0)">
+			<path id="face0" fill="#FAE8BF" stroke="#000000" d="M56.938,118.469c13.737,11.863,27.472,11.863,27.472,11.863s13.735,0,27.471-11.863
+			c13.736-11.862,13.736-59.31,13.736-71.173c0-11.861-27.472-23.725-41.208-23.725S43.203,35.435,43.203,47.295
+			C43.203,59.159,43.203,106.607,56.938,118.469z"/>
+		<!-- Left eye -->
+		<path fill="#41B2D2" stroke="#000000" d="M69.111,67.351c0,3.977-2.697,7.204-6.022,7.204c-3.326,0-6.022-3.227-6.022-7.204
+			c0-3.979,2.696-7.206,6.022-7.206C66.414,60.146,69.111,63.373,69.111,67.351z"/>
+		<g opacity="0.78">
+			<path d="M66.035,67.351c0,1.75-1.319,3.168-2.946,3.168c-1.627,0-2.946-1.418-2.946-3.168s1.319-3.168,2.946-3.168
+				C64.715,64.182,66.035,65.601,66.035,67.351z"/>
+		</g>
+		<g>
+			<path id="face2" fill="#FAE8BF" d="M53.034,50.641c0,0,0,19.641,0,16.378c0-3.263,19.038-8.189,19.038-4.095c0,4.095,0-12.283,0-12.283
+				H53.034z"/>
+			<path fill="none" stroke="#000000" d="M72.072,63.756c0-4.094-19.037,0-19.038,4.095"/>
+<path fill="#FFFFFF" d="M66.149,69.193c0,1.018-0.685,1.843-1.53,1.843s-1.53-0.825-1.53-1.843c0-1.017,0.685-1.842,1.53-1.842
+			S66.149,68.176,66.149,69.193z"/>
+			<path fill="#FFFFFF" d="M60.509,65.272c0,0.503-0.379,0.911-0.847,0.911c-0.467,0-0.846-0.407-0.846-0.911
+			c0-0.502,0.379-0.91,0.846-0.91C60.13,64.363,60.509,64.771,60.509,65.272z"/>	
+		</g>
+		<!-- Right Eye -->
+		<path fill="#41B2D2" stroke="#000000" d="M109.723,67.351c0,3.977-2.696,7.204-6.021,7.204c-3.327,0-6.023-3.227-6.023-7.204
+			c0-3.979,2.696-7.206,6.023-7.206C107.027,60.146,109.723,63.373,109.723,67.351z"/>
+		<g opacity="0.78">
+			<path d="M106.647,67.351c0,1.75-1.319,3.168-2.946,3.168c-1.627,0-2.946-1.418-2.946-3.168s1.319-3.168,2.946-3.168
+				C105.328,64.182,106.647,65.601,106.647,67.351z"/>
+		</g>
+		<g>
+			<path id="face1" fill="#FAE8BF" d="M113.953,50.641c0,0,0,19.641,0,16.378c0-3.263-19.037-8.189-19.037-4.095c0,4.095,0-12.283,0-12.283
+				H113.953z"/>
+			<path fill="none" stroke="#000000" d="M94.917,63.756c0-4.094,19.036,0,19.037,4.095"/>
+<path fill="#FFFFFF" d="M106.761,69.519c0,0.837-0.568,1.517-1.269,1.517s-1.269-0.679-1.269-1.517
+			c0-0.838,0.568-1.517,1.269-1.517S106.761,68.681,106.761,69.519z"/>
+	<path fill="#FFFFFF" d="M102.531,64.515c0,0.586-0.505,1.061-1.128,1.061s-1.128-0.475-1.128-1.061
+			c0-0.586,0.505-1.062,1.128-1.062S102.531,63.928,102.531,64.515z"/>
+	
+	</g></g>
+
+		<!-- Arms -->
+		<path id="arms0" fill="#FAE8BF" stroke="#000000" d="M139.35,282.463l-13.333-1.333l0.667-52.667c0,0-1.823-5.717-4.183-13.033
+			c-4.335-13.436-10.483-32.262-10.483-30.967c0,2-8-22,3.333-26s31.333,62,30,66.667S139.35,282.463,139.35,282.463z"/>
+
+		<path id="arms1" fill="#FAE8BF" stroke="#000000" d="M8.433,281.463l13.333-1.333l1.333-50.667c0,0,1.823-5.717,4.183-13.033
+			c4.335-13.436,10.483-32.262,10.483-30.967c0,2,8-22-3.333-26s-31.333,62-30,66.667S8.433,281.463,8.433,281.463z"/>
+
+		<!-- Hair 1 -->
+		<g transform="translate(-10, 0)">
+		<path id="hair0" fill="#5DBB89" stroke="#000000" d="M70.675,38.889c-2.27,2.423,1.142,12.444,0,15.319
+			c-1.141,2.876-13.737-15.319-13.737-15.319s-1.878,13.051,0,15.319c1.878,2.269-15.528-4.69-13.735,15.319
+			c1.793,20.009,0,45.957,0,45.957L29.467,69.527c0,0-9.158-36.109,0-45.957c9.158-9.849,41.208-15.319,41.208-15.319
+			s24.496-1.517,27.471,0c2.976,1.517,22.893,5.471,27.472,15.319c4.578,9.848,13.735,32.826,13.735,45.957
+			c0,13.13-13.735,45.957-13.735,45.957s-0.604-38.972,0-45.957c0.604-6.984-32.05-24.073-27.472-15.319
+			c4.58,8.753-11.269-17.135-13.735-15.319c-2.468,1.816,0,15.319,0,15.319S72.944,36.466,70.675,38.889z"/> 
+		<!-- Hair 2 -->
+		<path id="hair1" fill="#9CD122" stroke="#000000" opacity="0.0" d="M39.141,49.325c0.569-13.539-2.86-25.034-7.861-36.119
+			c2.04,1.643,4.249,2.445,5.951,4.795c2.42-3.357,1.129-9.805,3.8-12.972c1.257,4.722,2,9.555,2.399,14.529
+			c0.981-5.759,1.74-11.83,3.528-17.145c0.95,3.834,0.441,8.305,1.775,11.96c2.101-3.337,4.486-6.039,7.248-9.018
+			c1.661,5.429,2.172,12.677,4.221,17.561c1.143-3.835,3.561-6.438,5.48-9.601c2.24-3.694,4.401-10.784,7.75-12.523
+			c0.481,6.457-0.759,14.264,1.779,19.969c1.748-5.181,3.825-10.341,7.431-13.934c0.155,2.569,0.492,5.144,1.207,7.544
+			c0.058-0.645,0.11-1.288,0.157-1.933c1.455,3.181,2.243,8.791,3.088,12.324c1.888-5.067,4.046-12.535,8.281-13.914
+			c0.437,4.101-1.305,13.433,1.383,15.684c0.543-4.486,8.212-22.128,11.246-15.111c1.662,3.843-0.186,15.91-0.513,20.061
+			c1.255-11.638,10.533-14.945,16.836-21.119c1.839,5.829,2.564,14.508,1.321,20.948c0.506-5.86,4.209-17.379,9.1-17.832
+			c2.446,7.104-1.972,17.246-3.216,24.05c-1.726,9.437-3.151,19.64-5.201,28.63c-2.435-3.583-3.522-8.714-6.135-11.934
+			c-0.585,1.729-0.707,3.737-0.741,5.846c-1.938-0.987-5.311,0.381-4.299-7.11s-12.809-2.812-13.302-6.316
+			c-0.787,0.84-1.958,2.18-3.014,3.287c-1.219-6.114-3.349-11.571-5.008-17.388c-1.91,4.688-2.282,10.578-4.708,14.999
+			c-2.604-1.481-5.867,6.992-7.184,9.588c-1.528-4.433-3.689-8.558-5.009-13.121c-4.284,6.749-4.768,3.849-10.102-0.682
+			c-0.81,4.758-2.946,9.333-3.302,14.083c-5.479-0.326-6.641-6.329-9.089-11.273c-2.52,9.504-9.682,21.466-8.871,1.829
+			c-2.775,2.785-4.135,9.016-7.553,9.938c-1.444-3.995,0.716-6.63,1.127-10.201"/>
+		<!-- Hair 3 -->
+		<text id="hair2" opacity="0.0" style="fill:black;font-size:12;text-anchor:left;" x="-60" y="30" startOffset="0">No Hair -></text>
+		</g>
+
+		<!-- Chest -->
+		<path id="chest" fill="#FAE8BF" stroke="#000000" d="M42.5,152.43c0,0,18,38.667,28,37.333s27.333-12,30-18.667s13.333-18.667,3.333-22
+			s-36-2.667-28.667-3.333S43.833,147.097,42.5,152.43z"/>
+
+		<path fill="none" stroke="#000000" d="M55.833,158.43c4.639-0.721,7.618,2.701,12,2.667"/>
+		<path fill="none" stroke="#000000" d="M89.167,157.764c-3.514,0.981-6.947,0.588-10,2"/>
+
+		<!-- Shirt 1 -->
+
+		<path id="shirt0" fill="#1167AC" stroke="#000000" d="M53.104,143.886c0.218,4.292,39.445,4.292,41.292,0
+			c1.847-4.292,41.291,18.065,41.291,18.065s15.48,38.081,15.48,56.146c0,18.065-2.021-1.398-22.667,16.667
+			c-12-6-13.459-36.682-13.459-36.682v90.325H32.458v-90.325c0,0-2.624,22.682-7.958,32.682c0,0-3.354-12.667-24-12.667
+			c0-18.064,11.312-56.146,11.312-56.146S52.886,139.594,53.104,143.886z"/>
+
+		<!-- Shirt 2 -->
+
+		<path id="shirt1" opacity="0.0" fill="#917DBA" stroke="#000000" d="M78.565,151.517c-9.706-0.942-22.732-8.086-22.732-8.086s-32.667,4.667-36,14
+			s-18.667,78-18,81.333s-0.667,40,5.333,43.333s14.667,4,16,0s2.667-44.667,2.667-44.667s7.333-46,8.667-35.333
+			s-7.333,58-3.333,58.667s-3.333,27.334,4,28.667s76.415,5.953,81.208-0.357s2.125-36.31,2.125-36.31l-2.125-54.015
+			c0,0,2.793,42.015,7.459,46.682c2.912,2.914-0.671,37.75,1.333,38c5.332,0.667,22.667-1.333,22.667-1.333
+			s3.334-41.333,2.668-48.667c-3.085-33.871-15.113-71.964-23.334-76c-7.854-3.854-23.333-17.334-29.333-14.667
+			S81.085,151.761,78.565,151.517z"/>
+
+		<!-- Shirt 3 -->
+		<path id="shirt2" opacity="0.0" fill="#3FB7D3" stroke="#000000" d="M29.876,148.176c5.87-2.906,16.624-2.08,16.624-2.08s19.333,36,28,37.333
+			s23.333-38,26-39.333s13.333,4,14,7.333s-5.333,46,2,45.333s1.333,88-4,90.667s-78,4-78.667-0.667s-3.334-83.334,1.333-88.667
+			S28.294,148.96,29.876,148.176z"/>
+
+		<!-- Girl parts -->
+		<g id="girl" opacity="0.0">
+		<path  d="M111.167,199.43c0,0-4.666,15.333-7.333,16s-14,2.667-15.333,0s12.667-3.333,12.667-6.667
+			S111.167,199.43,111.167,199.43z"/>
+		<path d="M39.5,200.097c0,0,4.666,15.333,7.333,16s14,2.667,15.333,0S49.5,212.764,49.5,209.43
+			S39.5,200.097,39.5,200.097z"/>
+		</g>
+
+		<path id="leg0" fill="#FAE8BF" stroke="#000000" d="M41.167,433.93c-2.667-2,0-75.333-0.667-67.333s0-22,8.667-20s12.667-1.333,14.667,8
+			s-8.667,76-11.333,78.667S41.167,433.93,41.167,433.93z"/>
+		<path id="leg1" fill="#FAE8BF" stroke="#000000" d="M110.032,433.93c2.667-2,0-75.333,0.667-67.333s0-22-8.667-20s-12.667-1.333-14.667,8
+			s8.667,76,11.333,78.667S110.032,433.93,110.032,433.93z"/>
+
+		<!-- Pants 1 -->
+		<path id="pants0" fill="#149660" stroke="#000000" d="M38.5,300.43L27.167,428.355l40,2.741l7.333-88.633l14,86.806l33.333-0.914
+			L116.5,302.258L38.5,300.43z"/>
+
+		<!-- Pants 2 -->
+		<path id="pants1" opacity="0.0" fill="#149660" stroke="#000000" d="M39.833,296.097c0,0-18,100-13.333,101.333s79.333,6,80,2.667
+			c0.667-2.667-4.667-4.667,1.333-72.667c-1.333-2-6,76.667-0.667,74.667s12,3.333,16.667-0.667s-2.667-97.333-6.667-100.667
+			S39.833,296.097,39.833,296.097z"/>
+										
+		<!-- Pants 3 -->
+
+		<path id="pants2" opacity="0.0" fill="#149660" stroke="#000000" d="M39.167,298.764c0,0-12.667,71.333-9.333,72s41.333,5.334,43.333,2.667
+			s-0.667-28.667,2-29.333s3.333,26.667,4,28.667c1.48,4.439,42,7.378,42,2c0-3.333,0.667-68.667-3.333-70.667s-4-4-4-4
+			L39.167,298.764z"/>
+			
+		<!-- Nose -->
+		<g transform="translate(-10, 0)"><path fill="none" stroke="#000000" d="M83.155,65.576c0.932,2.938,1.257,7.434,1.461,10.883c0.276,4.716,1.386,9.054,1.904,13.676
+			c0.654,5.829-2.9,5.803-6.27,9.411"/> 
+		<path fill="none" stroke="#000000" d="M90.78,98.765c-2.267-1.003-4.702-2.645-4.72-5.466"/>
+		
+		<!-- Mouth -->			
+		<path fill="#FA8910" stroke="#000000" d="M70.833,113.43c8.9,3.291,17.514-1.695,26.166,1.003
+			c-7.735,2.201-16.551,4.47-24.109-1.003"/></g>
+		<!-- 
+		<text transform="matrix(1 0 0 1 49.8335 227.7632)"><tspan x="0" y="0" font-family="'Apple-Chancery'" font-size="24">GIRL</tspan></text>-->
+		
+		<!-- Right hand -->
+		<path id="hand1" fill="#FAE8BF" stroke="#000000" d="M140.532,288.763l2.667,15.333l-6.667,4.667c0,0-12-1.333-12.667-3.333
+			s-6.667-5.333-2.667-8s3.333-10.667,7.333-10.667S140.532,288.763,140.532,288.763z"/>
+		<!-- Left hand -->
+		<path id="hand0" fill="#FAE8BF" stroke="#000000" d="M11.166,288.097L8.5,303.43l6.667,4.667c0,0,12-1.333,12.667-3.333s6.667-5.333,2.667-8
+			s-3.333-10.667-7.333-10.667S11.166,288.097,11.166,288.097z"/>
+			
+		<!-- Right shoe -->
+		<g>
+			<path fill="#4E3413" stroke="#000000" d="M93.833,448.098l0.667,4l22,0.666l1.333-4L93.833,448.098z"/>
+			<path fill="#149660" stroke="#000000" d="M97.167,438.764l-3.333,9.334l24,0.666l-5.333-8.666L97.167,438.764z"/>
+		</g>
+		<!-- Left shoe -->
+		<g>
+			<path fill="#4E3413" stroke="#000000" d="M57.167,448.098l-0.667,4l-22,0.666l-1.333-4L57.167,448.098z"/>
+			<path fill="#149660" stroke="#000000" d="M53.833,438.764l3.333,9.334l-24,0.666l5.333-8.666L53.833,438.764z"/>
+		</g>
+
+	<!-- Butterflog -->
+	<g id="butterfly">
+			<path opacity="0.6" fill="#F75110" stroke="#F75110" d="M65.983,203.055c-2.352-4.405-7.655-3.636-6.376,1.375
+				c-3.557,0.482-3.153,4.102-0.775,5.918c-14.228,6.438-3.341,13.703,6.785,17.567c-0.344,0.391-0.797,1.795-1.118,2.251
+				c1.739,0.169,7.38-0.164,8.424,1.531c0.902,1.465-0.807,2.153-0.754,3.485c0.172,4.356-1.05,11.847,5.93,10.589
+				c1.425-4.379,9.361-6.325,7.825-8.696c1.955-4.278,6.937-4.837,8.684-9.829c1.446-4.132,0.847-8.365-3.365-10.908
+				c1.726-2.634,4.897-6.577,3.118-9.996c-0.859-1.652-5.04-2.615-6.405-3.851c-0.692-0.627-2.122-3.035-2.896-3.371
+				c-2.711-1.174-6.834-0.054-9.867-1.28c-2.109-0.853-3.276-3.052-5.722-2.96c-0.417,1.205-1.284,2.554-1.542,3.8"/>
+			<path opacity="0.81" fill="#F96D11" stroke="#000000" d="M78.615,205.97c-1.457-3.401-9.716-8.745-10.202-1.457
+				c-0.486,7.287,0,15.061,3.4,13.117c3.401-1.943,8.259-1.457,9.231-5.83C82.016,207.428,78.615,205.97,78.615,205.97z"/>
+			<path opacity="0.78" fill="#1B278E" stroke="#000000" d="M71.813,217.63c-1.458-3.887-2.916-11.174-6.316-11.174
+				c-3.401,0-6.316,7.287-2.915,7.773c3.401,0.486,2.429,9.717,5.344,7.773C70.842,220.06,71.813,217.63,71.813,217.63z"/>
+			<path opacity="0.82" fill="#149660" stroke="#000000" d="M70.356,219.088c0,6.316-0.486,12.146,2.429,11.66
+				c2.915-0.486,7.774-0.486,6.802-3.401C78.615,224.432,70.356,219.088,70.356,219.088z"/>
+			<path opacity="0.81" fill="#F6F619" stroke="#000000" d="M71.328,217.63c2.915-4.373,4.858-2.915,7.773-2.915
+				s9.231,6.802,9.716,9.231c0.487,2.429-2.915,3.887-5.83,2.429c-2.915-1.458-11.66-7.288-11.66-7.288
+				C74.243,223.946,71.328,217.63,71.328,217.63z"/>
+		</g>
+
+		<!-- Eyebrows -->
+		<g id="eyebrows" opacity="0.4">
+			<path d="M43.5,67.097c-1.035-0.427-1.691-1.225-2-2.333"/>
+			<path d="M104.833,66.764c0.968-0.625,2.029-1.797,2.333-3"/>
+			<path d="M45.167,65.764c-0.923-0.876-1.652-2.012-1.667-3.333"/>
+			<path d="M102.833,65.43c0.992-0.628,1.745-1.786,2.333-2.667"/>
+		</g>
+
+	</g>
+
+	<text style="fill:white;font-size:20;" x="500" y="25" startOffset="0">Paper Dolls by Matthew Bystedt</text>
+	<text style="fill:white;font-size:10;" x="750" y="595" startOffset="0">Version 1.0</text>
+
+    <!-- CSc 405 Project 3 - Part II
+	
+		Paper Dolls
+		
+		Matthew Bystedt - mbystedt@uvic.ca
+	-->
+</svg>

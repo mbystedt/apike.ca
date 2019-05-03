@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+    "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+         width="300" height="210"
+         viewBox="0 0 600 420"  >
+	
+	<!-- Matthew Bystedt http://apike.ca 2012 -->
+	
+	<!-- Pattern Definition -->
+	<defs>
+		<pattern id="checkerPattern" patternUnits="userSpaceOnUse"
+				x="0" y="0" width="20" height="20"
+				viewBox="0 0 10 10" >
+				
+			<rect x="0" y="0" width="5" height="5" fill="lightblue" />
+			<rect x="5" y="5" width="5" height="5" fill="lightblue" />
+		</pattern>
+        
+        <marker id="myMarker1" viewBox="0 0 10 10" refX="1" refY="5" 
+            markerUnits="strokeWidth" orient="auto"
+              markerWidth="4" markerHeight="3">
+            <polyline id="markerPoly1" points="0,0 10,5 0,10 1,5" fill="orange" />
+        </marker>
+        
+	</defs>	
+	<!-- Background -->
+	<rect x="0" y="0" width="100%" height="100%" fill="url(#checkerPattern)" opacity=".5"/>	
+	
+	
+	
+	<text x="30" y="70" font-size="30px" fill="blue">(0,0)</text>
+	
+	<text x="360" y="190" font-size="30px">refY="5"</text>
+	<text x="130" y="370" font-size="30px">refX="1"</text>
+	<g fill="green">
+		<text x="310" y="320" font-size="30px">View box (10,10)</text>
+		<circle cx="300" cy="300" r="7px" />
+	</g>
+	
+	<g transform="translate(100, 100)">
+		
+		
+		<g transform="scale(20)">
+			<use x="0" y="0" width="10" height="10" xlink:href="#markerPoly1" />
+			<g stroke-width=".1px">
+				<rect x="0" y="0" width="10" height="10" stroke="green" fill="none"/>
+				<line x1="-100%" y1="0" x2="100%" y2="0" stroke="blue"/>
+				<line x1="0" y1="-100%" x2="0" y2="100%" stroke="blue"/>
+				<g stroke-dasharray=".2,.1">
+				<line x1="-100%" y1="5" x2="100%" y2="5" stroke="black"/>
+				<line x1="1" y1="-100%" x2="1" y2="100%" stroke="black"/>
+				</g>
+			</g>
+		</g>
+		
+		<circle cx="0" cy="0" r="7px" fill="blue"/>
+	</g>
+</svg>

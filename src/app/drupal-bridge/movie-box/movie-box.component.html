@@ -1,0 +1,27 @@
+<div class="moviebox-container">
+  
+  <div class="moviebox-left">
+    <div style="text-align:center; font-size:0.9em; font-weight:bold; margin-bottom:0.5em;">{{data.englishtitle}}</div>
+    
+    <div style="text-align:center; font-size:0.7em; color:#888888;">{{data.romajititle}}</div>
+    <div style="text-align:center; font-size:1em; color:#888888; ">{{data.japanesetitle}}</div>
+    
+    <div style="text-align:center; font-size:0.9em;margin-top:0.5em;">{{data.format}} - {{data.length}}</div>
+      <div style="font-size:0.8em;text-align:center; margin-bottom:0.5em;">{{data.released}}</div>
+    <div style="text-align:center; font-size:0.9em;">{{data.producedby}}</div>
+  </div>
+
+  <div class="moviebox-right">
+    <div class="moviebox-right-img" [innerHTML]="data.toptitleimg"></div>
+    <div style="font-size:0.8em;" [innerHTML]="data.prologue"></div>
+  </div>
+</div>
+  
+<div class="moviebox-moredata">
+  <div><b>Director</b><br/> {{data.director}}</div>
+  <div><b>Producer</b><br/> {{data.producer}}</div>
+  <div *ngIf="data.music"><b>Music</b><br/> {{data.music}}</div>
+  <div *ngIf="data.opening_theme"><b>Opening</b><br/> {{data.opening_theme}}</div>
+  <div *ngIf="data.ending_theme"><b>Ending</b><br/> {{data.ending_theme}}</div>
+  <div *ngIf="data.theme"><b>Theme</b><br/> {{data.theme}}</div>
+</div>

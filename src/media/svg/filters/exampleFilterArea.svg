@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+    "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+         width="640" height="190"
+         viewBox="0 0 640 190" >
+	
+	<!-- Matthew Bystedt http://apike.ca 2014 -->
+	
+	
+  <defs>
+    <!-- Pattern Definition -->
+    <pattern id="checkerPattern" patternUnits="userSpaceOnUse"
+        x="0" y="0" width="20" height="20"
+        viewBox="0 0 10 10" >
+      
+      <line x1="0" y1="0" x2="10" y2="0" stroke="#eee" fill="none" stroke-dasharray="2,2" />
+      <line x1="0" y1="0" x2="0" y2="10" stroke="#eee" fill="none" stroke-dasharray="2,2" />
+    </pattern>
+      
+    <!-- Filter Definition -->
+    <filter id="passThrough" >
+      <!-- x: -10%, y: -10%, width: 120%, height: 120% -->
+      <feOffset in="SourceGraphic" />
+    </filter>
+
+    <filter id="ptOffset" >
+      <!-- Move 20% over -->
+      <feOffset in="SourceGraphic" dx="20" />
+    </filter>
+  
+    <filter id="ptOffsetWider" width="140%">
+      <feOffset in="SourceGraphic" dx="20" />
+    </filter>
+  </defs>
+
+	<!-- Background -->
+	<rect x="0" y="0" width="100%" height="100%" fill="url(#checkerPattern)" />
+	
+	<!-- Flood Example -->
+
+  <g stroke="#555" stroke-width="1" stroke-opacity=".2" fill="none" >
+    <rect x="20" y="30" width="100" height="100" />
+    <rect x="180" y="30" width="100" height="100" />
+  </g>
+  
+  <g stroke="red" stroke-width="1" fill="none" >
+    <rect x="170" y="20" width="120" height="120" />
+    <rect x="330" y="20" width="120" height="120" />
+    <rect x="490" y="20" width="140" height="120" />
+  </g>
+  
+  <g stroke="skyblue" stroke-width="2" fill="none" >
+    <circle cx="70" cy="80" r="50" />
+    <circle cx="230" cy="80" r="50" filter="url(#passThrough)" />
+    <circle cx="390" cy="80" r="50" filter="url(#ptOffset)" />
+    <circle cx="550" cy="80" r="50" filter="url(#ptOffsetWider)" />
+  </g>
+  
+	<text x="70" y="160" text-anchor="middle" font-size="15">Source</text>
+	<text x="70" y="180" text-anchor="middle" font-size="15">A vector shape</text>
+	<text x="230" y="160" text-anchor="middle" font-size="15">#passThrough</text>
+	<text x="390" y="160" text-anchor="middle" font-size="15">#ptOffset</text>
+	<text x="390" y="180" text-anchor="middle" font-size="15">Images of a vector shape</text>
+	<text x="560" y="160" text-anchor="middle" font-size="15">#ptOffsetWider</text>
+	
+</svg>

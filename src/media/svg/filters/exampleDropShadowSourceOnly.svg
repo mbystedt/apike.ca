@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+    "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+         width="640" height="60"
+         viewBox="0 0 640 60" >
+	
+	<!-- Matthew Bystedt http://apike.ca 2012 -->
+	
+	
+	<defs>
+		
+		<!-- Pattern Definition -->
+		<pattern id="checkerPattern" patternUnits="userSpaceOnUse"
+				x="0" y="0" width="20" height="20"
+				viewBox="0 0 10 10" >
+				
+			<line x1="0" y1="0" x2="10" y2="0" stroke="lightblue" fill="none" stroke-dasharray="2,2" />
+			<line x1="0" y1="0" x2="0" y2="10" stroke="lightblue" fill="none" stroke-dasharray="2,2" />
+		</pattern>
+		
+		<!-- Drop shadow filter -->
+		<filter id="dropShadow">
+			<!-- Blur the source alpha to make a nice shadow. -->
+			<feGaussianBlur in="SourceAlpha" stdDeviation="3" result="blur"/>
+			<!-- Move the shadow over a bit. -->
+			<feOffset in="blur" dx="3" dy="3" result="offsetBlur"/>
+			<!-- Put everything together. Blur then graphic. -->
+			<feMerge>
+				<feMergeNode in="SourceGraphic"/>
+			</feMerge>
+		</filter>
+	</defs>
+
+	<!-- Background -->
+	<rect x="0" y="0" width="100%" height="100%" fill="url(#checkerPattern)" />
+	
+	<text x="320" y="35" text-anchor="middle" fill="green" stroke="black" font-size="40" filter="url(#dropShadow)">Look at my beautiful shadow.</text>
+</svg>

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+    "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+         width="640" height="500"
+         viewBox="0 0 640 500"  >
+	
+	<!-- Matthew Bystedt http://apike.ca 2012 -->
+
+<script type="text/ecmascript"> <![CDATA[
+
+	function IntToHex(n) {
+		var result = n.toString(16);
+		if (result.length==1) result = "0"+result;
+		return result;
+	}
+    
+    function slider (x, y, width, callBack) {
+        this.slider = null;
+        
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        
+        this.rotate = 0;
+        this.sliderActive = false;
+        
+        this.createSlider = createSlider;
+        this.mouseDown = mouseDown;
+        this.mouseUp = mouseUp;
+        this.mouseMove = mouseMove;
+        this.process = process;
+
+        this.slider = null;
+        this.createSlider (callBack);
+    }
+    
+    function mouseMove (evt) {
+        this.process (evt);
+    }
+    
+    function process (evt) {
+    
+    }
+
+    function mouseDown (evt) {
+        this.sliderActive = true;
+        window.status= "Slider On";
+        obj = this;
+        obj_x = this.x;
+        obj_y = this.y;
+    }
+    
+    function mouseUp (evt) {
+        this.sliderActive = false;
+        window.status= "Slider off";
+    }
+    
+    function createSlider (callBack) {
+        var svgns = "http://www.w3.org/2000/svg";
+        
+        this.slider = svgDocument.createElementNS(svgns, "rect");
+        this.slider.setAttributeNS(null, "width", this.width);
+        this.slider.setAttributeNS(null, "height", 6);
+        this.slider.setAttributeNS(null, "rx", 4);
+        this.slider.setAttributeNS(null, "ry", 4);
+        this.slider.setAttributeNS(null, "stroke", "black");
+        this.slider.setAttributeNS(null, "fill", "silver");
+        
+        this.slider.addEventListener("mousedown", this.mouseDown, false);
+        this.slider.addEventListener("mouseup", this.mouseUp, false);
+        this.slider.addEventListener("mousemove", this.mouseMove, false);
+        this.slider.addEventListener("mousemove", callBack, false);
+        this.slider.addEventListener("click", this.mouseUp, false);
+        this.slider.addEventListener("click", this.mouseMove, false);
+        this.slider.addEventListener("click", callBack, false);
+        this.slider.addEventListener("click", this.mouseDown, false);
+        
+        var slider_button = svgDocument.createElementNS(svgns, "rect");
+        slider_button.setAttributeNS(null, "y", -3);
+        slider_button.setAttributeNS(null, "width", 6);
+        slider_button.setAttributeNS(null, "height", 12);
+        slider_button.setAttributeNS(null, "fill", "black");        
+        
+        var slide = svgDocument.createElementNS(svgns, "g");
+
+        slide.setAttributeNS(null, "transform", "translate(" + this.x + ", " + this.y +")");
+
+        slide.appendChild(this.slider);
+        slide.appendChild(slider_button);
+        
+        svgDocument.documentElement.appendChild(slide);
+    }   
+
+    function rgbSlider(evt) {
+        var locx = evt.clientX - obj_x;
+        var locy = evt.clientY - obj_y;
+        svgDocument.getElementById("status").firstChild.data = typeof (obj.x);
+        if (obj.sliderActive == false) {
+            return;
+        }
+        
+        var target = svgDocument.getElementById("ex");
+        
+        target.setAttributeNS(null, "fill", "#"+ IntToHex(locx) + "FFFF");
+    }
+    
+]]> </script>
+	
+	<!-- Fill Stroke Playground -->
+	<defs>
+        <linearGradient id="playgroundBG" x2="0%" y2="100%" >
+            <stop offset="0%" stop-color="white" />
+            <stop offset="50%" stop-color="silver" />
+            <stop offset="90%" stop-color="white" />
+        </linearGradient>
+        
+        <g id="slider">
+            <rect width="200" height="6" rx="4" ry="4" fill="url(#playgroundBG)" stroke="black" />
+            <rect y="-3" width="6" height="12" id="slider_button" />
+        </g>
+	</defs>
+
+	<!-- Background -->
+	<rect x="0" y="0" width="100%" height="280" fill="url(#playgroundBG)" />
+	
+    <!-- Title text -->
+    
+    <text x="20" y="40" font-size="30" fill="grey">fillStroke Demo</text>
+    
+	<!-- Examples -->
+    <g id="ex" fill="blue">
+        <circle cx="100" cy="150" r="80" />
+        <rect x="230" y="70" width="160" height="160" />
+        <polygon points="100,10 40,180 190,60 10,60 160,180 100,10" transform="translate(420,50)" />
+    </g>
+    
+    <!-- Sliders -->
+
+<script type="text/ecmascript"><![CDATA[
+    var slideone = new slider (20, 400, 255, rgbSlider);
+]]></script>
+    
+    <g id="fill">
+        <use x="20" y="300" xlink:href="#slider" 
+            onmousedown="mouseDown(evt)"
+            onmouseup="mouseUp(evt)"
+            onmouseclick="mouseUp(evt); changeColor(evt); mouseDown(evt);"
+            onmousemove="changeColor(evt);"
+        />
+        <use x="20" y="340" xlink:href="#slider" />
+        <use x="20" y="380" xlink:href="#slider" />
+    </g>
+    <!-- Copywrite -->
+    
+    <rect x="0" y="475" width="700" height="25" fill="black" />
+    <text id="status" x="40" y="490" fill="grey">Hello</text>
+</svg>

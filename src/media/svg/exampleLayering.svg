@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+    "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+         width="400" height="200"
+         viewBox="0 0 400 200" >
+	
+	<!-- Matthew Bystedt http://apike.ca 2012 -->
+	
+	<!-- Pattern Definition -->
+	<defs>
+		<pattern id="checkerPattern" patternUnits="userSpaceOnUse"
+				x="0" y="0" width="20" height="20"
+				viewBox="0 0 10 10" >
+				
+			<rect x="0" y="0" width="10" height="10" fill="silver" />
+			<rect x="0" y="0" width="5" height="5" fill="gray" />
+			<rect x="5" y="5" width="5" height="5" fill="gray" />
+		</pattern>
+		
+		<pattern id="graphPattern" patternUnits="userSpaceOnUse"
+				x="0" y="0" width="20" height="20"
+				viewBox="0 0 10 10" >
+				
+			<line x1="0" y1="0" x2="10" y2="0" stroke="lightgreen" fill="none" stroke-dasharray="2,2" />
+			<line x1="0" y1="0" x2="0" y2="10" stroke="lightgreen" fill="none" stroke-dasharray="2,2" />
+		</pattern>
+	</defs>
+
+	<!-- Background -->
+	<rect x="0" y="0" width="50%" height="100%" fill="url(#checkerPattern)" />
+	<rect x="50%" y="0" width="50%" height="100%" fill="url(#graphPattern)" />
+	
+	<!-- Rectangle Example -->
+	<g id="group1" fill="green" opacity="0.9" >
+	<rect x="20" y="20" width="100" height="100" opacity="0.5" />
+	<rect x="80" y="80" width="100" height="100" fill="darkorchid" />
+	</g>
+	
+	<text id="orderTxt" x="20" y="140" fill="black" stroke="white" stroke-width="2" font-size="80">SVG</text>
+	
+	<g transform="translate(280)">
+		<rect x="0" y="0" width="50%" height="100%" fill="url(#checkerPattern)" transform="translate(0,140) scale(.6, .2) skewX(-30)" />
+		
+		<g id="group1" fill="green" opacity="0.9" >
+		<rect x="20" y="20" width="100" height="100" opacity="0.5" transform="translate(0,100) scale(.6, .2) skewX(-30)"/>
+		<rect x="80" y="80" width="100" height="100" fill="darkorchid" transform="translate(0,60) scale(.6, .2) skewX(-30) translate(0,20)" />
+		</g>
+		
+		<text id="orderTxt" x="20" y="140" fill="black" stroke="white" stroke-width="2" font-size="80" transform="translate(0,20) scale(.6, .2) skewX(-30) translate(0,20)">SVG</text>
+	</g>
+</svg>

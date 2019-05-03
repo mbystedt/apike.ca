@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+    "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg onload="init(evt)" xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" zoomAndPan="disable"
+         width="720" height="440"
+         viewBox="0 0 720 440" >
+	
+	<!-- Matthew Bystedt http://apike.ca 2012 -->
+
+
+<script type="text/ecmascript" xlink:href="unseth/unseth.js" />
+<script type="text/ecmascript" xlink:href="maze/maze.js" />
+
+<script type="text/ecmascript"><![CDATA[
+
+    function init(evt) {
+        if ( window.svgDocument == null )
+            svgDocument = evt.target.ownerDocument;
+		
+		mz = new maze(12, 8, 2);
+		mz.generate();
+		mz.show(svgDocument, 50, 80, 20);
+		
+		unSeth = new aniBody(svgDocument.getElementById("unSeth"), 80, 20, 0.5);
+		con = new sethCon(unSeth, 1);
+		unSeth.setMoveCallBack(con);
+		
+		UpdateTimer();
+    }
+
+    var sethCon = function (unSeth, max_floor) {
+        this.unSeth = unSeth;
+        this.floor = 0;
+        this.max_floor = max_floor;
+        
+        this.fx = 0;
+        this.fy = 0;
+        
+		
+        this.setStairs();
+    }
+
+
+    sethCon.prototype.climbStairs = function() {
+        if (this.floor < this.max_floor && 
+            mz.maze[mz.address(this.fx, this.fy, this.floor)].wall[4] == 0) {
+            svgDocument.getElementById("maze_" + this.floor).setAttribute("visibility", "hidden");
+            this.floor++;
+            svgDocument.getElementById("maze_" + this.floor).setAttribute("visibility", "visible");
+            this.setStairs();
+        }
+    }
+
+    sethCon.prototype.descStairs = function() {
+        if (this.floor > 0 && 
+            mz.maze[mz.address(this.fx, this.fy, this.floor)].wall[5] == 0) {
+            svgDocument.getElementById("maze_" + this.floor).setAttribute("visibility", "hidden");
+            this.floor--;
+            svgDocument.getElementById("maze_" + this.floor).setAttribute("visibility", "visible");        
+            this.setStairs();
+        }
+    }
+
+    sethCon.prototype.setStairs = function() {
+        if (this.floor < this.max_floor && 
+            mz.maze[mz.address(this.fx, this.fy, this.floor)].wall[4] == 0) {
+            svgDocument.getElementById("upText").setAttribute("fill", "yellow");            
+        } else {
+            svgDocument.getElementById("upText").setAttribute("fill", "grey");            
+        }
+
+        if (this.floor > 0 && 
+            mz.maze[mz.address(this.fx, this.fy, this.floor)].wall[5] == 0) {
+            svgDocument.getElementById("dwText").setAttribute("fill", "yellow");            
+        } else {
+            svgDocument.getElementById("dwText").setAttribute("fill", "grey");            
+        }
+        
+        if (this.floor == this.max_floor) {
+            svgDocument.getElementById("goalLine").setAttribute("visibility", "visible");            
+        } else {
+            svgDocument.getElementById("goalLine").setAttribute("visibility", "hidden");            
+        }
+    }
+    
+    sethCon.prototype.validateMove = function(amm) {
+        var x = (svgDocument.getElementById("unSeth").getAttribute("x") - 80);
+        var y = (svgDocument.getElementById("unSeth").getAttribute("y") - 20);
+        
+        var sx = x / 50;
+        var sy = y / 50;
+
+        var fx = Math.floor(sx);
+        var fy = Math.floor(sy);
+        
+        this.fx = fx;
+        this.fy = fy;
+        
+        if (unSeth.direction == 2 && (Math.floor( (x + 32 + amm) / 50) > fx)) {
+        this.setStairs();
+            if (mz.maze[mz.address(fx, fy, this.floor)].wall[1] == 1) {
+                return 0;
+            }
+        } else if (unSeth.direction == 6 && (Math.floor( (x - amm) / 50) < fx)) {
+        this.setStairs();
+            if (mz.maze[mz.address(fx, fy, this.floor)].wall[3] == 1) {
+                return 0;
+            }
+        } else if (unSeth.direction == 0 && (Math.floor( (y- amm) / 50 ) < fy)) {
+        this.setStairs();
+            if (mz.maze[mz.address(fx, fy, this.floor)].wall[0] == 1) {
+                return 0;
+            }
+        } else if (unSeth.direction == 4 && (Math.floor( (y+32 + amm) / 50) > fy)) {
+        this.setStairs();
+            if (mz.maze[mz.address(fx, fy, this.floor)].wall[2] == 1) {
+                return 0;
+            }
+        }
+        
+        return 1;
+    }
+	
+	function UpdateTimer() {
+        unSeth.animate(100);
+		setTimeout("UpdateTimer()", 100);
+
+        if (Math.floor((svgDocument.getElementById("unSeth").getAttribute("x") - 80) / 50) == 11 &&
+            Math.floor((svgDocument.getElementById("unSeth").getAttribute("y") - 20) / 50) == 7 &&
+            con.floor == con.max_floor)
+            {
+            
+            svgDocument.getElementById("maze_" + con.max_floor).setAttribute("visibility", "hidden");                
+            svgDocument.getElementById("Congrats").setAttribute("visibility", "visible");                
+
+            unSeth.setMoveCallBack(null);
+
+            unSeth.x = 360;
+            unSeth.y = 220;
+            unSeth.reset();
+        }
+
+    }
+     
+
+    ]]> </script>
+	
+	<!-- Pattern Definition -->
+	<defs>
+		<pattern id="checkerPattern" patternUnits="userSpaceOnUse"
+				x="0" y="0" width="20" height="20"
+				viewBox="0 0 10 10" >
+				
+			<rect x="0" y="0" width="5" height="5" fill="lightblue" />
+			<rect x="5" y="5" width="5" height="5" fill="lightblue" />
+		</pattern>
+        
+	</defs>
+
+	<!-- Background -->
+	<rect x="0" y="0" width="100%" height="100%" fill="url(#checkerPattern)" />
+    <image x="0" y="0" width="100%" height="100%" xlink:href="ground.jpg" preserveAspectRatio="none" image-rendering="optimizeSpeed" />
+	
+	<!-- Example -->
+    <rect x="80" y="20" width="600" height="400" fill="white" stroke="black" stroke-width="2" fill-opacity="0.5" />
+
+    <g id="goalLine" visibility="hidden">
+    <rect x="630" y="370" width="50" height="50" fill="green" fill-opacity="0.5" />
+    <text x="655" y="395" fill="yellow" text-anchor="middle">Goal!</text>
+    </g>
+    <image id="unSeth" x="0" y="0" width="32" height="32" xlink:href="unseth/stopd.png" image-rendering="optimizeSpeed" />
+
+    <g transform="translate(15,20)">
+    <circle cx="25" cy="25" opacity="0.7" r="22" fill="grey" stroke="white" stroke-width="3" />
+    <rect x="10" y="20" width="10" height="10" onclick="unSeth.startAnimate('walk', 6)" />
+    <rect x="30" y="20" width="10" height="10" onclick="unSeth.startAnimate('walk', 2)" />
+    <rect x="20" y="10" width="10" height="10" onclick="unSeth.startAnimate('walk', 0)" />
+    <rect x="20" y="30" width="10" height="10" onclick="unSeth.startAnimate('walk', 4)" />
+    <rect x="20" y="20" width="10" height="10" fill="red" onclick="unSeth.stop()" />
+    </g>
+
+    <rect x="10" y="80" width="60" height="20" stroke="red" fill-opacity="0.5" onclick="con.climbStairs();" />
+    <text id="upText" x="40" y="95" fill="yellow" text-anchor="middle" onclick="con.climbStairs();">Up</text>
+    <rect x="10" y="110" width="60" height="20" stroke="blue" fill-opacity="0.5" onclick="con.descStairs();" />
+    <text id="dwText" x="40" y="125" fill="yellow" text-anchor="middle" onclick="con.descStairs();">Down</text>
+    
+    <text id="Congrats" x="360" y="100" fill="black" text-anchor="middle" font-size="40" visibility="hidden">Congratulations!</text>
+
+
+
+    <image x="-64" y="0" width="64" height="64" xlink:href="unseth/stepr1.png" image-rendering="optimizeSpeed" />
+    <image x="-64" y="0" width="64" height="64" xlink:href="unseth/stepr2.png" image-rendering="optimizeSpeed" />
+    <image x="-64" y="0" width="64" height="64" xlink:href="unseth/stepr3.png" image-rendering="optimizeSpeed" />
+    <image x="-64" y="0" width="64" height="64" xlink:href="unseth/stepr4.png" image-rendering="optimizeSpeed" />
+
+
+    <image x="-64" y="0" width="64" height="64" xlink:href="unseth/stepu1.png" image-rendering="optimizeSpeed" />
+    <image x="-64" y="0" width="64" height="64" xlink:href="unseth/stepu2.png" image-rendering="optimizeSpeed" />
+    <image x="-64" y="0" width="64" height="64" xlink:href="unseth/stepu3.png" image-rendering="optimizeSpeed" />
+    <image x="-64" y="0" width="64" height="64" xlink:href="unseth/stepu4.png" image-rendering="optimizeSpeed" />
+
+
+    <image x="-64" y="0" width="64" height="64" xlink:href="unseth/stepd1.png" image-rendering="optimizeSpeed" />
+    <image x="-64" y="0" width="64" height="64" xlink:href="unseth/stepd2.png" image-rendering="optimizeSpeed" />
+    <image x="-64" y="0" width="64" height="64" xlink:href="unseth/stepd3.png" image-rendering="optimizeSpeed" />
+    <image x="-64" y="0" width="64" height="64" xlink:href="unseth/stepd4.png" image-rendering="optimizeSpeed" />
+
+
+    <image x="-64" y="0" width="64" height="64" xlink:href="unseth/stepl1.png" image-rendering="optimizeSpeed" />
+    <image x="-64" y="0" width="64" height="64" xlink:href="unseth/stepl2.png" image-rendering="optimizeSpeed" />
+    <image x="-64" y="0" width="64" height="64" xlink:href="unseth/stepl3.png" image-rendering="optimizeSpeed" />
+    <image x="-64" y="0" width="64" height="64" xlink:href="unseth/stepl4.png" image-rendering="optimizeSpeed" />
+
+    <image x="-64" y="0" width="64" height="64" xlink:href="unseth/stopu.png" image-rendering="optimizeSpeed" />
+    <image x="-64" y="0" width="64" height="64" xlink:href="unseth/stopl.png" image-rendering="optimizeSpeed" />
+    <image x="-64" y="0" width="64" height="64" xlink:href="unseth/stopr.png" image-rendering="optimizeSpeed" />
+    
+</svg>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+    "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+         width="400" height="130"
+         viewBox="0 0 400 130"  >
+	
+	<!-- Matthew Bystedt http://apike.ca 2014 -->
+	
+	<!-- Pattern Definition -->
+	<defs>
+		<pattern id="checkerPattern" patternUnits="userSpaceOnUse"
+				x="0" y="0" width="20" height="20"
+				viewBox="0 0 10 10" >
+				
+			<rect x="0" y="0" width="5" height="5" fill="#eee" />
+			<rect x="5" y="5" width="5" height="5" fill="#eee" />
+		</pattern>
+		
+		<!-- Link styling -->
+    <style type="text/css"><![CDATA[
+      a {
+        fill: darkblue;
+        text-decoration: underline;
+      }
+      a:hover {
+        fill: blue;
+      }
+      a circle, a rect {
+        fill: lightblue;
+        stroke-width: 2px;
+        stroke: green;
+      }
+      
+      a:hover circle, a:hover rect {
+        fill: white;
+        stroke: lightgreen;
+      }
+      
+    ]]></style>
+	</defs>
+
+	<!-- Background -->
+	<rect x="0" y="0" width="100%" height="100%" fill="url(#checkerPattern)" />
+	
+	<!-- Link Example -->
+	
+  <a xlink:href="http://apike.ca/prog_svg.html" target="_parent" 
+    xlink:title="This is a link title in SVG!">
+    <text x="20" y="30" font-size="20" >Visit my SVG Tutorial!</text>
+  </a>
+
+  <text x="100" y="80" font-size="15" >These are also linked -&gt;</text>
+
+  <a xlink:href="http://apike.ca/prog_svg.html" target="_parent"
+    xlink:title="This is another link title in SVG!">
+    <circle cx="300" cy="50" r="40" />
+    <rect x="310" y="50" width="70" height="70" />
+  </a>
+  
+</svg>

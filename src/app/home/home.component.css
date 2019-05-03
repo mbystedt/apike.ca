@@ -1,0 +1,53 @@
+
+.nodes {
+  display: flex;
+  flex-direction: column;
+}
+
+.nodes > div:first-child {
+  margin: 5px 20px 5px 5px;
+}
+
+a.nodes {
+  color: #000;
+  margin: -2px -2px 35px -2px;
+  border: 2px solid transparent;
+}
+
+a.nodes:hover {
+  text-decoration: none;
+  border: 2px solid blue;
+}
+
+.thumbnail {
+  width: 100px;
+  height: auto;
+}
+
+.title {
+  font-weight: 500;
+  font-size: 22px;
+  margin-top: 5px;
+  margin-bottom: 4px;
+}
+
+.date {
+  color: #777;
+  margin-bottom: 12px;
+  font-size: 12px;
+}
+
+.body {
+  margin-bottom: 5px;
+}
+
+.node-spinner {
+	margin: 40px auto;
+	width: 100px;
+}
+
+@media (min-width: 400px) {
+  .nodes {
+    flex-direction: row;
+  }
+}

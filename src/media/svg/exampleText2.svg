@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+    "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+         width="200" height="130"
+         viewBox="0 0 200 130"  >
+	
+	<!-- Matthew Bystedt http://apike.ca 2012 -->
+	
+	<!-- Pattern Definition -->
+	<defs>
+		<pattern id="checkerPattern" patternUnits="userSpaceOnUse"
+				x="0" y="0" width="20" height="20"
+				viewBox="0 0 10 10" >
+				
+			<rect x="0" y="0" width="5" height="5" fill="lightblue" />
+			<rect x="5" y="5" width="5" height="5" fill="lightblue" />
+		</pattern> 
+	</defs>
+
+	<!-- Background -->
+	<rect x="0" y="0" width="100%" height="100%" fill="url(#checkerPattern)" />
+	
+	<!-- "SVG" rect -->
+	<rect x="120" y="10" width="70" height="60" fill="red" />
+	<text>
+		<tspan x="120" y="45" font-size="40" fill="yellow">S</tspan>
+		<tspan x="142" y="55" font-size="40" stroke="blue">V</tspan>
+		<tspan x="160" y="65" font-size="40" fill="green">G</tspan>
+	</text>
+	
+	<!-- Text Example -->
+	<text x="10" y="0" fill="blue" font-size="12" >
+	<tspan x="10" dy="20">Hello World</tspan>
+	<tspan x="10" dy="20">Today we are going</tspan>
+	<tspan x="10" dy="15">to pretend that we</tspan>
+	<tspan x="10" dy="15">are word wrapping</tspan>
+	<tspan x="10" dy="15">around this rectangle. Isn't SVG's</tspan>
+	<tspan x="10" dy="15">lack of word wrap completely</tspan>
+	<tspan x="10" dy="15">annoying?</tspan>
+	</text>
+
+</svg>

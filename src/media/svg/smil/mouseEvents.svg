@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+    "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+         width="600" height="100"
+         viewBox="0 0 600 100" >
+	
+	<!-- Matthew Bystedt http://apike.ca 2012 -->
+	
+	<!-- Pattern Definition -->
+	<defs>
+		<pattern id="checkerPattern" patternUnits="userSpaceOnUse"
+				x="0" y="0" width="10" height="10"
+				viewBox="0 0 10 10" >
+				
+			<rect x="0" y="0" width="5" height="5" fill="lightblue" />
+			<rect x="5" y="5" width="5" height="5" fill="lightblue" />
+		</pattern> 
+
+        <linearGradient id="playgroundBG" >
+            <stop offset="0%" stop-color="white" />
+            <stop offset="50%" stop-color="silver" />
+            <stop offset="100%" stop-color="white" />
+        </linearGradient>
+
+        <set begin="aniRest.click" attributeName="fill" to="blue" xlink:href="#ani1" />
+        <set begin="aniRest.click" attributeName="fill" to="blue" xlink:href="#ani2" />
+        <set begin="aniRest.click" attributeName="fill" to="blue" xlink:href="#ani3" />
+        <set begin="aniRest.click" attributeName="fill" to="blue" xlink:href="#ani4" />
+        <set begin="aniRest.click" attributeName="fill" to="blue" xlink:href="#ani5" />
+        <set begin="aniRest.click" attributeName="fill" to="blue" xlink:href="#ani6" />
+
+        <set begin="aniRest.mousedown" attributeName="fill" to="red" xlink:href="#aniRest" />
+        <set begin="aniRest.mouseout" attributeName="fill" to="black" xlink:href="#aniRest" />
+        <set begin="aniRest.mouseup" attributeName="fill" to="black" xlink:href="#aniRest" />
+        
+	</defs>
+
+	<!-- Background -->
+	<rect x="0" y="0" width="100%" height="85" fill="url(#playgroundBG)" />
+	<line x1="0" y1="85" x2="100%" y2="85" stroke="black" />
+	
+	<!-- Mouse Event Examples -->
+	<rect id="ani1" x="10" y="10" width="80" height="55" rx="10" ry="10" fill="blue" >
+        <set begin="click" attributeName="fill" to="yellow" />
+    </rect>
+    <text x="50" y="80" text-anchor="middle" >click</text>
+    
+	<rect id="ani2" x="110" y="10" width="80" height="55" rx="10" ry="10" fill="blue" >
+        <set begin="mousedown" attributeName="fill" to="yellow" />
+    </rect>
+    <text x="150" y="80" text-anchor="middle" >mousedown</text>
+    
+	<rect id="ani3" x="210" y="10" width="80" height="55" rx="10" ry="10" fill="blue" >
+        <set begin="mouseup" attributeName="fill" to="yellow" />
+    </rect>
+    <text x="250" y="80" text-anchor="middle" >mouseup</text>
+    
+	<rect id="ani4" x="310" y="10" width="80" height="55" rx="10" ry="10" fill="blue" >
+        <set begin="mouseover" attributeName="fill" to="yellow" />
+    </rect>
+    <text x="350" y="80" text-anchor="middle" >mouseover</text>
+    
+	<rect id="ani5" x="410" y="10" width="80" height="55" rx="10" ry="10" fill="blue" >
+        <set begin="mousemove" attributeName="fill" to="yellow" />
+    </rect>
+    <text x="450" y="80" text-anchor="middle" >mousemove</text>
+    
+	<rect id="ani6" x="510" y="10" width="80" height="55" rx="10" ry="10" fill="blue" >
+        <set begin="mouseout" attributeName="fill" to="yellow" />
+    </rect>
+    <text x="550" y="80" text-anchor="middle" >mouseout</text>
+
+    <text id="aniRest" x="550" y="97.5" text-anchor="middle" >Reset</text>
+
+</svg>

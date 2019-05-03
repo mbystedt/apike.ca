@@ -1,0 +1,61 @@
+body {
+	margin:0;
+	font-family: 'Trebuchet MS', Helvetica, sans-serif;
+}
+
+
+li {
+	font-size:12px;
+}
+
+.content {
+	width:630px;
+}
+
+textarea {
+	margin:10px;
+	width:610px;
+	height:60px;
+}
+
+.slider-margin {
+	margin:10px 30px;
+}
+
+p {
+	margin:10px 10px;
+	font-size:18px;
+}
+
+.ui-tabs .ui-tabs-panel {
+	padding: 0;
+}
+
+.tabContent {
+	height:140px;
+}
+
+.colorMatrix input {
+	font-size:12px;
+	width:30px;
+	margin:0 10px;
+}
+
+.two-col-slider {
+  width: 50%;
+}
+
+.two-col-slider p {
+  margin:0 10px;
+}
+.two-col-slider textarea {
+  width:300px;
+  height:70px;
+}
+.matrix-calc {
+  font-size:.8em;
+}
+
+.convert-button {
+  font-size: .8em!important;
+}

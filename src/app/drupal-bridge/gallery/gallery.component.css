@@ -1,0 +1,12 @@
+ngx-gallery {
+  margin: 20px 0;
+}
+
+ngx-gallery /deep/ ngx-gallery-thumbnails .ngx-gallery-arrow,
+ngx-gallery /deep/ ngx-gallery-image .ngx-gallery-arrow  {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50px;
+  color: #000;
+  width: 25px;
+  text-align: center;
+}

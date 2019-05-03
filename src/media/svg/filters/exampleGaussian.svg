@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+    "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+         width="640" height="180"
+         viewBox="0 0 640 180" >
+	
+	<!-- Matthew Bystedt http://apike.ca 2014 -->
+	
+	
+	<defs>
+		<!-- Pattern Definition -->
+		<pattern id="checkerPattern" patternUnits="userSpaceOnUse"
+				x="0" y="0" width="20" height="20"
+				viewBox="0 0 10 10" >
+				
+			<line x1="0" y1="0" x2="10" y2="0" stroke="lightblue" fill="none" stroke-dasharray="2,2" />
+			<line x1="0" y1="0" x2="0" y2="10" stroke="lightblue" fill="none" stroke-dasharray="2,2" />
+		</pattern>
+		
+		<!-- Filter Definition -->
+		<filter id="gauss2" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="2"/></filter>
+		<filter id="gauss4" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="4"/></filter>
+		<filter id="gauss8" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="8"/></filter>
+	</defs>
+
+	<!-- Background -->
+	<rect x="0" y="0" width="100%" height="100%" fill="url(#checkerPattern)" />
+	
+	<!-- Gaussian Examples -->
+	<g fill="none" stroke="blue" stroke-width="20" stroke-dasharray="3,6,8,11">
+		<circle cx="80" cy="80" r="50" />
+		<circle cx="240" cy="80" r="50" filter="url(#gauss2)" />
+		<circle cx="400" cy="80" r="50" filter="url(#gauss4)" />
+		<circle cx="560" cy="80" r="50" filter="url(#gauss8)" />
+	</g>
+
+	<text x="80" y="170" text-anchor="middle" font-size="15">Source</text>
+	
+	<text x="220" y="155" text-anchor="middle" font-size="15">&lt;feGaussianBlur</text>
+	<text x="250" y="170" text-anchor="middle" font-size="15">stdDeviation="2" /&gt;</text>
+	
+	<text x="380" y="155" text-anchor="middle" font-size="15">&lt;feGaussianBlur</text>
+	<text x="410" y="170" text-anchor="middle" font-size="15">stdDeviation="4" /&gt;</text>
+	
+	<text x="540" y="155" text-anchor="middle" font-size="15">&lt;feGaussianBlur</text>
+	<text x="570" y="170" text-anchor="middle" font-size="15">stdDeviation="8" /&gt;</text>
+	
+</svg>

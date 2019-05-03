@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+    "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg onload="init(evt)" xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+         width="600" height="400"
+         viewBox="0 0 600 400"  >
+	
+<!-- Matthew Bystedt http://apike.ca 2005 -->
+
+<script type="text/ecmascript"><![CDATA[
+    var curPage = null; 
+    var titleText = null;
+
+    function init(evt) {
+        if ( window.svgDocument == null )
+            svgDocument = evt.target.ownerDocument;
+
+        curPage = svgDocument.getElementById("home");
+        titleText = svgDocument.getElementById("titleText");
+    }
+
+    function setPage (evt, thePage, title) {
+        theObject = svgDocument.getElementById(thePage);
+        theObject.setAttribute("visibility", "visible");
+        
+        titleText.firstChild.data = title;
+        
+        if ((curPage != null)&&(curPage !== theObject)) {
+            curPage.setAttribute("visibility", "hidden");
+        }
+        curPage = theObject;
+    }
+]]> </script>
+
+<style type="text/css"><![CDATA[
+  a text {
+    fill: darkblue;
+    text-decoration: underline;
+  }
+  a:hover text {
+    fill: blue;
+  }
+]]></style>
+
+<!-- Pattern Definition -->
+<defs>
+    <pattern id="rulerPattern" patternUnits="userSpaceOnUse" x="0" y="0" width="10" height="10" viewBox="0 0 10 10" >
+        <desc>Produces a nice graph paper pattern.</desc>
+        <line x1="0" y1="0" x2="10" y2="0" stroke="lightblue" fill="none" stroke-dasharray="2,2" />
+        <line x1="0" y1="0" x2="0" y2="10" stroke="lightblue" fill="none" stroke-dasharray="2,2" />
+    </pattern>
+        
+	<filter id="closeDropShadow">
+		<desc>Produces a 3D effect as if the item was close to the surface</desc>
+            <feGaussianBlur in="SourceAlpha" stdDeviation="1" result="blur"/>
+            <feOffset in="blur" dx="3" dy="3" result="offsetBlur"/>
+            <feMerge>
+                <feMergeNode in="offsetBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+	</filter>        
+
+    <path id="titlePath" d="M0,80 C80,15 400,30 600,30" />
+    <path id="sideTextPath" d="M0,80 C80,15 400,30 600,30 L600,0 C400,0 80,-5 0,60" />
+
+    <clipPath id="clip1">
+        <rect x="0" y="0" width="100" height="100%" />        
+    </clipPath>
+
+    <linearGradient id="myLinGrad" spreadMethod="reflect" >
+        <stop offset="5%" stop-color="lavender" />
+        <stop offset="95%" stop-color="lightblue"/>
+    </linearGradient>
+
+</defs>
+
+<!-- Background -->
+<rect x="0" y="0" width="100%" height="100%" fill="url(#rulerPattern)" stroke="black" />
+
+<!-- Home Page -->
+
+<svg id="home" x="100" y="60" width="500" height="340" font-size="14px" viewBox="0 0 500 340" visibility="visible" >
+
+	<text text-anchor="middle" fill="darkblue" font-size="40px" x="50%" y="30">About SVG Web Pages</text>
+<text x="20" y="60">HTML is only one of many hypertext systems. It uses a box based layout engine to
+<tspan x="20" dy="1em">show images and text. The advantage of layout with SVG is clear with one look </tspan>
+<tspan x="20" dy="1em">at the sweeping curves on this page. So, SVG has that in its favor. But, here </tspan>
+<tspan x="20" dy="1em">are 5 reasons why SVG won't conquer HTML:</tspan>
+
+<tspan x="20" dy="2em">1. No major search engine indexes SVG files.</tspan>
+<tspan x="20" dy="1em">2. Poor developer support. It's been many years and not even the most advanced</tspan>
+<tspan x="33" dy="1em">SVG viewer is complete.</tspan>
+<tspan x="20" dy="1em">3. There's no word wrap in SVG. Like someone is going to hand code their own</tspan>
+<tspan x="33" dy="1em">word wrap on a 10,000 word essay.</tspan>
+<tspan x="20" dy="1em">4. No widget set. I'd love to add more points but SVG has no scroll bar to let me!</tspan>
+<tspan x="20" dy="2em">Could you create a website using SVG? Yes. Don't hold your breath waiting for</tspan>
+<tspan x="20" dy="1em">SVG to replace HTML until the above problems are fixed.</tspan></text>
+
+</svg>
+
+<!-- Japan Page -->
+
+    <svg id="japan"  x="100" y="60" width="500" height="340" viewBox="0 0 500 340" visibility="hidden"  >
+      <a xlink:href="http://japan.apike.ca">
+        <image x="50" y="0" width="400" height="300" xlink:href="miya1.jpg" style="filter:url(#closeDropShadow)" />
+        <text x="50%" y="315" text-anchor="middle">The Gates of Itsukushima</text>
+      </a>
+    </svg>
+
+<!-- SVG Page -->
+
+<svg id="svgshapes" x="100" y="60" width="500" height="340" viewBox="0 0 500 340" visibility="hidden" >
+
+    <image x="20" y="10" width="100" height="100" xlink:href="exampleRect.svg" />
+    <image x="20" y="120" width="100" height="100" xlink:href="exampleCirc.svg" />
+    <image x="20" y="230" width="100" height="100" xlink:href="examplePolygon.svg" />
+        
+    <text x="130" y="25" font-size="20">Rectangle</text>
+
+    <text x="130" y="40" fill="rgb(50,50,50)" font-size="12">&lt;rect x="20" y="20" rx="0" ry="0" width="160" <tspan x="150" dy="1em">height="160" fill="blue" /&gt;</tspan></text>
+
+    <text x="130" y="135" font-size="20">Circle</text>
+
+    <text x="130" y="150" fill="rgb(50,50,50)" font-size="12"><![CDATA[<circle cx="100" cy="100" r="90" fill="blue" />]]></text>
+
+    <text x="130" y="245" font-size="20">Ploygon</text>
+    
+    <text x="130" y="260" fill="rgb(50,50,50)" font-size="12">&lt;polygon points="100,10 40,180 190,60 10,60 160,180 100,10" <tspan x="150" dy="1em">stroke="blue" fill="darkblue" stroke-width="4"</tspan> <tspan x="150" dy="1em">fill-rule="nonzero" /&gt;</tspan></text>
+</svg>
+
+<!-- Title portion -->
+
+    <rect x="0" y="0" width="100" height="100%" fill="gold" opacity="0.5" />
+    <line x1="10" y1="0" x2="10" y2="100%" stroke-width="4" stroke="gold" />
+    <line x1="16" y1="0" x2="16" y2="100%" stroke-width="4" stroke="gold" />
+    <line x1="24" y1="0" x2="24" y2="100%" stroke-width="2" stroke="gold" />
+
+    <path d="M0,90 C80,25 400,40 600,40 L600,0 0,0  z" stroke="lightblue" fill="url(#myLinGrad)" style="filter:url(#closeDropShadow)" />
+
+    <text font-size="30" fill="black"><textPath id="titleText" startOffset="20" xlink:href="#titlePath">Pike's Place - A SVG Webpage</textPath></text>
+    
+<!-- Links -->
+
+    <use y="50" xlink:href="#sideTextPath" clip-path="url(#clip1)" fill="lavender" fill-opacity="0.5" stroke="white" stroke-width="2" stroke-opacity="0.7" ><set begin="homelink.mouseover" attributeName="fill" to="darkblue" /><set begin="homelink.mouseout" attributeName="fill" to="lavender" /></use>
+    <use y="75" xlink:href="#sideTextPath" clip-path="url(#clip1)" fill="lavender" fill-opacity="0.5" stroke="white" stroke-width="2" stroke-opacity="0.7" ><set begin="shapelink.mouseover" attributeName="fill" to="darkblue" /><set begin="shapelink.mouseout" attributeName="fill" to="lavender" /></use>
+    <use y="100" xlink:href="#sideTextPath" clip-path="url(#clip1)" fill="lavender" fill-opacity="0.5" stroke="white" stroke-width="2" stroke-opacity="0.7" ><set begin="japanlink.mouseover" attributeName="fill" to="darkblue" /><set begin="japanlink.mouseout" attributeName="fill" to="lavender" /></use>
+    
+    <text id="homelink" transform="translate(0,47.5)" font-size="15" fill="blue">
+      <set begin="mouseover" attributeName="fill" to="lavender" />
+      <set begin="mouseout" attributeName="fill" to="blue" />
+      <textPath startOffset="10" xlink:href="#titlePath" onclick="setPage(evt, 'home', 'Pike\'s Place - A SVG Webpage');">Home</textPath>
+    </text>
+
+    <text id="shapelink" transform="translate(0,72.5)" font-size="15" fill="blue">
+      <set begin="mouseover" attributeName="fill" to="lavender" />
+      <set begin="mouseout" attributeName="fill" to="blue" />
+      <textPath startOffset="10" xlink:href="#titlePath" onclick="setPage(evt, 'svgshapes', 'Pike\'s Place - SVG Shapes');">SVG Shapes</textPath>
+    </text>
+
+    <text id="japanlink" transform="translate(0,97.5)" font-size="15" fill="blue">
+      <set begin="mouseover" attributeName="fill" to="lavender" />
+      <set begin="mouseout" attributeName="fill" to="blue" />
+      <textPath startOffset="10" xlink:href="#titlePath" onclick="setPage(evt, 'japan', 'Pike\'s Place - A Picture of Japan');">Japan</textPath>
+    </text>
+
+</svg>

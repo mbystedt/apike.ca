@@ -1,1 +1,298 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+body {
+	background-color:#eff1f1;
+	font-family: Helvetica, sans-serif;
+	margin: 0;
+}
+.clear {
+	clear: both;
+}
+
+/* Avatar */
+
+.avatar-img {
+	background-image:url('/images/avatar/mbystedt-100.jpg');
+	width:100px;
+	height:100px;
+	float:left;
+	margin:0 10px 10px 0;
+	border:2px solid #555;
+}
+
+/* Links */
+
+a {
+	color: #3660c1;
+  text-decoration: none;	
+}
+
+a:hover {
+	color: #000;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+/* Headers */
+
+/* H2 */
+
+h2 {
+	font-family: Helvetica, sans-serif;
+	font-weight: normal;
+	margin:0 0 0 0;
+}
+
+h2 a {
+	color: #444;
+}
+
+h2 a:hover {
+	color: #a09c65;
+    text-decoration: none;
+}
+
+h2.margin {
+	margin-top:1em;
+	margin-bottom:.7em;
+}
+
+.meta {
+	font-family: Helvetica, sans-serif;
+	color: #333;
+	font-size:14px;
+	margin-bottom:15px;
+}
+
+/* Tutorial */
+
+.tut-attr {
+  font-family: monospace;
+}
+
+.tut-comments {
+	margin-top:1em;
+	margin-bottom:1em;
+	border-top:1px solid #555;
+	border-bottom:1px solid #555;
+	min-height:140px;
+}
+
+.tut-comments .avatar-img {
+	margin-top:1em;
+}
+
+.tut-nav-heading {
+  font-size: 20px;
+  margin:.8em 0 0 0;
+  clear: both;
+}
+
+.tut-nav-tiles {
+  padding: 0;
+  margin-bottom:.8em
+}
+
+.tut-nav-tiles li {
+  float: left;
+  width:308px;
+  list-style-type: none;
+  margin:4px;
+  border:1px solid #ccc;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}
+
+.tut-nav-tiles li:hover {
+  border: 1px solid #a09c65;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}
+
+.tut-nav-tiles li a {
+  display: block;
+  padding:4px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}
+
+.tut-nav-tiles li a:hover {
+  background-color: #ddd;
+}
+
+.tut-nav-tile-title {
+  display: block;
+  font-size:18px;
+}
+.svg-chapter-entry-exp {
+  display: block;
+  font-size: 0.8em;
+  margin-bottom:8px;
+}
+
+.svg-chapter-page {
+  display: block;
+  font-size: 0.5em;
+}
+
+.center {
+	text-align:center;
+}
+
+.svgopt {
+	color:green;
+}
+
+.svg-colors-legend {
+	padding-left: 5px;
+	margin: 0 0 1em 0em;
+	border-left: 2px solid #ccc;
+}
+
+.center-italic {
+	text-align:center;
+	font-style:italic;
+}
+
+.code-sample {
+	font-family: monospace;
+	padding:8px 8px;
+	background-color:#eee;
+	-moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    margin-top: 1em;
+}
+
+.apike-quote {
+	color: #1d2827;
+	padding:8px 8px;
+	background-color:#eee;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	margin-top: 1em;
+}
+
+#content tbody {
+	border-width:0;
+}
+
+.svg-tbl {
+	background-color:#EEEEEE; 
+	border:2px solid #777777;
+	
+}
+
+.svg-tbl thead {
+	background-color:#BBBBBB;
+}
+
+.svg-tbl td {
+	padding: 4px;
+}
+
+
+.svg-tbl-title {
+	
+	font-weight: bold;
+}
+
+.svg-tbl-att {
+	font-weight: bold;
+}
+
+.svg-tbl-mid-div {
+	font-size:18px;
+}
+
+.svg-color-patch {
+	display:inline-block;
+	width:15px;
+	height:15px;
+	border:1px solid black;
+}
+
+.code-exp, .img-exp {
+	margin-bottom: 1em;
+	padding:8px 0;
+	font-family:sans-serif;
+	font-size: 12px;
+}
+
+.img-full {
+	padding:8px 0;
+}
+
+.apike-h3-tag {
+	color: #ccc;
+	z-index: 0;
+	float: right;
+	display: block;
+	font-family: sans-serif;
+	font-size: 12px;
+}
+
+.apike-h3-tag a {
+	color: #3660C1;
+}
+
+.apike-h3-tag a:hover {
+	color: #000;
+}
+
+.apike-social-ad {
+	float:right;
+	width: 468px;
+	height: 60px;
+	background-color:#eee;
+}
+
+.apike-img-link-holder {
+	z-index: 5;
+	position: absolute;
+	top: 0px;
+	color: #000;
+	background-color: #eee;
+	background-color:rgba(240,240,240,.9);
+	border: 1px solid #555;
+	padding: 3px;
+	right:0px;
+}
+
+.apike-api-section {
+	border-bottom: 1px solid #555;
+	margin-bottom: 15px;
+	padding-bottom: 15px;
+}
+
+.apike-api-explanation {
+	margin-left:10px;
+}
+
+.apike-api-right {
+	float:right;
+}
+
+.apike-api-type-text {
+	font-weight:bold;
+}
+
+.apike-api-item {
+	font-size: 15px;
+	color: #1d2827;
+	font-family: monospace;
+}
+
+.apike-api-toggle-alt {
+	float: right;
+	font-size: 12px;
+	position: relative;
+	top: -20px;
+	height: 0;
+}

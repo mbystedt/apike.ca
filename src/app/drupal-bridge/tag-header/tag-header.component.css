@@ -1,0 +1,11 @@
+button {
+  margin-bottom: 10px;
+}
+
+@media (min-width: 700px) {
+  button {
+    float: right;
+    margin-bottom: 0;
+  }
+}
+

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+    "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+         width="640" height="210"
+         viewBox="0 0 640 210"  >
+	
+	<!-- Matthew Bystedt http://apike.ca 2014 -->
+	
+	<!-- Pattern Definition -->
+	<defs>
+		<pattern id="checkerPattern" patternUnits="userSpaceOnUse"
+				x="0" y="0" width="20" height="20"
+				viewBox="0 0 10 10" >
+				
+			<rect x="0" y="0" width="5" height="5" fill="#eee" />
+			<rect x="5" y="5" width="5" height="5" fill="#eee" />
+		</pattern>
+    
+    <path id="joinPath" d="M-25,-20 L25,0 L-25,20"  fill="none"/>
+    <path id="joinPath2" d="M-25,-15 L25,0 L-25,15"  fill="none"/>
+    <path id="joinPath3" d="M-25,-10 L25,0 L-25,10"  fill="none"/>
+	</defs>
+
+	<!-- Background -->
+	<rect x="0" y="0" width="100%" height="100%" fill="url(#checkerPattern)" />
+	
+	<!-- Line Join Examples -->
+	
+	<g transform="translate(0, 40)">
+    <g stroke="black" stroke-width="15px">
+      <use x="160px" y="0" xlink:href="#joinPath" stroke-linejoin="miter" stroke-miterlimit="2" />
+      <use x="320px" y="0" xlink:href="#joinPath" stroke-linejoin="miter" stroke-miterlimit="3" />
+      <use x="480px" y="0" xlink:href="#joinPath" stroke-linejoin="miter" stroke-miterlimit="4" />
+    </g>
+  
+    <g stroke="skyblue" stroke-width="2px" stroke-linecap="butt">
+      <use x="160px" y="0" xlink:href="#joinPath" />
+      <use x="320px" y="0" xlink:href="#joinPath" />
+      <use x="480px" y="0" xlink:href="#joinPath" />
+    </g>
+	</g>
+	
+	<g transform="translate(0, 100)">
+    <g stroke="black" stroke-width="15px">
+      <use x="160px" y="0" xlink:href="#joinPath2" stroke-linejoin="miter" stroke-miterlimit="2" />
+      <use x="320px" y="0" xlink:href="#joinPath2" stroke-linejoin="miter" stroke-miterlimit="3" />
+      <use x="480px" y="0" xlink:href="#joinPath2" stroke-linejoin="miter" stroke-miterlimit="4" />
+    </g>
+  
+    <g stroke="skyblue" stroke-width="2px" stroke-linecap="butt">
+      <use x="160px" y="0" xlink:href="#joinPath2" />
+      <use x="320px" y="0" xlink:href="#joinPath2" />
+      <use x="480px" y="0" xlink:href="#joinPath2" />
+    </g>
+	</g>
+	
+	<g transform="translate(0, 160)">
+    <g stroke="black" stroke-width="15px">
+      <use x="160px" y="0" xlink:href="#joinPath3" stroke-linejoin="miter" stroke-miterlimit="2" />
+      <use x="320px" y="0" xlink:href="#joinPath3" stroke-linejoin="miter" stroke-miterlimit="3" />
+      <use x="480px" y="0" xlink:href="#joinPath3" stroke-linejoin="miter" stroke-miterlimit="4" />
+    </g>
+  
+    <g stroke="skyblue" stroke-width="2px" stroke-linecap="butt">
+      <use x="160px" y="0" xlink:href="#joinPath3" />
+      <use x="320px" y="0" xlink:href="#joinPath3" />
+      <use x="480px" y="0" xlink:href="#joinPath3" />
+    </g>
+	</g>
+	
+	<g text-anchor="middle" font-size="15px">
+	<text x="160px" y="200px">stroke-miterlimit="2"</text>
+	<text x="320px" y="200px">stroke-miterlimit="3"</text>
+	<text x="480px" y="200px">stroke-miterlimit="4"</text>
+  </g>
+</svg>

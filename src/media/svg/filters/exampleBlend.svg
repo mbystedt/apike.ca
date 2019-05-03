@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+    "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+         width="640" height="640"
+         viewBox="0 0 640 640" >
+	
+	<!-- Matthew Bystedt http://apike.ca 2014 -->
+	
+	<defs>
+		<!-- Pattern Definition -->
+		<pattern id="checkerPattern" patternUnits="userSpaceOnUse"
+				x="0" y="0" width="20" height="20"
+				viewBox="0 0 10 10" >
+				
+			<line x1="0" y1="0" x2="10" y2="0" stroke="lightblue" fill="none" stroke-dasharray="2,2" />
+			<line x1="0" y1="0" x2="0" y2="10" stroke="lightblue" fill="none" stroke-dasharray="2,2" />
+		</pattern>
+		
+		<!-- Filter Definition -->
+		
+		<!-- This would be a nicer way to do this but Firefox does not support feImage fragments -->
+		<!--
+    <filter id="blendNorm" x="0" y="0" width="280" height="230" filterUnits="userSpaceOnUse">
+      <feImage xlink:href="#img1" result="img1" />
+      <feImage xlink:href="#img2" result="img2" />
+      <feBlend mode="normal" in="img1" in2="img2"/>
+    </filter>
+		
+		<filter id="blendMultiply" x="0" y="0" width="250" height="250" filterUnits="userSpaceOnUse">
+			<feImage xlink:href="#img1" result="img1" />
+			<feImage xlink:href="#img2" result="img2" />
+			<feBlend mode="multiply" in="img1" in2="img2"/>
+		</filter>
+		
+		<filter id="blendScreen" x="0" y="0" width="250" height="250" filterUnits="userSpaceOnUse">
+			<feImage xlink:href="#img1" result="img1" />
+			<feImage xlink:href="#img2" result="img2" />
+			<feBlend mode="screen" in="img1" in2="img2"/>
+		</filter>
+		
+		<filter id="blendDarken" x="0" y="0" width="250" height="250" filterUnits="userSpaceOnUse">
+			<feImage xlink:href="#img1" result="img1" />
+			<feImage xlink:href="#img2" result="img2" />
+			<feBlend mode="darken" in="img1" in2="img2"/>
+		</filter>
+		
+		<filter id="blendLighten" x="0" y="0" width="250" height="250" filterUnits="userSpaceOnUse">
+			<feImage xlink:href="#img1" result="img1" />
+			<feImage xlink:href="#img2" result="img2" />
+			<feBlend mode="lighten" in="img1" in2="img2"/>
+		</filter>
+		
+    <image id="img1" x="0" y="0" width="200" height="180" xlink:href="nara-soni.jpg" />
+    <image id="img2" x="50" y="40" width="200" height="180" xlink:href="onomichi.jpg" />
+		-->
+		
+		<filter id="blendNorm" x="0" y="0" width="280" height="230" filterUnits="userSpaceOnUse">
+      <feImage x="0" y="0" width="200" height="180" xlink:href="nara-soni.jpg" result="img1" />
+      <feImage x="50" y="40" width="200" height="180" xlink:href="onomichi.jpg" result="img2" />
+      <feBlend mode="normal" in="img1" in2="img2"/>
+    </filter>
+		
+		<filter id="blendMultiply" x="0" y="0" width="250" height="250" filterUnits="userSpaceOnUse">
+			<feImage x="0" y="0" width="200" height="180" xlink:href="nara-soni.jpg" result="img1" />
+			<feImage x="50" y="40" width="200" height="180" xlink:href="onomichi.jpg" result="img2" />
+			<feBlend mode="multiply" in="img1" in2="img2"/>
+		</filter>
+		
+		<filter id="blendScreen" x="0" y="0" width="250" height="250" filterUnits="userSpaceOnUse">
+			<feImage x="0" y="0" width="200" height="180" xlink:href="nara-soni.jpg" result="img1" />
+			<feImage x="50" y="40" width="200" height="180" xlink:href="onomichi.jpg" result="img2" />
+			<feBlend mode="screen" in="img1" in2="img2"/>
+		</filter>
+		
+		<filter id="blendDarken" x="0" y="0" width="250" height="250" filterUnits="userSpaceOnUse">
+			<feImage x="0" y="0" width="200" height="180" xlink:href="nara-soni.jpg" result="img1" />
+			<feImage x="50" y="40" width="200" height="180" xlink:href="onomichi.jpg" result="img2" />
+			<feBlend mode="darken" in="img1" in2="img2"/>
+		</filter>
+		
+		<filter id="blendLighten" x="0" y="0" width="250" height="250" filterUnits="userSpaceOnUse">
+			<feImage x="0" y="0" width="200" height="180" xlink:href="nara-soni.jpg" result="img1" />
+			<feImage x="50" y="40" width="200" height="180" xlink:href="onomichi.jpg" result="img2" />
+			<feBlend mode="lighten" in="img1" in2="img2"/>
+		</filter>
+
+	</defs>
+
+	<!-- Background -->
+	<rect x="0" y="0" width="100%" height="100%" fill="url(#checkerPattern)" />
+	
+	<!-- Gaussian Examples -->
+	
+  <g transform="translate(40)">
+    <g filter="url(#blendNorm)" transform="translate(0)"></g>
+    <g filter="url(#blendMultiply)" transform="translate(300)"></g>
+    <g filter="url(#blendScreen)" transform="translate(0, 210)"></g>
+    <g filter="url(#blendDarken)" transform="translate(300, 210)"></g>
+    <g filter="url(#blendLighten)" transform="translate(0, 420)"></g>
+  </g>
+  
+  <text x="40" y="20">mode="normal"</text>
+  <text x="340" y="20">mode="multiply"</text>
+  <text x="40" y="230">mode="screen"</text>
+  <text x="340" y="230">mode="darken"</text>
+  <text x="40" y="440">mode="lighten"</text>
+	
+</svg>

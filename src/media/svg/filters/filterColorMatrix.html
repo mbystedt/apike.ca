@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" lang="en" xml:lang="en">
+<head>
+<title>Embedded SVG</title>
+</head>
+
+<link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.10.4.custom.min.css">
+<link rel="stylesheet" href="css/embed.css">
+
+<script type="text/javascript" src="js/underscore.min.js"></script>
+<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.10.4.custom.min.js"></script>
+<script type="text/javascript" src="js/jquery.ui.touch-punch.min.js"></script>
+
+<script type="text/javascript">
+	$(function() {
+		function showFilter(type, value) {
+			
+			if (type == "saturate") {
+				$("#saturate-text").text(value);
+			} else if (type == "hueRotate") {
+				$("#hue-rotate-text").text(value);
+			}
+			
+			
+			$("#filterText").val(
+				'<filter id="colorMatrix">\n' +
+					'  <feColorMatrix type="' + type +'" values="' + value + '"/>\n' +
+				'</filter>');
+		}
+		
+		showFilter('saturate', .5);
+		
+		function showSaturationFilter(event, ui) {
+			var gaussFilterElem = document.getElementById("feColorMatrix");
+			var values = ui.value/100;
+			
+			gaussFilterElem.setAttributeNS(null, "type", "saturate" );
+			gaussFilterElem.setAttributeNS(null, "values", values );
+			showFilter('saturate', values);
+		}
+		
+		function showHueRotateFilter(event, ui) {
+			var gaussFilterElem = document.getElementById("feColorMatrix");
+			var values = ui.value;
+			
+			gaussFilterElem.setAttributeNS(null, "type", "hueRotate" );
+			gaussFilterElem.setAttributeNS(null, "values", values );
+			showFilter('hueRotate', values);
+		}
+
+		function showLuminanceFilter(event, ui) {
+			var gaussFilterElem = document.getElementById("feColorMatrix");
+			
+			gaussFilterElem.setAttributeNS(null, "type", "luminanceToAlpha" );
+			gaussFilterElem.setAttributeNS(null, "values", "" );
+			showFilter('luminanceToAlpha', "");
+		}
+		
+		function setMatrix(newValues) {
+		  var matrixInputs = $("#tabs-4 input");
+			matrixInputs.each(function(index) {
+			  $(this).val(newValues[index]);
+			});
+		}
+		
+		function isNumber(n) {
+			return !isNaN(parseFloat(n)) && isFinite(n);
+		}
+		
+		function showMatrixFilter(event, ui) {
+			var gaussFilterElem = document.getElementById("feColorMatrix");
+			var matrixValue = "";
+			var matrixInputs = $("#tabs-4 input");
+			matrixInputs.each(function(index) {
+				var val = $(this).val();
+				
+				if (!isNumber(val)) {
+					$(this).val(0);
+					val = 0;
+				}
+				
+				if (index == 0) {
+					matrixValue = val;
+				} else {
+					matrixValue += " " + val;
+					if (index != 19 && ((index+1) % 5) == 0) {
+						matrixValue += ",";
+					}
+				}
+			});
+			
+			$("#rCalc").text(
+				"r*" + $(matrixInputs[0]).val() + 
+				" + g*" + $(matrixInputs[1]).val() + 
+				" + b*" + $(matrixInputs[2]).val() + 
+				" + a*" + $(matrixInputs[3]).val() + 
+				" + 1*" + $(matrixInputs[4]).val());
+			
+			gaussFilterElem.setAttributeNS(null, "type", "matrix" );
+			gaussFilterElem.setAttributeNS(null, "values", matrixValue );
+			showFilter('matrix', matrixValue);
+		}
+		
+		$("#tabs-4 input").change(showMatrixFilter);
+				
+		$( "#tabs" ).tabs({
+			activate: function( event, ui ) {
+				var active = $( "#tabs" ).tabs( "option", "active" );
+				
+				if (active == 0) {
+					showSaturationFilter(event, {value: $("#slider-saturation").slider( "value" )});
+				} else if (active == 1) {
+					showHueRotateFilter(event, {value: $("#slider-hue-rotate").slider( "value" )});
+				} else if (active == 2) {
+					showLuminanceFilter(event, null);
+				} else if (active == 3) {
+					showMatrixFilter(event, null);
+				}
+			}
+		});
+		
+      $( "#slider-saturation" ).slider({
+          min: 0,
+          max: 100,
+          value: 50,
+          slide: showSaturationFilter
+      });
+      
+      $( "#slider-hue-rotate" ).slider({
+          min: 0,
+          max: 360,
+          value: 30,
+          slide: showHueRotateFilter
+      });
+      
+      $("#convertSaturate").button().click(function(event) {
+        var s = $( "#slider-saturation" ).slider("option", "value")/100;
+        setMatrix(_.map([
+          0.213+0.787*s, 0.715-0.715*s, 0.072-0.072*s, 0, 0,
+          0.213-0.213*s, 0.715+0.285*s, 0.072-0.072*s, 0, 0,
+          0.213-0.213*s, 0.715-0.715*s, 0.072+0.928*s, 0, 0,
+          0, 0, 0, 1, 0], function(v) { return Math.round(v*1000)/1000; }));
+        $( "#tabs" ).tabs("option", "active", 3);
+        
+        event.preventDefault();
+
+      });
+      
+      $("#convertHueRotate").button().click(function(event) {
+        event.preventDefault();
+        var s = $( "#slider-hue-rotate" ).slider("option", "value") * (Math.PI / 180);
+        
+        var base = [
+          +0.213, +0.715, +0.072,
+          +0.213, +0.715, +0.072,
+          +0.213, +0.715, +0.072];
+        
+        var cosTerm = [
+          +0.787, -0.715, -0.072,
+          -0.213, +0.285, -0.072,
+          -0.213, -0.715, +0.928];
+          
+        var sinTerm = [
+          -0.213, -0.715, +0.928,
+          +0.143, +0.140, -0.283,
+          -0.787, +0.715, +0.072];
+        
+        var cv = _.map(base, function(v, k) {
+          return v + Math.cos(s) * cosTerm[k] + Math.sin(s) * sinTerm[k]
+        });
+        
+        setMatrix(_.map([
+          cv[0], cv[1], cv[2], 0, 0,
+          cv[3], cv[4], cv[5], 0, 0,
+          cv[6], cv[7], cv[8], 0, 0,
+          0, 0, 0, 1, 0], function(v) { return Math.round(v*1000)/1000; }));
+        $( "#tabs" ).tabs("option", "active", 3);
+      });
+      
+      $("#convertLumToAlpha").button().click(function(event) {
+        event.preventDefault();
+        setMatrix([
+          0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0,
+          0.2125, 0.7154, 0.0721, 0, 0]);
+        $( "#tabs" ).tabs("option", "active", 3);
+      });
+      
+      
+        
+    });
+</script>
+
+<body>
+
+<div class="content">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink"
+    id="svg-doc"
+    width="630" height="350"
+	viewBox="0 0 630 350" 
+    zoomAndPan="disable" >
+    <!-- Pattern Definition -->
+	<defs>
+		<pattern id="checkerPattern" patternUnits="userSpaceOnUse"
+				x="0" y="0" width="20" height="20"
+				viewBox="0 0 10 10" >
+				
+			<line x1="0" y1="0" x2="10" y2="0" stroke="lightblue" fill="none" stroke-dasharray="2,2" />
+			<line x1="0" y1="0" x2="0" y2="10" stroke="lightblue" fill="none" stroke-dasharray="2,2" />
+		</pattern>
+        
+        <!-- Filter Definition -->
+		<filter id="colorMatrix">
+			<feColorMatrix id="feColorMatrix" type="saturate" values=".5" />
+		</filter>
+
+	</defs>
+
+	<!-- Background -->
+	<rect x="0" y="0" width="100%" height="100%" fill="url(#checkerPattern)" />
+	
+	<text x="10" y="30">Source</text>
+	<image x="10" y="40" width="150" height="100" xlink:href="images/dragonfly.jpg" />
+	
+	<text x="195" y="30">Result</text>
+	<image x="195" y="40" width="400" height="268" xlink:href="images/dragonfly.jpg" filter="url(#colorMatrix)" />
+</svg>
+
+<div id="tabs" style="width:620px">
+	<ul>
+		<li><a href="#tabs-1">Saturate</a></li>
+		<li><a href="#tabs-2">Hue Rotate</a></li>
+		<li><a href="#tabs-3">Luminance To Alpha</a></li>
+		<li><a href="#tabs-4">Matrix</a></li>
+	</ul>
+	<div id="tabs-1" class="tabContent">
+		<p>Saturation: <span id="saturate-text">.5</span></p>
+		<div id="slider-saturation" class="slider-margin"></div>
+		
+		<button id="convertSaturate" class="convert-button">Convert to Matrix</button>
+	</div>
+	
+	<div id="tabs-2" class="tabContent">
+		<p>Hue Rotation: <span id="hue-rotate-text">30</span></p>
+		<div id="slider-hue-rotate" class="slider-margin"></div>
+		
+		<button id="convertHueRotate" class="convert-button">Convert to Matrix</button>
+	</div>
+	
+	<div id="tabs-3" class="tabContent">
+		<p>No attributes</p>
+		
+		<button id="convertLumToAlpha" class="convert-button">Convert to Matrix</button>
+	</div>
+	
+	<div id="tabs-4" class="tabContent">
+		<p>Matrix: </p>
+		<div class="colorMatrix">
+		<div>|<input name="r1" type="number" step="0.1" value="1" /><input name="r2" type="number" step="0.1" value="0" /><input name="r3" type="number" step="0.1" value="0" /><input name="r4" type="number" step="0.1" value="0" /><input name="r5" type="number" step="0.1" value="0" />| <span class="matrix-calc">R = <span id="rCalc"></span></span></div>
+		<div>|<input name="g1" type="number" step="0.1" value="0" /><input name="g2" type="number" step="0.1" value="1" /><input name="g3" type="number" step="0.1" value="0" /><input name="g4" type="number" step="0.1" value="0" /><input name="g5" type="number" step="0.1" value="0" />|</div>
+		<div>|<input name="b1" type="number" step="0.1" value="0" /><input name="b2" type="number" step="0.1" value="0" /><input name="b3" type="number" step="0.1" value="1" /><input name="b4" type="number" step="0.1" value="0" /><input name="b5" type="number" step="0.1" value="0" />|</div>
+		<div>|<input name="a1" type="number" step="0.1" value="0" /><input name="a2" type="number" step="0.1" value="0" /><input name="a3" type="number" step="0.1" value="0" /><input name="a4" type="number" step="0.1" value="1" /><input name="a5" type="number" step="0.1" value="0" />|</div>
+		</div>
+	</div>
+</div>
+
+<textarea id="filterText"></textarea>
+</div>
+
+</body>
+</html>

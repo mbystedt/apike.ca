@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+    "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+         width="640" height="270"
+         viewBox="0 0 640 270"  >
+	
+	<!-- Matthew Bystedt http://apike.ca 2012 -->
+	
+	<!-- Pattern Definition -->
+	<defs>
+		<pattern id="rulerPattern" patternUnits="userSpaceOnUse"
+				x="0" y="0" width="10" height="10"
+				viewBox="0 0 10 10" >
+				
+			<line x1="0" y1="0" x2="10" y2="0" stroke="lightblue" fill="none" stroke-dasharray="2,2" />
+			<line x1="0" y1="0" x2="0" y2="10" stroke="lightblue" fill="none" stroke-dasharray="2,2" />
+		</pattern>
+	</defs>
+
+	<!-- Background -->
+	<rect x="0" y="0" width="100%" height="100%" fill="url(#rulerPattern)" />
+	
+	<!-- glyph-orientation-horizontal -->
+	<text x="40" y="30" font-size="20">glyph-orientation-horizontal</text>
+	<g fill="blue" font-size="20" >
+		<text x="60" y="70" glyph-orientation-horizontal="0">0 degrees</text>
+		<text x="60" y="120" glyph-orientation-horizontal="90">90 degrees</text>
+		<text x="60" y="170" glyph-orientation-horizontal="180">180 degrees</text>
+		<text x="60" y="220" glyph-orientation-horizontal="270">270 degrees</text>
+	</g>
+	
+	<text x="600" y="10" font-size="20" writing-mode="tb-rl">glyph-orientation-vertical</text>
+  <g fill="blue" font-size="20" writing-mode="tb-rl">
+    <text x="370" y="20" glyph-orientation-vertical="auto">auto</text>
+    <text x="410" y="20" glyph-orientation-vertical="0">0 degrees</text>      
+    <text x="450" y="20" glyph-orientation-vertical="90">90 degrees</text>
+    <text x="490" y="20" glyph-orientation-vertical="180">180 degrees</text>
+    <text x="540" y="20" glyph-orientation-vertical="270">270 degrees</text>
+  </g>
+</svg>

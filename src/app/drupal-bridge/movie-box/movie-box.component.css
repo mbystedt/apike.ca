@@ -1,0 +1,38 @@
+
+.moviebox-container {
+  border-top: 1px solid #BBBBBB;
+  border-bottom: 1px solid #BBBBBB;
+  background-color:#FFFDEE;
+  display: flex;
+}
+
+
+.moviebox-container > .moviebox-left {
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: 10em;
+  padding: 0.4em;
+}
+
+.moviebox-container > .moviebox-right {
+  flex-grow: 1;
+  padding: 0.4em;
+}
+
+.moviebox-right-img {
+  float: right;
+  margin-left:0.4em;
+}
+
+.moviebox-moredata {
+  display: flex;
+
+  font-size:0.8em;
+  text-align:center;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+.moviebox-moredata > * {
+  flex-grow: 1;
+}

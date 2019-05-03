@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+    "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+         width="220" height="110"
+         viewBox="0 0 440 220"  >
+	
+	<!-- Matthew Bystedt http://apike.ca 2012 -->
+	
+	<!-- Pattern Definition -->
+	<defs>
+		<pattern id="checkerPattern" patternUnits="userSpaceOnUse"
+				x="0" y="0" width="20" height="20"
+				viewBox="0 0 10 10" >
+				
+			<rect x="0" y="0" width="5" height="5" fill="lightblue" />
+			<rect x="5" y="5" width="5" height="5" fill="lightblue" />
+		</pattern>
+        
+        <g id="circles">
+            <g stroke="white" stroke-width="2" >
+                <circle cx="100" cy="50" r="50" fill="rgb(255,0,0)" />
+                <circle cx="50" cy="136.60254037844" r="50" fill="rgb(0,255,0)" />
+                <circle cx="150" cy="136.60254037844" r="50" fill="rgb(0,0,255)" />
+            </g>
+            <text x="100" y="50" fill="black" font-size="25" text-anchor="middle">Red</text>
+            <text x="50" y="136.60254037844" fill="black" font-size="25" text-anchor="middle">Green</text>
+            <text x="150" y="136.60254037844" fill="white" font-size="25" text-anchor="middle">Blue</text>
+        </g>
+        
+        <mask id="myMask">
+            <use xlink:href="#circles" />
+        </mask>
+	</defs>
+
+	<!-- Background -->
+	<rect x="0" y="0" width="100%" height="100%" fill="url(#checkerPattern)" opacity=".5"/>
+	
+	<!-- Example -->
+	<rect x="0" y="0" width="100%" height="100%" fill="black" mask="url(#myMask)" transform="translate(220) "/>
+    
+    <use xlink:href="#circles" x="10" />
+
+    <text x="110" y="210" fill="black"  font-size="25" text-anchor="middle">Mask</text>
+    <text x="320" y="210" fill="black"  font-size="25" text-anchor="middle">Result(Mask+Black)</text>
+    
+    
+</svg>

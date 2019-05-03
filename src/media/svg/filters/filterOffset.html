@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" lang="en" xml:lang="en">
+<head>
+<title>Embedded SVG</title>
+</head>
+
+<link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.10.4.custom.min.css">
+<link rel="stylesheet" href="css/embed.css">
+
+<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.10.4.custom.min.js"></script>
+<script type="text/javascript" src="js/jquery.ui.touch-punch.min.js"></script>
+
+
+<script type="text/javascript">
+	$(function() {
+		function showFilter(xPos, yPos) {
+			
+			$("#filterText").val(
+				'<filter id="dropShadow">\n' +
+				'  <feGaussianBlur in="SourceAlpha" stdDeviation="3" result="blur"/>\n' +
+				'  <feOffset id="offset" in="blur" dx="' + xPos + '" dy="' + yPos + '" result="offsetBlur"/>\n' +
+				'  <feMerge>\n' +
+				'    <feMergeNode in="offsetBlur"/>\n' +
+				'    <feMergeNode in="SourceGraphic"/>\n' +
+				'  </feMerge>\n' +
+				'</filter>');
+		}
+		
+		showFilter(3,3);
+		
+        $( "#slider-x" ).slider({
+            min: -100,
+            max: 100,
+            value: 30,
+            slide: function( event, ui ) {
+            	var offsetFilterElem = document.getElementById("offset");
+				var x = ui.value/10;
+            	var y = offsetFilterElem.getAttribute("dy");
+            	$("#x-text").text(x);
+				
+				offsetFilterElem.setAttributeNS(null, "dx", x );
+				showFilter(x, y);
+			}
+        });
+        
+        $( "#slider-y" ).slider({
+            min: -100,
+            max: 100,
+            value: 30,
+            slide: function( event, ui ) {
+            	var offsetFilterElem = document.getElementById("offset");
+            	var x = offsetFilterElem.getAttribute("dx");
+				var y = ui.value/10;
+				$("#y-text").text(y);
+				
+				offsetFilterElem.setAttributeNS(null, "dy", y );
+				showFilter(x, y);
+			}
+        });
+    });
+</script>
+
+<body>
+
+<div class="content">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink"
+    id="svg-doc"
+    width="630" height="60"
+	viewBox="0 0 630 60" 
+    zoomAndPan="disable" >
+	<defs>
+		<!-- Pattern Definition -->
+		<pattern id="checkerPattern" patternUnits="userSpaceOnUse"
+				x="0" y="0" width="20" height="20"
+				viewBox="0 0 10 10" >
+				
+			<line x1="0" y1="0" x2="10" y2="0" stroke="lightblue" fill="none" stroke-dasharray="2,2" />
+			<line x1="0" y1="0" x2="0" y2="10" stroke="lightblue" fill="none" stroke-dasharray="2,2" />
+		</pattern>
+		
+		<!-- Drop shadow filter -->
+		<filter id="dropShadow">
+			<!-- Blur the source alpha to make a nice shadow. -->
+			<feGaussianBlur in="SourceAlpha" stdDeviation="3" result="blur"/>
+			<!-- Move the shadow over a bit. -->
+			<feOffset id="offset" in="blur" dx="3" dy="3" result="offsetBlur"/>
+			<!-- Put everything together. Blur then graphic. -->
+			<feMerge>
+				<feMergeNode in="offsetBlur"/>
+				<feMergeNode in="SourceGraphic"/>
+			</feMerge>
+		</filter>
+	</defs>
+
+	<!-- Background -->
+	<rect x="0" y="0" width="100%" height="100%" fill="url(#checkerPattern)" />
+	
+	<text x="315" y="40" text-anchor="middle" fill="green" stroke="black" font-size="40" filter="url(#dropShadow)">Look at my beautiful shadow.</text>
+
+</svg>
+
+<p>X: <span id="x-text">3</span></p>
+<div id="slider-x" class="slider-margin"></div>
+<p>Y: <span id="y-text">3</span></p>
+<div id="slider-y" class="slider-margin"></div>
+
+<textarea id="filterText"></textarea>
+</div>
+
+</body>
+</html>

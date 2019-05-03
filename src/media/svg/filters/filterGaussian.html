@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" lang="en" xml:lang="en">
+<head>
+<title>Embedded SVG</title>
+</head>
+
+<link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.10.4.custom.min.css">
+<link rel="stylesheet" href="css/embed.css">
+
+<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.10.4.custom.min.js"></script>
+<script type="text/javascript" src="js/jquery.ui.touch-punch.min.js"></script>
+
+<script type="text/javascript">
+	$(function() {
+		function showFilter(stdDev) {
+			if (stdDev == 0) {
+				$("#stdDev-text").text("0 (Disabled)");
+			} else {
+				$("#stdDev-text").text(stdDev);
+			}
+			$("#filterText").val(
+				'<filter id="gauss" x="-20%" y="-20%" width="140%" height="140%">\n' +
+					'  <feGaussianBlur stdDeviation="' + stdDev + '"/>\n' +
+				'</filter>');
+		}
+		
+		showFilter(2);
+		
+        $( "#slider-range-max" ).slider({
+            min: 0,
+            max: 300,
+            value: 20,
+            slide: function( event, ui ) {
+            	var gaussFilterElem = document.getElementById("gaussStdDev");
+				var stdDev = ui.value/10;
+				
+				gaussFilterElem.setAttributeNS(null, "stdDeviation", stdDev );
+				showFilter(stdDev);
+			}
+        });
+    });
+</script>
+
+<body>
+
+<div class="content">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink"
+    id="svg-doc"
+    width="630" height="350"
+	viewBox="0 0 630 350" 
+    zoomAndPan="disable" >
+    <!-- Pattern Definition -->
+	<defs>
+		<pattern id="checkerPattern" patternUnits="userSpaceOnUse"
+				x="0" y="0" width="20" height="20"
+				viewBox="0 0 10 10" >
+				
+			<line x1="0" y1="0" x2="10" y2="0" stroke="lightblue" fill="none" stroke-dasharray="2,2" />
+			<line x1="0" y1="0" x2="0" y2="10" stroke="lightblue" fill="none" stroke-dasharray="2,2" />
+		</pattern>
+        
+        <!-- Filter Definition -->
+		<filter id="gauss" x="-20%" y="-20%" width="140%" height="140%">
+			<feGaussianBlur id="gaussStdDev" stdDeviation="2"/>
+		</filter>
+
+	</defs>
+
+	<!-- Background -->
+	<rect x="0" y="0" width="100%" height="100%" fill="url(#checkerPattern)" />
+	
+	<text x="10" y="30">Source</text>
+	<image x="10" y="40" width="150" height="99" xlink:href="images/flower.jpg" />
+	
+	<text x="195" y="30">Result</text>
+	<image x="195" y="40" width="400" height="265" xlink:href="images/flower.jpg" filter="url(#gauss)" />
+</svg>
+
+<p>Standard Deviation: <span id="stdDev-text">2</span></p>
+<div id="slider-range-max" class="slider-margin"></div>
+
+<textarea id="filterText"></textarea>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+    "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+         width="640" height="210"
+         viewBox="0 0 640 210" >
+	
+	<!-- Matthew Bystedt http://apike.ca 2014 -->
+	
+	<defs>
+		<!-- Pattern Definition -->
+		<pattern id="checkerPattern" patternUnits="userSpaceOnUse"
+				x="0" y="0" width="20" height="20"
+				viewBox="0 0 10 10" >
+				
+			<rect x="0" y="0" width="5" height="5" fill="#eee" />
+			<rect x="5" y="5" width="5" height="5" fill="#eee" />
+		</pattern> 
+		
+		<!-- Filter Definition -->
+		
+  <filter id="birdArea" x="0" y="0" width="280" height="230" filterUnits="userSpaceOnUse">
+    <feImage x="0" y="40" width="150" height="150" xlink:href="bird.png" />
+    <feComponentTransfer>
+      <feFuncR type="table" tableValues=".8" />
+      <feFuncG type="table" tableValues="0.1" />
+      <feFuncB type="table" tableValues="0.1" />
+      <feFuncA type="identity"/>
+    </feComponentTransfer>
+  </filter>
+  
+  <filter id="SymbolArea" x="0" y="0" width="250" height="250" filterUnits="userSpaceOnUse">
+    <feImage x="30" y="30" width="120" height="120" xlink:href="symbol.png" />
+    <feComponentTransfer>
+      <feFuncR type="table" tableValues="0.1" />
+      <feFuncG type="table" tableValues="0.1" />
+      <feFuncB type="table" tableValues=".8" />
+      <feFuncA type="identity"/>
+    </feComponentTransfer>
+    </filter>
+    
+  <filter id="CombinedAreaXor" x="0" y="0" width="250" height="250" filterUnits="userSpaceOnUse">
+    <feImage x="30" y="30" width="120" height="120" xlink:href="symbol.png" />
+    <feComponentTransfer result="symbol">
+      <feFuncR type="table" tableValues="0.1" />
+      <feFuncG type="table" tableValues="0.1" />
+      <feFuncB type="table" tableValues=".8" />
+      <feFuncA type="identity"/>
+    </feComponentTransfer>
+    <feImage x="0" y="40" width="150" height="150" xlink:href="bird.png" />
+    <feComponentTransfer result="bird">
+      <feFuncR type="table" tableValues=".8" />
+      <feFuncG type="table" tableValues="0.1" />
+      <feFuncB type="table" tableValues="0.1" />
+      <feFuncA type="identity"/>
+    </feComponentTransfer>
+    <feComposite operator="xor" in="bird" in2="symbol" />
+    </filter>
+    
+    <filter id="CombinedAreaIn" x="0" y="0" width="250" height="250" filterUnits="userSpaceOnUse">
+      <feImage x="30" y="30" width="120" height="120" xlink:href="symbol.png" />
+      <feComponentTransfer result="symbol">
+        <feFuncR type="table" tableValues="0.1" />
+        <feFuncG type="table" tableValues="0.8" />
+        <feFuncB type="table" tableValues="0.1" />
+        <feFuncA type="identity"/>
+      </feComponentTransfer>
+      <feImage x="0" y="40" width="150" height="150" xlink:href="bird.png" />
+      <feComponentTransfer result="bird">
+        <feFuncR type="table" tableValues="0.1" />
+        <feFuncG type="table" tableValues="0.8" />
+        <feFuncB type="table" tableValues="0.1" />
+        <feFuncA type="identity"/>
+      </feComponentTransfer>
+      <feComposite operator="in" in="bird" in2="symbol" />
+    </filter>
+	</defs>
+
+	<!-- Background -->
+  <rect x="0" y="0" width="100%" height="100%" fill="url(#checkerPattern)" />
+
+	<!-- Composition Examples -->
+<!--		
+	<image x="20" y="40" width="60" height="60" xlink:href="bird.png" />
+	<image x="220" y="25" width="60" height="60" xlink:href="symbol.png" />
+
+
+	<image x="420" y="25" width="60" height="60" xlink:href="symbol.png" />
+	<image x="410" y="40" width="60" height="60" xlink:href="bird.png" />
+	-->
+  <g transform="translate(50)">
+    <g filter="url(#birdArea)" transform="translate(0)"></g>
+    <g filter="url(#SymbolArea)" transform="translate(200)"></g>
+    <g filter="url(#CombinedAreaXor)" transform="translate(400)"></g>
+    <g filter="url(#CombinedAreaIn)" transform="translate(400)"></g>
+  </g>
+  
+  <g transform="translate(40)">
+    <text x="0" y="20">Only A: Red</text>
+    <text x="200" y="20">Only B: Blue</text>
+    <text x="200" y="200">Neither: Transparent</text>
+    <text x="400" y="20">Both A/B: Green</text>
+  </g>
+	
+</svg>

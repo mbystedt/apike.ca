@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+    "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+         width="320" height="210"
+         viewBox="0 0 640 420"  >
+	
+	<!-- Matthew Bystedt http://apike.ca 2012 -->
+	
+	<!-- Pattern Definition -->
+	<defs>
+		<pattern id="checkerPattern" patternUnits="userSpaceOnUse"
+				x="0" y="0" width="20" height="20"
+				viewBox="0 0 10 10" >
+				
+			<rect x="0" y="0" width="5" height="5" fill="lightblue" />
+			<rect x="5" y="5" width="5" height="5" fill="lightblue" />
+		</pattern>
+        
+        <marker id="myMarker1" viewBox="0 0 10 10" refX="1" refY="5" 
+            markerUnits="strokeWidth" orient="auto"
+              markerWidth="4" markerHeight="3">
+            <polyline id="markerPoly1" points="0,0 10,5 0,10 1,5" fill="orange" />
+        </marker>
+        
+        <marker id="myMarker2" viewBox="0 0 10 10" refX="1" refY="5" 
+            markerUnits="strokeWidth" orient="auto"
+              markerWidth="4" markerHeight="3">
+            <polyline id="markerPoly2" points="2,2 12,7 2,12 3,7" fill="green" />
+        </marker>
+	</defs>	
+	<!-- Background -->
+	<rect x="0" y="0" width="100%" height="100%" fill="url(#checkerPattern)" opacity=".5"/>	
+	
+		<g transform="scale(5) translate(30, 10)">
+			<use width="20" height="20" xlink:href="#markerPoly1" />
+			<g stroke-dasharray="1,.5" stroke-width=".2px">
+				<line x1="1" y1="15" x2="1" y2="-5" stroke="black"/>
+				<line x1="-9" y1="5" x2="11" y2="5" stroke="black"/>
+			</g>
+		</g>
+		<g transform="scale(5) translate(90, 10)">
+			<use width="20" height="20" xlink:href="#markerPoly2" />
+			<g stroke-dasharray="1,.5" stroke-width=".2px">
+				<line x1="1" y1="15" x2="1" y2="-5" stroke="black"/>
+				<line x1="-9" y1="5" x2="11" y2="5" stroke="black"/>
+			</g>
+		</g>
+
+	<!-- Line Example -->
+	<g transform="translate(-60)">
+		<line x1="140" y1="240" x2="270" y2="330" stroke="darkblue" stroke-width="15" marker-end="url(#myMarker1)" />
+		<line x1="440" y1="240" x2="570" y2="330" stroke="darkblue" stroke-width="15" marker-end="url(#myMarker2)" />
+	</g>
+</svg>

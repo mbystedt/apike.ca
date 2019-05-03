@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+    "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+         width="640" height="120"
+         viewBox="0 0 640 120" >
+	
+	<!-- Matthew Bystedt http://apike.ca 2014 -->
+		
+	<defs>
+		<!-- Filter Definition -->
+    <filter id="morphology">
+      <feMorphology in="SourceAlpha" result="morphed" operator="dilate" radius="2" />
+      <feColorMatrix in="morphed" result="recolored" type="matrix" values="-1 0 0 0 1, 0 -1 0 0 1, 0 0 -1 0 1, 0 0 0 1 0"/>
+      <feMerge>
+        <feMergeNode in="recolored"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+		
+		<filter id="busyBackground1" filterUnits="objectBoundingBox" 
+              x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence result="turbulence" type="turbulence" baseFrequency="0.01" numOctaves="2"/>
+      <feColorMatrix in="turbulence" type="matrix" values="0.393 0.349 .272 0 0, .769 .686 .534 0 0, .189 .168 .131 0 0, 0 0 0 1 0"/>
+    </filter>
+    <filter id="busyBackground2" filterUnits="objectBoundingBox" 
+              x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence result="turbulence" type="turbulence" baseFrequency="0.011" seed="4" numOctaves="1"/>
+      <feColorMatrix in="turbulence" type="matrix" values=".189 .168 .131 0 0, .769 .686 .534 0 0, 0.393 0.349 .272 0 0, 0 0 0 1 0"/>
+    </filter>
+	</defs>
+
+	<!-- Background -->
+	<rect x="0" y="0" width="100%" height="100%" filter="url(#busyBackground2)" />
+	<rect x="0" y="0" width="100%" height="100%" filter="url(#busyBackground1)" />
+	
+	<!-- Examples -->
+
+  <g font-size="40" text-anchor="middle">
+    <text x="320" y ="40" filter="url(#morphology)">Morphed text outline!</text>
+    <text x="320" y ="100" stroke="white" stroke-width="2">Stroked text outline!</text>
+  </g>
+  
+</svg>

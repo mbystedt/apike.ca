@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+    "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg onload="init(evt)" xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+         width="400" height="400"
+         viewBox="-50 -50 100 100"  >
+	
+	<!-- Matthew Bystedt http://apike.ca 2012 -->
+	
+<script type="text/ecmascript" xlink:href="threed_Math.js" />
+
+<script type="text/ecmascript"><![CDATA[
+
+    function init(evt) {
+        if ( window.svgDocument == null )
+            svgDocument = evt.target.ownerDocument;
+    }
+	
+	// Model transformation matrix class.
+	var m = new matMath();	
+	// Cam (View) transformation matrix class.
+	var cam = new matMath();
+	
+	// Model-View transformation matrix.
+	var modelViewMatrix = new Array( new Array(), new Array(), new Array(), new Array() );
+	// List of points.
+	var points = new Array(	new Array(), new Array(), new Array(), new Array(), 
+							new Array(), new Array(), new Array(), new Array() );	
+	var W = new Array();
+	var order = new Array();
+	
+	// Resets the points
+	function reset () {
+		points[0][0] = 1.0; points[0][1] = 1.0; points[0][2] = 1.0;
+		points[1][0] = -1.0; points[1][1] = 1.0; points[1][2] = 1.0;
+		points[2][0] = -1.0; points[2][1] = -1.0; points[2][2] = 1.0;
+		points[3][0] = 1.0; points[3][1] = -1.0; points[3][2] = 1.0;
+		
+		points[4][0] = 1.0; points[4][1] = 1.0; points[4][2] = -1.0;
+		points[5][0] = -1.0; points[5][1] = 1.0; points[5][2] = -1.0;
+		points[6][0] = -1.0; points[6][1] = -1.0; points[6][2] = -1.0;
+		points[7][0] = 1.0; points[7][1] = -1.0; points[7][2] = -1.0;
+	}
+
+	// Bad way to do this.
+	function findPlace (fNum) {
+		for (var i = 0; i < 6; i++) {
+			if (order[i] == fNum) {
+				order[i] = NaN;
+				return 5 - i;
+			}
+		}
+		return 0;
+	}
+
+	function draw ( m ) {
+		var document = window.document;
+		
+		if (document.getElementById("side5") == null) {
+			return;
+		}
+		
+		reset();
+		for (var i = 0; i < 8; i++ ) {
+			m.multiplyVector(points[i], modelViewMatrix);
+			
+			// Do perspective calculation
+			W[i] = points[i][2] / 20.0;
+		}
+		
+		order[0] = W[0] + W[1] + W[2] + W[4];
+		order[1] = W[4] + W[5] + W[6] + W[7];
+		order[2] = W[0] + W[1] + W[5] + W[4];
+		order[3] = W[2] + W[3] + W[7] + W[6];
+		order[4] = W[0] + W[3] + W[7] + W[4];
+		order[5] = W[1] + W[2] + W[6] + W[5];
+		
+		order.sort();
+		
+
+		// front side
+		document.getElementById("side" + findPlace( W[0] + W[1] + W[2] + W[4] )).setAttributeNS(null, "points", 
+		points[0][0]/W[0] + "," + points[0][1]/W[0] + " " + 
+		points[1][0]/W[1] + "," + points[1][1]/W[1] + " " + 
+		points[2][0]/W[2] + "," + points[2][1]/W[2] + " " + 
+		points[3][0]/W[3] + "," + points[3][1]/W[3] );
+
+		// back side
+		document.getElementById("side" + findPlace( W[4] + W[5] + W[6] + W[7] )).setAttributeNS(null, "points", 
+		points[4][0]/W[4] + "," + points[4][1]/W[4] + " " + 
+		points[5][0]/W[5] + "," + points[5][1]/W[5] + " " + 
+		points[6][0]/W[6] + "," + points[6][1]/W[6] + " " + 
+		points[7][0]/W[7] + "," + points[7][1]/W[7] );
+
+		// top side
+		document.getElementById("side" + findPlace( W[0] + W[1] + W[5] + W[4] )).setAttributeNS(null, "points", 
+		points[0][0]/W[0] + "," + points[0][1]/W[0] + " " + 
+		points[1][0]/W[1] + "," + points[1][1]/W[1] + " " + 
+		points[5][0]/W[5] + "," + points[5][1]/W[5] + " " + 
+		points[4][0]/W[4] + "," + points[4][1]/W[4] );
+
+		// bottom side
+		document.getElementById("side" + findPlace( W[2] + W[3] + W[7] + W[6] )).setAttributeNS(null, "points", 
+		points[2][0]/W[2] + "," + points[2][1]/W[2] + " " + 
+		points[3][0]/W[3] + "," + points[3][1]/W[3] + " " + 
+		points[7][0]/W[7] + "," + points[7][1]/W[7] + " " + 
+		points[6][0]/W[6] + "," + points[6][1]/W[6] );
+
+		// left side
+		document.getElementById("side" + findPlace( W[0] + W[3] + W[7] + W[4] )).setAttributeNS(null, "points", 
+		points[0][0]/W[0] + "," + points[0][1]/W[0] + " " + 
+		points[3][0]/W[3] + "," + points[3][1]/W[3] + " " + 
+		points[7][0]/W[7] + "," + points[7][1]/W[7] + " " + 
+		points[4][0]/W[4] + "," + points[4][1]/W[4] );
+		
+		// right side
+		document.getElementById("side" + findPlace( W[1] + W[2] + W[6] + W[5] )).setAttributeNS(null, "points", 
+		points[1][0]/W[1] + "," + points[1][1]/W[1] + " " + 
+		points[2][0]/W[2] + "," + points[2][1]/W[2] + " " + 
+		points[6][0]/W[6] + "," + points[6][1]/W[6] + " " + 
+		points[5][0]/W[5] + "," + points[5][1]/W[5] );
+	}
+	
+	function getElement(id, useFirstChild) {
+		var document = window.document;	
+		// Find the node with the specified id
+		var node = document.getElementById(id);
+
+		if ( useFirstChild ) {
+			// Grab first child of node
+			// This is used to get the text node of tspan and text elements
+			elems[id] = node.firstChild;
+		} else {
+			// Don't need first child so use the node we just found
+			elems[id] = node;
+		}
+	}
+
+	var angleX = 0;
+	var angleY = 0;
+	var angleZ = 0;
+
+	UpdateTimer();
+	
+	function UpdateTimer() {
+		m.loadIdentity();
+		cam.loadIdentity();
+
+		cam.translate (0, 0, 3);
+
+		angleZ = angleZ + .02;
+		angleY = angleY + .01;
+		
+		m.rotateX( angleX );
+		m.rotateY( angleY );
+		m.rotateZ( angleZ );
+		m.translate( 0,0,0 );
+		
+		m.multiplyMatrix( 4, 4, cam.getMatrix(), m.getMatrix(), modelViewMatrix);
+		
+		draw(m);
+	
+		setTimeout("UpdateTimer()", 50);
+	}
+		
+]]></script>
+
+	<!-- Pattern Definition -->
+	<defs>
+		<pattern id="checkerPattern" patternUnits="userSpaceOnUse"
+				x="0" y="0" width="20" height="20"
+				viewBox="0 0 10 10" >
+				
+			<rect x="0" y="0" width="5" height="5" fill="lightblue" />
+			<rect x="5" y="5" width="5" height="5" fill="lightblue" />
+		</pattern> 
+	</defs>
+
+	<!-- Background -->
+	<rect id="girl" x="-50" y="-50" width="100%" height="100%" fill="url(#checkerPattern)" />
+	
+<polygon id="side0" opacity="0.5" shape-rendering="optimizeSpeed" points="0,0 0,0" stroke="blue" fill="darkblue" stroke-width="0.2" >
+	<set attributeName="fill" to="blue" begin="mouseover"/>
+	<set attributeName="fill" to="darkblue" begin="mouseout"/>
+</polygon>
+<polygon id="side1" opacity="0.5" shape-rendering="optimizeSpeed" points="0,0 0,0" stroke="blue" fill="darkblue" stroke-width="0.2" >
+	<set attributeName="fill" to="blue" begin="mouseover"/>
+	<set attributeName="fill" to="darkblue" begin="mouseout"/>
+</polygon>
+<polygon id="side2" opacity="0.5" shape-rendering="optimizeSpeed" points="0,0 0,0" stroke="blue" fill="darkblue" stroke-width="0.2" >
+	<set attributeName="fill" to="blue" begin="mouseover"/>
+	<set attributeName="fill" to="darkblue" begin="mouseout"/>
+</polygon>
+<polygon id="side3" opacity="0.5" shape-rendering="optimizeSpeed" points="0,0 0,0" stroke="blue" fill="darkblue" stroke-width="0.2" >
+	<set attributeName="fill" to="blue" begin="mouseover"/>
+	<set attributeName="fill" to="darkblue" begin="mouseout"/>
+</polygon>
+<polygon id="side4" opacity="0.5" shape-rendering="optimizeSpeed" points="0,0 0,0" stroke="blue" fill="darkblue" stroke-width="0.2" >
+	<set attributeName="fill" to="blue" begin="mouseover"/>
+	<set attributeName="fill" to="darkblue" begin="mouseout"/>
+</polygon><polygon id="side5" opacity="0.5" shape-rendering="optimizeSpeed" points="0,0 0,0" stroke="blue" fill="darkblue" stroke-width="0.1" >
+	<set attributeName="fill" to="blue" begin="mouseover"/>
+	<set attributeName="fill" to="darkblue" begin="mouseout"/>
+</polygon>
+	
+	<text x="-50" y="-40" id="track" >3D SVG Demo</text>
+</svg>

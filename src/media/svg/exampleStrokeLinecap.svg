@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+    "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+         width="640" height="160"
+         viewBox="0 0 640 160"  >
+	
+	<!-- Matthew Bystedt http://apike.ca 2014 -->
+	
+	<!-- Pattern Definition -->
+	<defs>
+		<pattern id="checkerPattern" patternUnits="userSpaceOnUse"
+				x="0" y="0" width="20" height="20"
+				viewBox="0 0 10 10" >
+				
+			<rect x="0" y="0" width="5" height="5" fill="#eee" />
+			<rect x="5" y="5" width="5" height="5" fill="#eee" />
+		</pattern>
+    
+    <path id="capPath" d="M-25,-50 L25,0 L-25,50"  fill="none"/>
+	</defs>
+
+	<!-- Background -->
+	<rect x="0" y="0" width="100%" height="100%" fill="url(#checkerPattern)" />
+	
+	<!-- Line Cap Examples -->
+	
+	<g stroke="black" stroke-width="20px">
+    <use x="160px" y="70px" xlink:href="#capPath" stroke-linecap="butt" />
+    <use x="320px" y="70px" xlink:href="#capPath" stroke-linecap="round" />
+    <use x="480px" y="70px" xlink:href="#capPath" stroke-linecap="square" />
+	</g>
+	
+	<g stroke="skyblue" stroke-width="2px" stroke-linecap="butt">
+    <use x="160px" y="70px" xlink:href="#capPath" />
+    <use x="320px" y="70px" xlink:href="#capPath" />
+    <use x="480px" y="70px" xlink:href="#capPath" />
+	</g>
+	
+	<g text-anchor="middle" font-size="20px">
+	<text x="160px" y="150px">butt</text>
+	<text x="320px" y="150px">round</text>
+	<text x="480px" y="150px">square</text>
+  </g>
+</svg>

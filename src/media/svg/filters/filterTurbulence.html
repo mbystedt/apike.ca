@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" lang="en" xml:lang="en">
+<head>
+<title>Embedded SVG</title>
+</head>
+
+<link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.10.4.custom.min.css">
+<link rel="stylesheet" href="css/embed.css">
+
+<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.10.4.custom.min.js"></script>
+<script type="text/javascript" src="js/jquery.ui.touch-punch.min.js"></script>
+<script type="text/javascript" src="js/underscore.min.js"></script>
+
+
+<script type="text/javascript">
+	$(function() {
+		
+		var updateFilter = function () {
+		  var baseFreqText = $("#slider-base-frequency").slider("value")/4000,
+		    numOctaveText = $("#slider-num-octaves").slider("value"),
+		    turbFracElem = document.getElementById("fe-turb-fractal"),
+		    turbTurbElem = document.getElementById("fe-turb-turbulence");
+      
+      $("#base-frequency-text").text(baseFreqText);
+      $("#num-octaves-text").text(numOctaveText);
+      
+      turbFracElem.setAttributeNS(null, "baseFrequency", baseFreqText);
+      turbFracElem.setAttributeNS(null, "numOctaves", numOctaveText);
+      
+      turbTurbElem.setAttributeNS(null, "baseFrequency", baseFreqText);
+      turbTurbElem.setAttributeNS(null, "numOctaves", numOctaveText);
+
+      $("#filterTextLeft").val(
+      '<filter id="fractal" filterUnits="objectBoundingBox"\n' +
+				'  x="0%" y="0%" width="100%" height="100%">\n' + 
+				'  <feTurbulence id="fe-turb-fractal" type="fractalNoise" baseFrequency="' + baseFreqText + '" numOctaves="' + numOctaveText + '"/>\n' +
+				'</filter>');
+				
+      $("#filterTextRight").val(
+				'<filter id="turbu" filterUnits="objectBoundingBox"\n' +
+				'  x="0%" y="0%" width="100%" height="100%">\n' + 
+				'  <feTurbulence id="fe-turb-turbulence" type="fractalNoise" baseFrequency="' + baseFreqText + '" numOctaves="' + numOctaveText + '"/>\n' +
+				'</filter>');
+		}
+		
+    $("#slider-base-frequency").slider({
+      min: 1,
+      max: 1001,
+      value: 10,
+      slide: function() { _.defer(updateFilter) }
+    });
+        
+    $("#slider-num-octaves").slider({
+      min: 1,
+      max: 10,
+      value: 1,
+      slide: function() { _.defer(updateFilter) }
+    });
+    
+    updateFilter();
+
+  });
+</script>
+
+<body>
+
+<div class="content">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink"
+    id="svg-doc"
+    width="630" height="130"
+	viewBox="0 0 630 130" 
+    zoomAndPan="disable" >
+	<defs>
+		<!-- Pattern Definition -->
+		<pattern id="checkerPattern" patternUnits="userSpaceOnUse"
+				x="0" y="0" width="20" height="20"
+				viewBox="0 0 10 10" >
+				
+			<line x1="0" y1="0" x2="10" y2="0" stroke="lightblue" fill="none" stroke-dasharray="2,2" />
+			<line x1="0" y1="0" x2="0" y2="10" stroke="lightblue" fill="none" stroke-dasharray="2,2" />
+		</pattern>
+		
+		<!-- Drop shadow filter -->
+		<filter id="turb-fractal" filterUnits="objectBoundingBox" 
+              x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence id="fe-turb-fractal" type="fractalNoise" baseFrequency="0.1" numOctaves="1"/>
+		</filter>
+		<filter id="turb-turbulence" filterUnits="objectBoundingBox" 
+              x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence id="fe-turb-turbulence" type="turbulence" baseFrequency="0.1" numOctaves="1"/>
+		</filter>
+	</defs>
+
+	<!-- Background -->
+	<rect x="0" y="0" width="100%" height="100%" fill="url(#checkerPattern)" />
+	
+	<rect x="10" y="10" width="300" height="100" filter="url(#turb-fractal)" />
+	<rect x="320" y="10" width="300" height="100" filter="url(#turb-turbulence)" />
+
+  <text x="10" y="130">Fractal</text>
+  <text x="320" y="130">Turbulence</text>
+</svg>
+
+<p>baseFrequency: <span id="base-frequency-text">3</span></p>
+<div id="slider-base-frequency" class="slider-margin"></div>
+<p>numOctaves: <span id="num-octaves-text">3</span></p>
+<div id="slider-num-octaves" class="slider-margin"></div>
+
+<div class="two-col-slider" style="float:right;">
+  <textarea id="filterTextRight"></textarea>
+</div>
+<div class="two-col-slider">
+  <textarea id="filterTextLeft"></textarea>
+</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+    "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+         width="640" height="400"
+         viewBox="0 0 640 400" onload="" >
+	
+	<!-- Matthew Bystedt http://apike.ca 2012 -->
+	
+	<!-- Pattern Definition -->
+	<defs>
+		<pattern id="checkerPattern" patternUnits="userSpaceOnUse"
+				x="0" y="0" width="20" height="20"
+				viewBox="0 0 10 10" >
+				
+			<rect x="0" y="0" width="5" height="5" fill="lightblue" />
+			<rect x="5" y="5" width="5" height="5" fill="lightblue" />
+		</pattern> 
+		
+		<linearGradient id="groundGrad" r="100%" spreadMethod="reflect">
+            <stop offset="5%" stop-color="#323c21" />
+            <stop offset="95%" stop-color="#484b43" />
+        </linearGradient>
+        
+        <radialGradient id="skyGrad" r="100%" fy="70%" spreadMethod="reflect">
+            <stop offset="5%" stop-color="#2d385b" />
+            <stop offset="95%" stop-color="#111522" />
+        </radialGradient>
+        		
+<script type="text/ecmascript"><![CDATA[
+
+var xmlns = "http://www.w3.org/2000/svg";
+var xlinkns = "http://www.w3.org/1999/xlink";
+
+    function moveToBack(layerToMove) {
+    	var monkeyHolder = document.getElementById("monkeyLayers");
+    	
+    	monkeyHolder.removeChild(layerToMove);
+    	
+    	monkeyHolder.insertBefore(layerToMove, monkeyHolder.firstChild);
+    	
+    	displayOrdering();
+    }
+    
+    function displayOrdering() {
+    	var monkeyHolder = document.getElementById("monkeyLayers");
+    	var orderStr = monkeyHolder.firstChild.id;
+    	var i = 0;
+    	
+    	for (i = 1; i < monkeyHolder.childNodes.length; i++) {
+    		if (monkeyHolder.childNodes[i].nodeName != "#text") {
+    			orderStr += ", " + monkeyHolder.childNodes[i].id;
+    		}
+    	}
+    	
+    	document.getElementById("orderTxt").firstChild.data = orderStr;
+    	
+    	console.log(orderStr);
+    }
+]]></script>
+	
+		<clipPath id="mouthClip">
+			<ellipse id="mouthShape" cx="320" cy="300" rx="190" ry="90" fill="wheat" />
+		</clipPath>
+		
+	</defs>
+
+	<!-- Background -->
+	<rect x="0" y="0" width="100%" height="100%" fill="url(#skyGrad)" />
+	
+	<g id="monkeyLayers">
+		<g id="ears" onclick="moveToBack(this)">
+			<circle cx="140" cy="180" r="80" fill="wheat" />
+			<circle cx="500" cy="180" r="80" fill="wheat" />
+		</g>
+		
+		<circle id="face" cx="320" cy="200" r="190" fill="saddlebrown" onclick="moveToBack(this)" />
+		
+		<g id="eyes" onclick="moveToBack(this)">
+			<path d="M 320,340 L170,250 A15 15 0 0 1 320 130 A15 15 0 0 1 470 250 z" fill="burlywood" stroke="black" stroke-width="2" />
+			<circle cx="240" cy="180" r="15" fill="black" />
+			<circle cx="400" cy="180" r="15" fill="black" />
+		</g>
+		
+		<g id="mouth" onclick="moveToBack(this)">
+			<use xlink:href="#mouthShape" />
+			<ellipse cx="320" cy="250" rx="240" ry="90" stroke="black" stroke-width="2" fill="none" clip-path="url(#mouthClip)"  />
+			<line x1="300" y1="240" x2="310" y2="260" stroke="black" stroke-width="2" />
+			<line x1="340" y1="240" x2="330" y2="260" stroke="black" stroke-width="2" />
+		</g>
+	</g>
+	
+	<text id="orderTxt" x="20" y="20" fill="white" font-size="15">Click on monkey to send groups to back.</text>
+</svg>

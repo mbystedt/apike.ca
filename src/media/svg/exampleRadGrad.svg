@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+    "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+         width="100" height="100"
+         viewBox="0 0 200 200" onload="init(evt)">
+	
+	<!-- Matthew Bystedt http://apike.ca 2012 -->
+
+<script type="text/ecmascript"> <![CDATA[
+
+  function init(evt) {
+    svgDocument = evt.target.ownerDocument;
+  }
+  
+  function mouseMove (evt) {
+      svgDocument.getElementById("myRadGrad").setAttributeNS(null, "cx",  evt.clientX/100);
+      svgDocument.getElementById("myRadGrad").setAttributeNS(null, "cy",  evt.clientY/100);
+      window.status = evt.clientX + " - " + evt.clientY;
+  }
+]]> </script>
+
+	<!-- Pattern Definition -->
+	<defs>
+		<pattern id="checkerPattern" patternUnits="userSpaceOnUse"
+				x="0" y="0" width="20" height="20"
+				viewBox="0 0 10 10" >
+				
+			<rect x="0" y="0" width="5" height="5" fill="lightblue" />
+			<rect x="5" y="5" width="5" height="5" fill="lightblue" />
+		</pattern>
+    <radialGradient id="myRadGrad" cx="80%" r="40%" spreadMethod="reflect" >
+      <stop offset="5%" stop-color="red" />
+      <stop offset="95%" stop-color="blue" stop-opacity="0.5" />
+    </radialGradient>
+	</defs>
+
+	<!-- Background -->
+	<rect x="0" y="0" width="100%" height="100%" fill="url(#checkerPattern)" />
+	
+	<!-- Gradient Example -->
+    <rect id="myRect" x="20" y="20" width="160" height="160" fill="url(#myRadGrad)" stroke="black" 
+        stroke-width="2" onmousemove="mouseMove(evt);" >
+    </rect>
+</svg>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+    "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+         width="200" height="200"
+         viewBox="0 0 200 200"  >
+	
+	<!-- Matthew Bystedt http://apike.ca 2012 -->
+	
+	<!-- Pattern Definition -->
+	<defs>
+		<pattern id="rulerPattern" patternUnits="userSpaceOnUse"
+				x="0" y="0" width="10" height="10"
+				viewBox="0 0 10 10" >
+				
+			<line x1="0" y1="0" x2="10" y2="0" stroke="lightblue" fill="none" stroke-dasharray="2,2" />
+			<line x1="0" y1="0" x2="0" y2="10" stroke="lightblue" fill="none" stroke-dasharray="2,2" />
+		</pattern>
+
+        <marker id="marker2" viewBox="0 0 10 10" refX="1" refY="5" 
+            markerUnits="strokeWidth" orient="auto"
+              markerWidth="4" markerHeight="3">
+            <polyline points="0,0 10,5 0,10 1,5" fill="darkgreen" />
+        </marker>
+
+	</defs>
+
+	<!-- Background -->
+	<rect x="0" y="0" width="100%" height="100%" fill="url(#rulerPattern)" stroke="black" />
+
+	<!-- Transform Animation Example -->
+
+	<rect id="startButton" x="120" y="20" width="60" height="20" fill="green" />
+
+    <image id="snow" x="10" y="10" width="40" height="40" xlink:href="../sc-snowflakes7.png" />
+    
+    <animateTransform begin="startButton.click" attributeName="transform" type="translate" from="10,10" to="140,180" dur="5s" additive="sum" fill="freeze" xlink:href="#snow" />
+    <animateTransform begin="startButton.click" attributeName="transform" type="rotate" from="0" to="270" dur="5s" additive="sum" fill="freeze" xlink:href="#snow" />
+
+</svg>
