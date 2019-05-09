@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
+/**
+ * This component displays the page title.
+ */
 @Component({
   selector: 'app-title',
   templateUrl: './title.component.html',
@@ -7,6 +10,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TitleComponent implements OnInit {
 
+  @Input()
   public title: string;
 
   constructor() { }

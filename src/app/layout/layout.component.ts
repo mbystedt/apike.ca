@@ -35,7 +35,7 @@ export class LayoutComponent implements OnInit {
       }
 
     });
-    
+
     this.loading = false;
   }
 

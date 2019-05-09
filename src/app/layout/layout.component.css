@@ -201,6 +201,13 @@
 	.sidenav-container {
 		position: relative;
 		top: 0;
+		/* Fix layering issue with safari */
+		z-index: auto;
+	}
+
+	.sidenav-content {
+		/* Fix layering issue with safari */
+		z-index: auto;
 	}
 
 	.show-desktop-inlineblock {

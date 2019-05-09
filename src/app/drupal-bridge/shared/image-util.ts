@@ -1,6 +1,11 @@
 import { GalleryValue } from '../../service/drupal-bridge/drupal-bridge.service';
 
 export class ImageUtil {
+  /**
+   * Parses a drupal gallery image to generate a textual description.
+   * @param image The image to parse.
+   * @returns The text for the image.
+   */
   public static parseDescription(image: GalleryValue) {
 
     const metaIndex = image.alt.indexOf('/');
@@ -15,6 +20,11 @@ export class ImageUtil {
     };
   }
 
+  /**
+   * Expands the credit string if matches a shortened value.
+   * @param credit The credit string.
+   * @returns The expanded credit string.
+   */
   private static parseCredit(credit: string): string {
     return credit === 'mb' ? 'Matthew Bystedt' : credit;
   }

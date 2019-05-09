@@ -19,7 +19,6 @@ import { HomeComponent } from './home/home.component';
 import { LayoutComponent } from './layout/layout.component';
 import { MaterialModule } from './material.module';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { BridgeHostDirective } from './shared/bridge-host.directive';
 import { SearchComponent } from './drupal-bridge/search/search.component';
 import { SvgColorTableComponent } from './drupal-bridge/svg-color-table/svg-color-table.component';
 import { TagHeaderComponent } from './drupal-bridge/tag-header/tag-header.component';
@@ -31,7 +30,6 @@ import { DrupalUrlPipe } from './shared/drupal-url.pipe';
     LayoutComponent,
     DrupalBridgeComponent,
     NotFoundComponent,
-    BridgeHostDirective,
     RawHtmlComponent,
     TitleComponent,
     UserDisplayComponent,

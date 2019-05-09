@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
+/**
+ * Wraps the angular title service to provide an application specific title.
+ */
 @Injectable({
   providedIn: 'root'
 })

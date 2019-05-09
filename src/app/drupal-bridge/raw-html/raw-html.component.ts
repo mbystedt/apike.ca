@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
@@ -20,30 +20,34 @@ export class RawHtmlComponent implements OnInit {
 
   constructor(private router: Router, private sanitizer: DomSanitizer) { }
 
-  public body: SafeHtml = '';
-
-  public ngOnInit(): void {
-    
+  @Input('body')
+  set body(body: string) {
+    this.safeBody = this.sanitizer.bypassSecurityTrustHtml(this.processHtml(body));
   }
 
-  public setData(data): void {
-    this.body = this.sanitizer.bypassSecurityTrustHtml(this.processHtml(data));
-  }
+  public safeBody: SafeHtml = '';
 
+  public ngOnInit(): void { }
+
+  /**
+   * Handles click events on links so that the application runs as a SPA.
+   * @param event The click event to look at.
+   */
   public onClick(event): void {
+    // Check DOM heirachy for router-href attribute
     for (let elem = event.srcElement; elem !== null; elem = elem.parentElement) {
       if (elem.attributes && elem.attributes['router-href']) {
+        // Navigate to the the url within the SPA
         this.router.navigateByUrl(elem.attributes['router-href'].value);
       }
     }
-    
     event.stopPropagation();
   }
 
   private processHtml(data: string): string {
     const strArr = [];
     for (let startIndex = 0; startIndex >= 0;) {
-      let [str, index] = this.processHtmlStep(data, startIndex);
+      const [str, index] = this.processHtmlStep(data, startIndex);
       strArr.push(str);
       startIndex = index;
     }
@@ -58,7 +62,7 @@ export class RawHtmlComponent implements OnInit {
       }
       const endHrefIndex = data.indexOf('"', startHrefIndex + 8);
       const hrefStr = data.substring(startHrefIndex + 8, endHrefIndex);
-      
+
       if (hrefStr.startsWith('http')) {
         return [data.substring(startIndex, endHrefIndex + 1), endHrefIndex + 1];
       } else {

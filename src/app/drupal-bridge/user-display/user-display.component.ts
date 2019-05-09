@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
+/**
+ * This component displays user by-line.
+ */
 @Component({
   selector: 'app-user-display',
   templateUrl: './user-display.component.html',
@@ -7,12 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserDisplayComponent implements OnInit {
 
+  @Input()
   public user;
+  @Input()
   public date;
 
   constructor() { }
 
-  public ngOnInit(): void {
-  }
-
+  public ngOnInit(): void { }
 }

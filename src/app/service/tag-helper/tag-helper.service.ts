@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Uid } from '../drupal-bridge/drupal-bridge.service';
 
-
-
+// These can be hardcoded because the site doesn't do dynamic tagging.
 const tagToId = {
   anime: 1,
   programming: 2,
@@ -37,18 +36,38 @@ export class TagHelperService {
 
   constructor() { }
 
+  /**
+   * Transforms a tag name to an id.
+   * @param tag The name of the tag.
+   * @returns The id of the tag.
+   */
   public tagToId(tag: string): number {
     return tag in tagToId ? tagToId[tag] : null;
   }
 
+  /**
+   * Transforms a tag id to a name.
+   * @param tagId The id of the tag.
+   * @returns The name of the tag.
+   */
   public idToName(tagId: number): string {
     return tagId in idToName ? idToName[tagId] : 'Unknown';
   }
 
+  /**
+   * Transforms a tag id to a url.
+   * @param tagId The id of the tag.
+   * @returns The url of the tag.
+   */
   public idToUrl(tagId: number): string {
     return tagId in idToUrl ? idToUrl[tagId] : '';
   }
 
+  /**
+   * Creates a mock Drupal structure.
+   * @param tagId The id of the tag.
+   * @returns A mock uid structure for the tag.
+   */
   public idToMockUid(tagId: number): Uid {
     return {
       target_id: tagId,

@@ -7,6 +7,10 @@ import { PageTitleService } from '../service/page-title/page-title.service';
 import { Uid } from '../service/drupal-bridge/drupal-bridge.service';
 import { TagHelperService } from '../service/tag-helper/tag-helper.service';
 
+/**
+ * The 'home' component displays the paginated content from drupal. It's
+ * used for all paginated content like tags and the home page.
+ */
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -21,7 +25,7 @@ export class HomeComponent implements OnInit {
   public index: number;
   public tagName: string;
   public pageSizeOptions = [5, 10, 20, 40];
-  public loading: boolean = false;
+  public loading = false;
 
   public results = [];
   public tag: Uid;
@@ -32,10 +36,10 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private title: PageTitleService,
     private tagHelper: TagHelperService) { }
-  
+
   public ngOnInit(): void {
 
-    this.nodePaginate$ = combineLatest(this.route.queryParamMap, this.route.paramMap).pipe(
+    this.nodePaginate$ = combineLatest([this.route.queryParamMap, this.route.paramMap]).pipe(
       switchMap(([queryParams, params]: ParamMap[]) => {
         // (+) before `params.get()` turns the string into a number
         this.index = queryParams.has('index') ? +queryParams.get('index') : 0;
@@ -43,6 +47,7 @@ export class HomeComponent implements OnInit {
         this.loading = true;
         this.tagName = params.has('name') ?  params.get('name') : null;
         if (this.tagName) {
+          // Necessary because Drupal inexplicably doesn't include this.
           this.tag = this.tagHelper.idToMockUid(this.tagHelper.tagToId(this.tagName));
           this.title.setTitle(`Tag ${this.tagName}`);
         } else {
@@ -53,8 +58,6 @@ export class HomeComponent implements OnInit {
     );
 
     this.nodePaginate$.subscribe((res) => {
-      // console.log(res.pager);
-
       this.length = res.pager.total_items;
       this.pageSize = res.pager.items_per_page;
       this.index = res.pager.current_page;
@@ -65,13 +68,17 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  /**
+   * Handles navigating to tags.
+   * @param event The event to handle.
+   */
   public onPageEvent(event) {
     const navigationExtras: NavigationExtras = {
       queryParams: {
         pageSize: event.pageSize,
         index: event.pageIndex
-      } 
-    }
+      }
+    };
     this.router.navigate([this.tagName ? `tags/${this.tagName}` :  ''], navigationExtras);
   }
 }
