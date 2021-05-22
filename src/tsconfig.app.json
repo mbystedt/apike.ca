@@ -1,9 +1,7 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "downlevelIteration": true,
     "outDir": "../out-tsc/app",
-    "module": "es2015",
     "types": []
   },
   "exclude": [

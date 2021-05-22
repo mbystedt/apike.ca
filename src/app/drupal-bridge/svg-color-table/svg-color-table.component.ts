@@ -162,7 +162,7 @@ export class SvgColorTableComponent implements OnInit {
   public displayedColumns: string[] = ['swatch', 'name', 'rgb', 'hex'];
   public dataSource = new MatTableDataSource(COLOR_DATA);
 
-  @ViewChild(MatPaginator)
+  @ViewChild(MatPaginator, { static: true })
   public paginator: MatPaginator;
 
   constructor() { }

@@ -14,9 +14,9 @@ export class LayoutComponent implements OnInit {
 
   public loading: boolean = true;
 
-  @ViewChild(MatExpansionPanel)
+  @ViewChild(MatExpansionPanel, { static: true })
   private matExpansionPanelComponent: MatExpansionPanel;
-  @ViewChild(MatSidenav)
+  @ViewChild(MatSidenav, { static: true })
   private matSidenavComponent: MatSidenav;
 
   constructor(private router: Router) { }
