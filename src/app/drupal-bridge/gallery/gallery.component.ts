@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery';
+import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from '@kolkov/ngx-gallery';
 import { GalleryValue } from '../../service/drupal-bridge/drupal-bridge.service';
 import { ImageUtil } from '../shared/image-util';
 import { NodeUserService } from 'src/app/service/node-user/node-user.service';
@@ -39,12 +39,14 @@ export class GalleryComponent implements OnInit {
         preview: false
     }
   ];
-  public galleryImages: NgxGalleryImage[];
+  public galleryImages: NgxGalleryImage[] = [];
 
   constructor(private nodeUserServ: NodeUserService) { }
 
   public ngOnInit(): void {
-    this.setImages(this.nodeUserServ.value.node.field_gallery);
+    if (this.nodeUserServ.value) {
+      this.setImages(this.nodeUserServ.value.node.field_gallery);
+    }
   }
 
   private setImages(images: GalleryValue[]): void {

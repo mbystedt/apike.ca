@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router, RouterEvent, NavigationStart, NavigationEnd } from '@angular/router';
-import { MatExpansionPanel, MatSidenav } from '@angular/material';
+import { Router, NavigationStart, NavigationEnd } from '@angular/router';
+import { MatSidenav } from '@angular/material/sidenav';
+import { MatExpansionPanel } from '@angular/material/expansion';
 
 /**
  * The layout component displays header and footer of the page.
@@ -12,17 +13,17 @@ import { MatExpansionPanel, MatSidenav } from '@angular/material';
 })
 export class LayoutComponent implements OnInit {
 
-  public loading: boolean = true;
+  public loading = true;
 
   @ViewChild(MatExpansionPanel, { static: true })
-  private matExpansionPanelComponent: MatExpansionPanel;
+  private matExpansionPanelComponent!: MatExpansionPanel;
   @ViewChild(MatSidenav, { static: true })
-  private matSidenavComponent: MatSidenav;
+  private matSidenavComponent!: MatSidenav;
 
   constructor(private router: Router) { }
 
   public ngOnInit(): void {
-    this.router.events.subscribe((event: RouterEvent) => {
+    this.router.events.subscribe((event) => {
 
       if (event instanceof NavigationStart) {
         this.matExpansionPanelComponent.close();

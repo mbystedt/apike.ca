@@ -36,7 +36,7 @@ export class NodePaginateService {
    * @param pageIndex The starting index or offset.
    * @param pageSize The maximum number of nodes to return.
    */
-  public get(tag: string, pageIndex: number, pageSize: number): Observable<PagedResults> {
+  public get(tag: string | null, pageIndex: number, pageSize: number): Observable<PagedResults> {
     const options = {
       params: new HttpParams()
         .set('_format', 'json')
@@ -46,7 +46,7 @@ export class NodePaginateService {
     return this.http.get<PagedResults>(`${DRUPAL_URL}/api/${this.tagToUrl(tag)}`, options);
   }
 
-  private tagToUrl(tag: string): string {
+  private tagToUrl(tag: string | null): string {
     if (tag === null) {
       return 'frontpage';
     } else {

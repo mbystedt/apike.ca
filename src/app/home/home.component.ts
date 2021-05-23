@@ -18,17 +18,17 @@ import { TagHelperService } from '../service/tag-helper/tag-helper.service';
 })
 export class HomeComponent implements OnInit {
 
-  public nodePaginate$: Observable<any>;
+  public nodePaginate$: Observable<any> | undefined;
   public pager: any;
-  public length: number;
-  public pageSize: number;
-  public index: number;
-  public tagName: string;
+  public length: number | undefined;
+  public pageSize: number | undefined;
+  public index: number | undefined;
+  public tagName: string | null = null;
   public pageSizeOptions = [5, 10, 20, 40];
   public loading = false;
 
-  public results = [];
-  public tag: Uid;
+  public results: any = [];
+  public tag: Uid | null = null;
 
   constructor(
     private nodePaginate: NodePaginateService,
@@ -42,13 +42,16 @@ export class HomeComponent implements OnInit {
     this.nodePaginate$ = combineLatest([this.route.queryParamMap, this.route.paramMap]).pipe(
       switchMap(([queryParams, params]: ParamMap[]) => {
         // (+) before `params.get()` turns the string into a number
-        this.index = queryParams.has('index') ? +queryParams.get('index') : 0;
-        this.pageSize = queryParams.has('pageSize') ? +queryParams.get('pageSize') : 10;
+        const qIndex = queryParams.get('index');
+        const qPageSize = queryParams.get('pageSize');
+        this.index = qIndex ? +qIndex : 0;
+        this.pageSize = qPageSize ? +qPageSize : 10;
         this.loading = true;
-        this.tagName = params.has('name') ?  params.get('name') : null;
+        this.tagName = params.has('name') ? params.get('name') : null;
         if (this.tagName) {
           // Necessary because Drupal inexplicably doesn't include this.
-          this.tag = this.tagHelper.idToMockUid(this.tagHelper.tagToId(this.tagName));
+          const tagId = this.tagHelper.tagToId(this.tagName);
+          this.tag = this.tagHelper.idToMockUid(tagId ? tagId : 1);
           this.title.setTitle(`Tag ${this.tagName}`);
         } else {
           this.title.setTitle('Home');
@@ -72,7 +75,7 @@ export class HomeComponent implements OnInit {
    * Handles navigating to tags.
    * @param event The event to handle.
    */
-  public onPageEvent(event) {
+  public onPageEvent(event: any) {
     const navigationExtras: NavigationExtras = {
       queryParams: {
         pageSize: event.pageSize,

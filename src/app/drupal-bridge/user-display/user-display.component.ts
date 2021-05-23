@@ -11,9 +11,9 @@ import { Component, OnInit, Input } from '@angular/core';
 export class UserDisplayComponent implements OnInit {
 
   @Input()
-  public user;
+  public user!: any;
   @Input()
-  public date;
+  public date!: string;
 
   constructor() { }
 

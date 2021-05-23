@@ -1,5 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatSort, MatTableDataSource, MatPaginator } from '@angular/material';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+
+// import { MatSort, MatTableDataSource, MatPaginator } from '@angular/material';
+// import { MatSort } from '@angular/material/sort';
 
 const COLOR_DATA = [{'name': 'aliceblue', 'r': 240, 'g':  248, 'b':  255},
 {'name': 'antiquewhite', 'r': 250, 'g':  235, 'b':  215},
@@ -163,7 +167,7 @@ export class SvgColorTableComponent implements OnInit {
   public dataSource = new MatTableDataSource(COLOR_DATA);
 
   @ViewChild(MatPaginator, { static: true })
-  public paginator: MatPaginator;
+  public paginator!: MatPaginator;
 
   constructor() { }
 
@@ -171,11 +175,11 @@ export class SvgColorTableComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  public toRgb(color): string {
+  public toRgb(color: any): string {
     return `rgb(${color.r}, ${color.g}, ${color.b})`;
   }
 
-  public toHex(color): string {
+  public toHex(color: any): string {
     return `#${this.valToHex(color.r)}${this.valToHex(color.g)}${this.valToHex(color.b)}`;
   }
 

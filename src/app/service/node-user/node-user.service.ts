@@ -6,7 +6,7 @@ import { NodeUser } from '../drupal-bridge/drupal-bridge.service';
 })
 export class NodeUserService {
 
-  public value: NodeUser;
+  public value: NodeUser | undefined;
 
   constructor() { }
 }
