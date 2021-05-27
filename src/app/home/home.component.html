@@ -2,28 +2,22 @@
 
 <h3>Posts</h3>
 
-<div *ngIf="loading" class="node-spinner">
-  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
-</div>
+<ng-container *ngFor="let node of results">
+  <a routerLink="{{node.view_node | drupalUrl}}" class="nodes">
 
-<ng-container *ngIf="!loading">
-  <ng-container *ngFor="let node of results">
-    <a routerLink="{{node.view_node | drupalUrl}}" class="nodes">
+    <div *ngIf="node.field_image">
+      <img src="{{node.field_image}}" class="thumbnail" />
+    </div>
 
-      <div *ngIf="node.field_image">
-        <img src="{{node.field_image}}" class="thumbnail" />
-      </div>
+    <div>
+      <div class="title" [innerHTML]="node.title"></div>
 
-      <div>
-        <div class="title" [innerHTML]="node.title"></div>
+      <div class="date">By {{node.uid}} on {{node.created}}</div>
 
-        <div class="date">By {{node.uid}} on {{node.created}}</div>
+      <div class="body" [innerHTML]="node.body"></div>
 
-        <div class="body" [innerHTML]="node.body"></div>
-
-      </div>
-    </a>
-  </ng-container>
+    </div>
+  </a>
 </ng-container>
 
 <mat-paginator [length]="length"

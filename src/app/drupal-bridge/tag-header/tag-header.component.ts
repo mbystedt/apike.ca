@@ -12,7 +12,7 @@ import { TagHelperService } from '../../service/tag-helper/tag-helper.service';
 })
 export class TagHeaderComponent implements OnInit {
 
-  @Input() public tag: Uid;
+  @Input() public tag!: Uid | null;
 
   constructor(public tagHelper: TagHelperService) { }
 

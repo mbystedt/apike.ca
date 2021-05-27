@@ -296,3 +296,18 @@ h2.margin {
 	top: -20px;
 	height: 0;
 }
+
+/* Moved from layout.component.css */
+
+.sidenav-container .sidenav a {
+	display: block;
+	margin: 3px 10px;
+	font-weight: 500;
+}
+
+.sidenav-container .sidenav .divider:after {
+	content: '';
+	margin: 10px 0;
+	border-bottom: 1px solid #a09c65;
+	display: block;
+}

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, } from 'rxjs';
 import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { TagHelperService } from '../tag-helper/tag-helper.service';
-import { DRUPAL_URL } from 'src/app/shared/constants';
+import { DRUPAL_URL, HOST_URL } from 'src/app/shared/constants';
 
 // tslint:disable-next-line: no-empty-interface
 interface PagedNode {
@@ -15,7 +15,7 @@ interface Pager {
   total_items: number;
 }
 
-interface PagedResults {
+export interface PagedResults {
   results: PagedNode[];
   pager: Pager;
 }
@@ -36,17 +36,17 @@ export class NodePaginateService {
    * @param pageIndex The starting index or offset.
    * @param pageSize The maximum number of nodes to return.
    */
-  public get(tag: string, pageIndex: number, pageSize: number): Observable<PagedResults> {
+  public get(tag: string | null, pageIndex: number, pageSize: number): Observable<PagedResults> {
     const options = {
       params: new HttpParams()
         .set('_format', 'json')
         .set('page', pageIndex.toString())
         .set('items_per_page', pageSize.toString())
     };
-    return this.http.get<PagedResults>(`${DRUPAL_URL}/api/${this.tagToUrl(tag)}`, options);
+    return this.http.get<PagedResults>(`${HOST_URL}${DRUPAL_URL}/api/${this.tagToUrl(tag)}`, options);
   }
 
-  private tagToUrl(tag: string): string {
+  private tagToUrl(tag: string | null): string {
     if (tag === null) {
       return 'frontpage';
     } else {

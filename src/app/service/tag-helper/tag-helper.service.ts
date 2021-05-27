@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { Uid } from '../drupal-bridge/drupal-bridge.service';
 
 // These can be hardcoded because the site doesn't do dynamic tagging.
-const tagToId = {
+const tagToId: {
+  [key: string]: number;
+} = {
   anime: 1,
   programming: 2,
   announcements: 3,
@@ -11,7 +13,9 @@ const tagToId = {
   apple: 6,
 };
 
-const idToName = {
+const idToName: {
+  [key: number]: string;
+} = {
   1: 'Anime',
   2: 'Programming',
   3: 'Announcements',
@@ -20,13 +24,15 @@ const idToName = {
   6: 'Apple'
 };
 
-const idToUrl = {
-  1: 'tags/anime',
-  2: 'tags/programming',
-  3: 'tags/announcements',
-  4: 'tags/design',
-  5: 'tags/science',
-  6: 'tags/apple'
+const idToUrl: {
+  [key: number]: string;
+} = {
+  1: '/tags/anime',
+  2: '/tags/programming',
+  3: '/tags/announcements',
+  4: '/tags/design',
+  5: '/tags/science',
+  6: '/tags/apple'
 };
 
 @Injectable({
@@ -41,7 +47,7 @@ export class TagHelperService {
    * @param tag The name of the tag.
    * @returns The id of the tag.
    */
-  public tagToId(tag: string): number {
+  public tagToId(tag: string): number | null {
     return tag in tagToId ? tagToId[tag] : null;
   }
 

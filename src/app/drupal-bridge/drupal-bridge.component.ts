@@ -18,7 +18,7 @@ export class DrupalBridgeComponent implements OnInit {
     private route: ActivatedRoute,
     private title: PageTitleService) { }
 
-  public body: string;
+  public body = '';
   public tag: any;
   public pageTitle: any;
   public username: any;
@@ -30,7 +30,7 @@ export class DrupalBridgeComponent implements OnInit {
 
   private loadData(): void {
     this.route.data
-      .subscribe((data: { node: NodeUser }) => {
+      .subscribe((data: any) => {
         this.body = data.node.node.body[0].processed;
 
         if (data.node.node.field_tags && data.node.node.field_tags[0]) {

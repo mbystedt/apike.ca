@@ -33,7 +33,7 @@ export class RawHtmlComponent implements OnInit {
    * Handles click events on links so that the application runs as a SPA.
    * @param event The click event to look at.
    */
-  public onClick(event): void {
+  public onClick(event: any): void {
     // Check DOM heirachy for router-href attribute
     for (let elem = event.srcElement; elem !== null; elem = elem.parentElement) {
       if (elem.attributes && elem.attributes['router-href']) {

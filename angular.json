@@ -13,16 +13,18 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ng-apike",
+            "outputPath": "dist/ng-apike/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
+              "src/ads.txt",
               "src/favicon.ico",
               "src/assets",
               "src/images",
-              "src/media"
+              "src/media",
+              "src/robots.txt"
             ],
             "styles": [
               "src/styles.css",
@@ -31,12 +33,26 @@
             ],
             "scripts": [
               {
-                "input": "node_modules/document-register-element/build/document-register-element.js"
+                "input": "node_modules/document-register-element/build/document-register-element.js",
+                "inject": true
               }
-            ]
+            ],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "outputHashing": "bundles",
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -46,9 +62,7 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true
@@ -105,6 +119,63 @@
               "**/node_modules/**"
             ]
           }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/ng-apike/server",
+            "main": "server.ts",
+            "tsConfig": "src/tsconfig.server.json",
+            "optimization": false,
+            "sourceMap": true,
+            "extractLicenses": false
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "sourceMap": false,
+              "extractLicenses": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "configurations": {
+            "development": {
+              "browserTarget": "ng-apike:build",
+              "serverTarget": "ng-apike:server"
+            },
+            "production": {
+              "browserTarget": "ng-apike:build:production",
+              "serverTarget": "ng-apike:server:production"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "ng-apike:build:production"
+            },
+            "development": {
+              "browserTarget": "ng-apike:build"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     },
