@@ -27,12 +27,12 @@ const idToName: {
 const idToUrl: {
   [key: number]: string;
 } = {
-  1: 'tags/anime',
-  2: 'tags/programming',
-  3: 'tags/announcements',
-  4: 'tags/design',
-  5: 'tags/science',
-  6: 'tags/apple'
+  1: '/tags/anime',
+  2: '/tags/programming',
+  3: '/tags/announcements',
+  4: '/tags/design',
+  5: '/tags/science',
+  6: '/tags/apple'
 };
 
 @Injectable({

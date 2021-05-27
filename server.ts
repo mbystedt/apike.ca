@@ -7,13 +7,20 @@ import { join } from 'path';
 import { AppServerModule } from './src/main.server';
 import { APP_BASE_HREF } from '@angular/common';
 import { existsSync } from 'fs';
-import { createProxyMiddleware } from 'http-proxy-middleware';
+import { createProxyMiddleware, responseInterceptor } from 'http-proxy-middleware';
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
+  const helmet = require('helmet');
   const server = express();
   const distFolder = join(process.cwd(), 'dist/ng-apike/browser');
   const indexHtml = existsSync(join(distFolder, 'index.original.html')) ? 'index.original.html' : 'index';
+  const targetServer = process.env.TARGET_URL || 'http://drupal.apike.ca';
+
+  server.use(helmet({
+    hsts: false,
+    contentSecurityPolicy: false
+  }));
 
   // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
   server.engine('html', ngExpressEngine({
@@ -23,24 +30,57 @@ export function app(): express.Express {
   server.set('view engine', 'html');
   server.set('views', distFolder);
 
-  // Example Express Rest API endpoints
-  // server.get('/api/**', (req, res) => { });
+  // Drupal Rest API endpoints
   server.use('/drupal', createProxyMiddleware({
-    target: 'http://apike.ca',
-    changeOrigin: true,
-    logLevel: 'debug'
-  }));
-  server.use('/sites', createProxyMiddleware({
-    target: 'http://apike.ca',
-    changeOrigin: true,
-    logLevel: 'debug'
+    target: targetServer,
+    changeOrigin: true
   }));
 
+  const rewriteDrupalProxy = createProxyMiddleware({
+    target: targetServer,
+    changeOrigin: true,
+    pathRewrite: {'^/' : '/drupal/'},
+    /**
+     * IMPORTANT: avoid res.end being called automatically
+     **/
+    selfHandleResponse: true, // res.end() will be called internally by responseInterceptor()
+    /**
+     * Intercept response and replace 'Hello' with 'Goodbye'
+     **/
+    onProxyRes: responseInterceptor(async (responseBuffer, proxyRes, req, res) => {
+      const response = responseBuffer.toString('utf8'); // convert buffer to string
+      return response.replace(/drupal\.apike\.ca\/drupal/g, 'apike.ca'); // manipulate response and return the result
+    }),
+  });
+
+  // Drupal Rest API endpoints
+  server.use('/sites', createProxyMiddleware({
+    target: targetServer,
+    changeOrigin: true
+  }));
+
+  // Rewrite xml
+  server.use('/rss.xml', rewriteDrupalProxy);
+  server.use('/sitemap.xml', createProxyMiddleware({
+    target: targetServer,
+    changeOrigin: true,
+    pathRewrite: {'^/' : '/drupal/'},
+  }));
 
   // Serve static files from /browser
   server.get('*.*', express.static(distFolder, {
-    maxAge: '1y'
+    maxAge: '1h'
   }));
+
+  // Intercept attempts to get php
+  server.get('*.php', (req, res) => {
+    res.status(404).send('');
+  });
+
+  // Redirect japan pages
+  server.get('/japan_*', (req, res) => {
+    res.status(301).redirect(`http://japan.apike.ca${req.originalUrl}`);
+  });
 
   // All regular routes use the Universal engine
   server.get('*', (req, res) => {

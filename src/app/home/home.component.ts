@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationExtras, ParamMap, Router } from '@angular/router';
-import { Observable, combineLatest } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
-import { NodePaginateService } from '../service/node-paginate/node-paginate.service';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { PageTitleService } from '../service/page-title/page-title.service';
 import { Uid } from '../service/drupal-bridge/drupal-bridge.service';
-import { TagHelperService } from '../service/tag-helper/tag-helper.service';
 
 /**
  * The 'home' component displays the paginated content from drupal. It's
@@ -25,50 +22,17 @@ export class HomeComponent implements OnInit {
   public index: number | undefined;
   public tagName: string | null = null;
   public pageSizeOptions = [5, 10, 20, 40];
-  public loading = false;
 
   public results: any = [];
   public tag: Uid | null = null;
 
   constructor(
-    private nodePaginate: NodePaginateService,
     private route: ActivatedRoute,
     private router: Router,
-    private title: PageTitleService,
-    private tagHelper: TagHelperService) { }
+    private title: PageTitleService) { }
 
   public ngOnInit(): void {
-
-    this.nodePaginate$ = combineLatest([this.route.queryParamMap, this.route.paramMap]).pipe(
-      switchMap(([queryParams, params]: ParamMap[]) => {
-        // (+) before `params.get()` turns the string into a number
-        const qIndex = queryParams.get('index');
-        const qPageSize = queryParams.get('pageSize');
-        this.index = qIndex ? +qIndex : 0;
-        this.pageSize = qPageSize ? +qPageSize : 10;
-        this.loading = true;
-        this.tagName = params.has('name') ? params.get('name') : null;
-        if (this.tagName) {
-          // Necessary because Drupal inexplicably doesn't include this.
-          const tagId = this.tagHelper.tagToId(this.tagName);
-          this.tag = this.tagHelper.idToMockUid(tagId ? tagId : 1);
-          this.title.setTitle(`Tag ${this.tagName}`);
-        } else {
-          this.title.setTitle('Home');
-        }
-        return this.nodePaginate.get(this.tagName, this.index, this.pageSize);
-      })
-    );
-
-    this.nodePaginate$.subscribe((res) => {
-      this.length = res.pager.total_items;
-      this.pageSize = res.pager.items_per_page;
-      this.index = res.pager.current_page;
-
-      this.results = res.results;
-
-      this.loading = false;
-    });
+    this.loadData();
   }
 
   /**
@@ -80,8 +44,23 @@ export class HomeComponent implements OnInit {
       queryParams: {
         pageSize: event.pageSize,
         index: event.pageIndex
-      }
+      },
+      skipLocationChange: false
     };
     this.router.navigate([this.tagName ? `tags/${this.tagName}` :  ''], navigationExtras);
+  }
+
+  private loadData(): void {
+    this.route.data
+      .subscribe((data: any) => {
+        this.tagName = data.node.tagName;
+        this.tag = data.node.tag;
+        this.title.setTitle(data.node.title);
+        this.results = data.node.results.results;
+
+        this.length = data.node.results.pager.total_items;
+        this.pageSize = data.node.results.pager.items_per_page;
+        this.index = data.node.results.pager.current_page;
+      });
   }
 }

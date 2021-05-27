@@ -1,13 +1,6 @@
 {
     "/drupal": {
-      "target": "http://apike.ca:80",
-      "secure": false,
-      "changeOrigin": true,
-      "logLevel": "debug"
-    },
-
-    "/sites": {
-      "target": "http://apike.ca:80",
+      "target": "http://drupal.apike.ca:80",
       "secure": false,
       "changeOrigin": true,
       "logLevel": "debug"

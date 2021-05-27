@@ -19,10 +19,12 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
+              "src/ads.txt",
               "src/favicon.ico",
               "src/assets",
               "src/images",
-              "src/media"
+              "src/media",
+              "src/robots.txt"
             ],
             "styles": [
               "src/styles.css",
@@ -39,6 +41,7 @@
             "extractLicenses": false,
             "buildOptimizer": false,
             "sourceMap": true,
+            "outputHashing": "bundles",
             "optimization": false,
             "namedChunks": true
           },

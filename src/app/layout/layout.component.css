@@ -1,3 +1,4 @@
+/* See also: styles.css */
 
 .masthead {
 	background-color:#23302f;
@@ -176,24 +177,6 @@
 	background-color: #374c4a;
 	padding-top: 5px;
 	width: 220px;
-}
-
-.sidenav > * {
-	display: block;
-	margin: 5px;
-	line-height: 26px;
-}
-
-.sidenav > a {
-	margin: 3px 10px;
-	font-weight: 500;
-}
-
-.sidenav > .divider:after {
-	content: '';
-	margin: 10px 0;
-	border-bottom: 1px solid #a09c65;
-	display: block;
 }
 
 

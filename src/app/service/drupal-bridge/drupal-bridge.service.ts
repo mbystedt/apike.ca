@@ -148,7 +148,6 @@ export class DrupalBridgeService {
     const options = {
       params: new HttpParams().set('_format', 'json')
     };
-    console.log(`${this.nodeUrl}${uid.url}`);
     return this.http.get<User>(`${HOST_URL}${this.removeDuplication(`${this.nodeUrl}${uid.url}`)}`, options);
   }
 

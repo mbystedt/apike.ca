@@ -5,13 +5,26 @@ import { LayoutComponent } from './layout/layout.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { DrupalPathResolver } from './service/drupal-bridge/durpal-path.resolver';
 import { HomeComponent } from './home/home.component';
+import { NodePaginateResolver } from './service/node-paginate/node-paginate.resolver';
 
 export const appRoutes: Routes = [
   {
     path: '', component: LayoutComponent, children: [
       { path: 'not-found', component: NotFoundComponent },
-      { path: 'tags/:name', component: HomeComponent },
-      { path: '', component: HomeComponent },
+      { path: 'tags/:name',
+        component: HomeComponent,
+        resolve: {
+          node: NodePaginateResolver
+        },
+        runGuardsAndResolvers: 'paramsOrQueryParamsChange'
+      },
+      { path: '',
+        component: HomeComponent,
+        resolve: {
+          node: NodePaginateResolver
+        },
+        runGuardsAndResolvers: 'paramsOrQueryParamsChange'
+      },
       { path: '**',
         component: DrupalBridgeComponent,
         resolve: {
@@ -30,7 +43,8 @@ export const appRoutes: Routes = [
       RouterModule
     ],
     providers: [
-      DrupalPathResolver
+      DrupalPathResolver,
+      NodePaginateResolver
     ]
   })
   export class AppRoutingModule {}
