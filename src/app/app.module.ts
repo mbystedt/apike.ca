@@ -22,6 +22,7 @@ import { SearchComponent } from './drupal-bridge/search/search.component';
 import { SvgColorTableComponent } from './drupal-bridge/svg-color-table/svg-color-table.component';
 import { TagHeaderComponent } from './drupal-bridge/tag-header/tag-header.component';
 import { DrupalUrlPipe } from './shared/drupal-url.pipe';
+import { TransferHttpCacheModule } from '@nguniversal/common';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { DrupalUrlPipe } from './shared/drupal-url.pipe';
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    TransferHttpCacheModule,
     BrowserAnimationsModule,
     FormsModule,
     MaterialModule,
