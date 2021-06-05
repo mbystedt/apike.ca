@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { shareReplay, map } from 'rxjs/operators';
+import { shareReplay } from 'rxjs/operators';
 import { DRUPAL_URL, HOST_URL } from 'src/app/shared/constants';
 
 interface StringValue {
