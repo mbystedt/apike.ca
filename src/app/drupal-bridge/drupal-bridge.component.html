@@ -1,5 +1,10 @@
-<app-tag-header *ngIf="tag" [tag]="tag"></app-tag-header>
-<app-title [title]="pageTitle"></app-title>
-<app-user-display [user]="username" [date]="creationDate"></app-user-display>
+<main *ngIf="pageFound">
+  <article>
+    <app-tag-header *ngIf="tag" [tag]="tag"></app-tag-header>
+    <app-title [title]="pageTitle"></app-title>
+    <app-user-display [user]="username" [date]="creationDate"></app-user-display>
 
-<app-raw-html [body]="body"></app-raw-html>
+    <app-raw-html [body]="body"></app-raw-html>
+  </article>
+</main>
+<app-not-found *ngIf="!pageFound"></app-not-found>

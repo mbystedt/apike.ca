@@ -1,6 +1,6 @@
 {
     "/drupal": {
-      "target": "http://drupal.apike.ca:80",
+      "target": "https://drupal.apike.ca:80",
       "secure": false,
       "changeOrigin": true,
       "logLevel": "debug"

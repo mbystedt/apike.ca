@@ -23,6 +23,7 @@ import { SvgColorTableComponent } from './drupal-bridge/svg-color-table/svg-colo
 import { TagHeaderComponent } from './drupal-bridge/tag-header/tag-header.component';
 import { DrupalUrlPipe } from './shared/drupal-url.pipe';
 import { TransferHttpCacheModule } from '@nguniversal/common';
+import { YoutubeComponent } from './drupal-bridge/youtube/youtube.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { TransferHttpCacheModule } from '@nguniversal/common';
     SearchComponent,
     SvgColorTableComponent,
     TagHeaderComponent,
+    YoutubeComponent,
     ImageComponent,
     HomeComponent,
     DrupalUrlPipe
@@ -59,6 +61,7 @@ import { TransferHttpCacheModule } from '@nguniversal/common';
     MovieBoxComponent,
     RawHtmlComponent,
     TagHeaderComponent,
+    YoutubeComponent,
     TitleComponent,
     UserDisplayComponent,
     SearchComponent,

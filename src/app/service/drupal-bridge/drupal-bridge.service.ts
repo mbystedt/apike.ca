@@ -122,7 +122,7 @@ export class DrupalBridgeService {
     const options = {
       params: new HttpParams().set('_format', 'json')
     };
-    return this.http.get<Node>(`${HOST_URL}${this.removeDuplication(`${this.nodeUrl}/${path}`)}`, options);
+    return this.http.get<Node>(`${HOST_URL}${this.nodeUrl}/${path}`, options);
   }
 
   public getUserById(id: string): Observable<User> {

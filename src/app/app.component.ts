@@ -7,6 +7,7 @@ import { ImageComponent } from './drupal-bridge/image/image.component';
 import { SvgColorTableComponent } from './drupal-bridge/svg-color-table/svg-color-table.component';
 import { SearchComponent } from './drupal-bridge/search/search.component';
 import { isPlatformBrowser } from '@angular/common';
+import { YoutubeComponent } from './drupal-bridge/youtube/youtube.component';
 
 declare var require: any;
 
@@ -36,10 +37,11 @@ export class AppComponent {
     if (isPlatformBrowser(this.platform)) {
       // Register angular elements for CMS content
       registerElement('apike-gallery', GalleryComponent);
-      registerElement('apike-moviebox', MovieBoxComponent);
       registerElement('apike-image', ImageComponent);
-      registerElement('apike-svg-colortable', SvgColorTableComponent);
+      registerElement('apike-moviebox', MovieBoxComponent);
       registerElement('apike-search', SearchComponent);
+      registerElement('apike-svg-colortable', SvgColorTableComponent);
+      registerElement('apike-youtube', YoutubeComponent);
     }
   }
 }

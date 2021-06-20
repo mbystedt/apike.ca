@@ -1,74 +1,77 @@
-
-<div class="masthead show-desktop-block">
-	<div class="placement-container">
-		<div class="masthead-img">
-			<a routerLink=""><img src="/images/masthead_mb.png" width="auto" height="70" alt="apike.ca"/></a>
-		</div>
-	</div>
-</div>
-<div class="toplink-container nav-links ">
-	<div class="placement-container">
-		<div class="toplink-placement-container">
-			<div>
-				<a (click)="mexpanel.toggle()" class="show-desktop-inlineblock"><i class="fa fa-bars"></i></a>
-				<a (click)="drawer.toggle()" class="hide-desktop"><i class="fa fa-bars"></i></a>
-				<a routerLink="" class="hide-desktop"><img src="/images/masthead_mb.png" class="mobile-masthead-img" width="auto" height="30" alt="apike.ca"/></a>
-			</div>
-			<div>
-				<div class="show-desktop-block">
-					<a routerLink="">Home</a>
-					<span class="divider"></span>
-					<a routerLink="/prog_svg.html">SVG Tutorial</a>
-					<span class="divider"></span>
-					<a href="http://japan.apike.ca">Japan Guidebook</a>
+<header>
+	<div class="masthead show-desktop-block">
+			<div class="placement-container">
+				<div class="masthead-img">
+					<a routerLink=""><img src="/images/masthead_mb.png" width="auto" height="70" alt="apike.ca"/></a>
 				</div>
 			</div>
+	</div>
+	<div class="toplink-container nav-links ">
+		<div class="placement-container">
+			<div class="toplink-placement-container">
+				<div>
+					<a (click)="mexpanel.toggle()" class="show-desktop-inlineblock"><i class="fa fa-bars"></i></a>
+					<a (click)="drawer.toggle()" class="hide-desktop"><i class="fa fa-bars"></i></a>
+					<a routerLink="" class="hide-desktop"><img src="/images/masthead_mb.png" class="mobile-masthead-img" width="auto" height="30" alt="apike.ca"/></a>
+				</div>
+				<div>
+					<div class="show-desktop-block">
+						<a routerLink="">Home</a>
+						<span class="divider"></span>
+						<a routerLink="/prog_svg.html">SVG Tutorial</a>
+						<span class="divider"></span>
+						<a href="https://japan.apike.ca">Japan Guidebook</a>
+					</div>
+				</div>
 
-			<div>
-				<a routerLink="/search"><i class="fa fa-search"></i></a>
+				<div>
+					<a routerLink="/search"><i class="fa fa-search"></i></a>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
-
-<mat-expansion-panel #mexpanel class="tagmenu">
-	<div class="placement-container">
-		<div class="tagmenu-container nav-links ">
-			<div>
-				<div class="tagmenu-desc">Reality Distortion Engaged</div>
-				<div class="tagmenu-section"><a routerLink="/tags/apple">Apple Ecosystem</a></div>
-				<div class="tagmenu-desc">Reviews and More</div>
-				<div class="tagmenu-section"><a routerLink="/tags/anime">Anime</a></div>
-			</div>
-			<div>
-				<div class="tagmenu-desc">Blinded by</div>
-				<div class="tagmenu-section"><a routerLink="/tags/science">Science &amp; Technology</a></div>
-				<div class="tagmenu-desc">Hints, tricks and code</div>
-				<div class="tagmenu-section"><a routerLink="/tags/programming">Programming</a></div>
-			</div>
-			<div>
-				<div class="tagmenu-small"><a routerLink="/tags/announcements">Site News</a></div>
-				<div class="tagmenu-small"><a routerLink="/contact.html">Contact Info</a></div>
-				<div class="tagmenu-small"><a routerLink="/sitemap.html">Sitemap</a></div>
+</header>
+<nav>
+	<mat-expansion-panel #mexpanel class="tagmenu">
+		<div class="placement-container">
+			<div class="tagmenu-container nav-links ">
+				<div>
+					<div class="tagmenu-desc">Reality Distortion Engaged</div>
+					<div class="tagmenu-section"><a routerLink="/tags/apple">Apple Ecosystem</a></div>
+					<div class="tagmenu-desc">Reviews and More</div>
+					<div class="tagmenu-section"><a routerLink="/tags/anime">Anime</a></div>
+				</div>
+				<div>
+					<div class="tagmenu-desc">Blinded by</div>
+					<div class="tagmenu-section"><a routerLink="/tags/science">Science &amp; Technology</a></div>
+					<div class="tagmenu-desc">Hints, tricks and code</div>
+					<div class="tagmenu-section"><a routerLink="/tags/programming">Programming</a></div>
+				</div>
+				<div>
+					<div class="tagmenu-small"><a routerLink="/tags/announcements">Site News</a></div>
+					<div class="tagmenu-small"><a routerLink="/contact.html">Contact Info</a></div>
+					<div class="tagmenu-small"><a routerLink="/sitemap.html">Sitemap</a></div>
+				</div>
 			</div>
 		</div>
-	</div>
-	
-</mat-expansion-panel>
+	</mat-expansion-panel>
+</nav>
 
 <mat-sidenav-container class="sidenav-container" [hasBackdrop]="true">
 		<mat-sidenav #drawer [fixedTopGap]="143" class="sidenav nav-links">
-			<a routerLink="/prog_svg.html">SVG Tutorial</a>
-			<a href="http://japan.apike.ca">Japan Guidebook</a>
-			<span class="divider"></span>
-			<a routerLink="/tags/apple">Apple Ecosystem</a>
-			<a routerLink="/tags/anime">Anime</a>
-			<a routerLink="/tags/science">Science &amp; Technology</a>
-			<a routerLink="/tags/programming">Programming</a>
-			<span class="divider"></span>
-			<a routerLink="/tags/announcements">Site News</a>
-			<a routerLink="/contact.html">Contact Info</a>
-			<a routerLink="/sitemap.html">Sitemap</a>
+			<nav>
+				<a routerLink="/prog_svg.html">SVG Tutorial</a>
+				<a href="https://japan.apike.ca">Japan Guidebook</a>
+				<span class="divider"></span>
+				<a routerLink="/tags/apple">Apple Ecosystem</a>
+				<a routerLink="/tags/anime">Anime</a>
+				<a routerLink="/tags/science">Science &amp; Technology</a>
+				<a routerLink="/tags/programming">Programming</a>
+				<span class="divider"></span>
+				<a routerLink="/tags/announcements">Site News</a>
+				<a routerLink="/contact.html">Contact Info</a>
+				<a routerLink="/sitemap.html">Sitemap</a>
+			</nav>
 		</mat-sidenav>
 		<mat-sidenav-content class="sidenav-content">
 
@@ -84,15 +87,17 @@
 				</div>
 			</div>
 
-			<div class="footer">
-				<div class="footer-container masthead-container">
-					<div class="footer-links nav-links">
-						<a routerLink="">Home</a> / <a routerLink="/contact.html">Contact Info</a> / <a href="https://twitter.com/mbystedt">Twitter</a>
+			<footer>
+				<div class="footer">
+					<div class="footer-container masthead-container">
+						<div class="footer-links nav-links">
+							<a routerLink="">Home</a> / <a routerLink="/contact.html">Contact Info</a> / <a href="https://twitter.com/mbystedt">Twitter</a>
+						</div>
+						
+						<div class="copy-notice">All rights reserved &copy; 2012 Matthew Bystedt</div>
 					</div>
-					
-					<div class="copy-notice">All rights reserved &copy; 2012 Matthew Bystedt</div>
 				</div>
-			</div>
+			</footer>
 
 	</mat-sidenav-content>
 </mat-sidenav-container>

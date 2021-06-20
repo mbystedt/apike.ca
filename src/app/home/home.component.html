@@ -1,8 +1,9 @@
+<main>
 <app-tag-header [tag]="tag"></app-tag-header>
 
 <h3>Posts</h3>
 
-<ng-container *ngFor="let node of results">
+<article *ngFor="let node of results">
   <a routerLink="{{node.view_node | drupalUrl}}" class="nodes">
 
     <div *ngIf="node.field_image">
@@ -18,11 +19,14 @@
 
     </div>
   </a>
-</ng-container>
+</article>
+</main>
 
-<mat-paginator [length]="length"
-              [pageSize]="pageSize"
-              [pageIndex]="index"
-              [pageSizeOptions]="pageSizeOptions"
-              (page)="onPageEvent($event)">
-</mat-paginator>
+<nav>
+  <mat-paginator [length]="length"
+                [pageSize]="pageSize"
+                [pageIndex]="index"
+                [pageSizeOptions]="pageSizeOptions"
+                (page)="onPageEvent($event)">
+  </mat-paginator>
+</nav>

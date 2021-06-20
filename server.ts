@@ -3,6 +3,7 @@ import 'zone.js/dist/zone-node';
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import * as express from 'express';
 import { join } from 'path';
+import * as compression from 'compression';
 
 import { AppServerModule } from './src/main.server';
 import { APP_BASE_HREF } from '@angular/common';
@@ -15,7 +16,10 @@ export function app(): express.Express {
   const server = express();
   const distFolder = join(process.cwd(), 'dist/ng-apike/browser');
   const indexHtml = existsSync(join(distFolder, 'index.original.html')) ? 'index.original.html' : 'index';
-  const targetServer = process.env.TARGET_URL || 'http://drupal.apike.ca';
+  const targetServer = process.env.TARGET_URL || 'https://drupal.apike.ca';
+
+  // compress responses
+  server.use(compression());
 
   server.use(helmet({
     hsts: false,
@@ -30,8 +34,8 @@ export function app(): express.Express {
   server.set('view engine', 'html');
   server.set('views', distFolder);
 
-  // Drupal Rest API endpoints
-  server.use('/drupal', createProxyMiddleware({
+  // Drupal images
+  server.use('/drupal/sites', createProxyMiddleware({
     target: targetServer,
     changeOrigin: true
   }));
@@ -79,7 +83,7 @@ export function app(): express.Express {
 
   // Redirect japan pages
   server.get('/japan_*', (req, res) => {
-    res.status(301).redirect(`http://japan.apike.ca${req.originalUrl}`);
+    res.status(301).redirect(`https://japan.apike.ca${req.originalUrl}`);
   });
 
   // All regular routes use the Universal engine
