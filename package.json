@@ -31,7 +31,7 @@
     "@nguniversal/express-engine": "^12.0.0",
     "angulartics2": "^10.0.0",
     "document-register-element": "^1.7.2",
-    "express": "^4.15.2",
+    "express": "^4.17.3",
     "font-awesome": "^4.7.0",
     "helmet": "^4.6.0",
     "http-proxy-middleware": "^2.0.0",
