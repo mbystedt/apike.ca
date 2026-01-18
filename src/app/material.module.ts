@@ -7,6 +7,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { YouTubePlayerModule } from '@angular/youtube-player';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatSidenavModule,
-    MatTableModule
+    MatTableModule,
+    YouTubePlayerModule
   ],
   exports: [
     MatButtonModule,
@@ -27,7 +29,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatSidenavModule,
-    MatTableModule
+    MatTableModule,
+    YouTubePlayerModule
   ]
 })
 export class MaterialModule { }

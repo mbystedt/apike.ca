@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  drupalPath: '/drupal',
+  hostUrl: 'https://drupal.apike.ca'
 };

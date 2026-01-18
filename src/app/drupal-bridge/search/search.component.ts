@@ -5,9 +5,10 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
  * The search bridge component displays a google search box on the page.
  */
 @Component({
-  selector: 'app-search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css']
+    selector: 'app-search',
+    templateUrl: './search.component.html',
+    styleUrls: ['./search.component.css'],
+    standalone: false
 })
 export class SearchComponent implements OnInit {
 

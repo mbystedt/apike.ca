@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
@@ -12,22 +12,21 @@ import { UrlUtil } from '../shared/url-util';
  * Note: The passed in HTML is assumed to come from a trusted source.
  */
 @Component({
-  selector: 'app-raw-html',
-  templateUrl: './raw-html.component.html',
-  styleUrls: ['./raw-html.component.css']
+    selector: 'app-raw-html',
+    templateUrl: './raw-html.component.html',
+    styleUrls: ['./raw-html.component.css'],
+    standalone: false
 })
-export class RawHtmlComponent implements OnInit {
+export class RawHtmlComponent {
 
   constructor(private router: Router, private sanitizer: DomSanitizer) { }
 
-  @Input('body')
+  @Input({ required: false })
   set body(body: string) {
     this.safeBody = this.sanitizer.bypassSecurityTrustHtml(this.processHtml(body));
   }
 
   public safeBody: SafeHtml = '';
-
-  public ngOnInit(): void { }
 
   /**
    * Handles click events on links so that the application runs as a SPA.

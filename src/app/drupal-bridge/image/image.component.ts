@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, input } from '@angular/core';
 import { GalleryValue } from '../../service/drupal-bridge/drupal-bridge.service';
 import { ImageUtil } from '../shared/image-util';
 import { NodeUserService } from 'src/app/service/node-user/node-user.service';
@@ -8,9 +8,10 @@ import { NodeUserService } from 'src/app/service/node-user/node-user.service';
  * gallery or any image on the internet.
  */
 @Component({
-  selector: 'app-image',
-  templateUrl: './image.component.html',
-  styleUrls: ['./image.component.css']
+    selector: 'app-image',
+    templateUrl: './image.component.html',
+    styleUrls: ['./image.component.css'],
+    standalone: false
 })
 export class ImageComponent implements OnInit {
 
@@ -20,11 +21,11 @@ export class ImageComponent implements OnInit {
    * If the end of the url of an image node's 'field_gallery' matches then display it.
    * If none of the above is applicable, display as-is.
    */
-  @Input() public src!: string;
+  public src = input<string>();
   /** The images's alt string. */
-  @Input() public alt!: string;
+  public alt = input<string>();
   /** Boolean to hide the image divider style. */
-  @Input() public hideDivider!: string;
+  public hideDivider = input<string>();
   /** The image to display. */
   public image: any;
   /** The text shown under the image. Grabbed from drupal data if avialable. Otherwise, uses alt. */
@@ -33,10 +34,10 @@ export class ImageComponent implements OnInit {
   constructor(private nodeUserServ: NodeUserService) { }
 
   public ngOnInit(): void {
-    if (this.src !== undefined && this.nodeUserServ.value) {
+    if (this.src() !== undefined && this.nodeUserServ.value) {
       const imageSrc: GalleryValue[] = this.nodeUserServ.value.node.field_gallery;
       this.image = imageSrc.find((image) => {
-        return image.url.endsWith(this.src);
+        return image.url.endsWith(this.src()!);
       });
     } else if (this.nodeUserServ.value) {
       const imageSrc: GalleryValue[] = this.nodeUserServ.value.node.field_image;
@@ -46,9 +47,9 @@ export class ImageComponent implements OnInit {
       this.text = ImageUtil.parseDescription(this.image).description;
     } else {
       this.image = {
-        url: this.src
+        url: this.src()
       };
-      this.text = this.alt;
+      this.text = this.alt();
     }
   }
 }

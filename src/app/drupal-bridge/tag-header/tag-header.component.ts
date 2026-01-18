@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Uid } from '../../service/drupal-bridge/drupal-bridge.service';
 import { TagHelperService } from '../../service/tag-helper/tag-helper.service';
 
@@ -6,15 +6,14 @@ import { TagHelperService } from '../../service/tag-helper/tag-helper.service';
  * This component displays the tag and links it.
  */
 @Component({
-  selector: 'app-tag-header',
-  templateUrl: './tag-header.component.html',
-  styleUrls: ['./tag-header.component.css']
+    selector: 'app-tag-header',
+    templateUrl: './tag-header.component.html',
+    styleUrls: ['./tag-header.component.css'],
+    standalone: false
 })
-export class TagHeaderComponent implements OnInit {
+export class TagHeaderComponent {
 
   @Input() public tag!: Uid | null;
 
   constructor(public tagHelper: TagHelperService) { }
-
-  public ngOnInit(): void { }
 }

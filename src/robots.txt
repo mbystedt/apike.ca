@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /drupal/
+
+Sitemap: https://apike.ca/sitemap.xml

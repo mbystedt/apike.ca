@@ -2,7 +2,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 import { UrlUtil } from '../drupal-bridge/shared/url-util';
 
-@Pipe({ name: 'drupalUrl' })
+@Pipe({
+    name: 'drupalUrl',
+    standalone: false
+})
 export class DrupalUrlPipe implements PipeTransform {
   transform(url: string) {
     return UrlUtil.removeNodeUrl(url);

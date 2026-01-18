@@ -1,5 +1,7 @@
+import { environment } from '../../environments/environment';
+
 /**
  * The path to drupal.
  */
-export const DRUPAL_URL = '/drupal';
-export const HOST_URL = 'http://drupal.apike.ca';
+export const DRUPAL_PATH =  environment.drupalPath;
+export const HOST_URL = environment.hostUrl;

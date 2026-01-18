@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Meta } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { NodeUser } from '../service/drupal-bridge/drupal-bridge.service';
 import { PageTitleService } from '../service/page-title/page-title.service';
 
 /**
@@ -8,21 +8,24 @@ import { PageTitleService } from '../service/page-title/page-title.service';
  * page of content.
  */
 @Component({
-  selector: 'app-drupal-bridge',
-  templateUrl: './drupal-bridge.component.html',
-  styleUrls: ['./drupal-bridge.component.css']
+    selector: 'app-drupal-bridge',
+    templateUrl: './drupal-bridge.component.html',
+    styleUrls: ['./drupal-bridge.component.css'],
+    standalone: false
 })
 export class DrupalBridgeComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private title: PageTitleService) { }
+    private title: PageTitleService,
+    private meta: Meta) { }
 
   public body = '';
   public tag: any;
   public pageTitle: any;
   public username: any;
   public creationDate: any;
+  public pageFound = true;
 
   public ngOnInit(): void {
     this.loadData();
@@ -31,19 +34,32 @@ export class DrupalBridgeComponent implements OnInit {
   private loadData(): void {
     this.route.data
       .subscribe((data: any) => {
-        this.body = data.node.node.body[0].processed;
+        if (data.node) {
+          this.pageFound = true;
+          this.body = data.node.node.body[0].processed;
 
-        if (data.node.node.field_tags && data.node.node.field_tags[0]) {
-          this.tag = data.node.node.field_tags[0];
+          if (data.node.node.field_tags && data.node.node.field_tags[0]) {
+            this.tag = data.node.node.field_tags[0];
+          } else {
+            this.tag = undefined;
+          }
+          this.pageTitle = data.node.node.title[0].value;
+          // Set page's title
+          this.title.setTitle(this.pageTitle);
+          if (data.node.node.body[0].summary) {
+            this.meta.addTag({
+              name: 'description',
+              content: data.node.node.body[0].summary
+            });
+          } else {
+            this.meta.removeTag('name=description');
+          }
+
+          this.username = data.node.user;
+          this.creationDate = data.node.node.changed[0].value;
         } else {
-          this.tag = undefined;
+          this.pageFound = false;
         }
-        this.pageTitle = data.node.node.title[0].value;
-        // Set page's title
-        this.title.setTitle(this.pageTitle);
-
-        this.username = data.node.user;
-        this.creationDate = data.node.node.changed[0].value;
       });
   }
 }

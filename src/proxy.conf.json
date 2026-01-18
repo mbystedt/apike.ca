@@ -1,8 +1,17 @@
 {
-    "/drupal": {
-      "target": "http://drupal.apike.ca:80",
-      "secure": false,
-      "changeOrigin": true,
-      "logLevel": "debug"
+  "/drupal": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/drupal": ""
     }
+  },
+  "/sites": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
   }
+}

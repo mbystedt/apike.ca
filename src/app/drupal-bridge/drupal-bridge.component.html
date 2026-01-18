@@ -1,5 +1,15 @@
-<app-tag-header *ngIf="tag" [tag]="tag"></app-tag-header>
-<app-title [title]="pageTitle"></app-title>
-<app-user-display [user]="username" [date]="creationDate"></app-user-display>
-
-<app-raw-html [body]="body"></app-raw-html>
+@if (pageFound) {
+  <main>
+    <article>
+      @if (tag) {
+        <app-tag-header [tag]="tag"></app-tag-header>
+      }
+      <app-title [title]="pageTitle"></app-title>
+      <app-user-display [user]="username" [date]="creationDate"></app-user-display>
+      <app-raw-html [body]="body"></app-raw-html>
+    </article>
+  </main>
+}
+@if (!pageFound) {
+  <app-not-found></app-not-found>
+}
