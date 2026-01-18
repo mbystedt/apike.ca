@@ -1,10 +1,11 @@
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgxGalleryModule } from '@kolkov/ngx-gallery';
-import { Angulartics2Module } from 'angulartics2';
+// import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+// import { Angulartics2Module } from 'angulartics2';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DrupalBridgeComponent } from './drupal-bridge/drupal-bridge.component';
@@ -22,54 +23,35 @@ import { SearchComponent } from './drupal-bridge/search/search.component';
 import { SvgColorTableComponent } from './drupal-bridge/svg-color-table/svg-color-table.component';
 import { TagHeaderComponent } from './drupal-bridge/tag-header/tag-header.component';
 import { DrupalUrlPipe } from './shared/drupal-url.pipe';
-import { TransferHttpCacheModule } from '@nguniversal/common';
 import { YoutubeComponent } from './drupal-bridge/youtube/youtube.component';
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    LayoutComponent,
-    DrupalBridgeComponent,
-    NotFoundComponent,
-    RawHtmlComponent,
-    TitleComponent,
-    UserDisplayComponent,
-    GalleryComponent,
-    MovieBoxComponent,
-    SearchComponent,
-    SvgColorTableComponent,
-    TagHeaderComponent,
-    YoutubeComponent,
-    ImageComponent,
-    HomeComponent,
-    DrupalUrlPipe
-  ],
-  imports: [
-    BrowserModule.withServerTransition({ appId: 'serverApp' }),
-    TransferHttpCacheModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    MaterialModule,
-    AppRoutingModule,
-    HttpClientModule,
-    NgxGalleryModule,
-    Angulartics2Module.forRoot()
-  ],
-  entryComponents: [
-    GalleryComponent,
-    ImageComponent,
-    MovieBoxComponent,
-    RawHtmlComponent,
-    TagHeaderComponent,
-    YoutubeComponent,
-    TitleComponent,
-    UserDisplayComponent,
-    SearchComponent,
-    SvgColorTableComponent
-  ],
-  providers: [],
-  bootstrap: [
-    AppComponent
-  ]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        LayoutComponent,
+        DrupalBridgeComponent,
+        NotFoundComponent,
+        RawHtmlComponent,
+        TitleComponent,
+        UserDisplayComponent,
+        GalleryComponent,
+        MovieBoxComponent,
+        SearchComponent,
+        SvgColorTableComponent,
+        TagHeaderComponent,
+        YoutubeComponent,
+        ImageComponent,
+        HomeComponent,
+        DrupalUrlPipe
+    ],
+    bootstrap: [
+        AppComponent
+    ], imports: [BrowserModule,
+        CommonModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        MaterialModule,
+        AppRoutingModule], providers: [
+        provideHttpClient(withInterceptorsFromDi(), withFetch()),
+        provideClientHydration(withEventReplay())
+    ] })
 export class AppModule { }

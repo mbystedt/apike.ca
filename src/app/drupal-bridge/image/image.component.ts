@@ -8,9 +8,10 @@ import { NodeUserService } from 'src/app/service/node-user/node-user.service';
  * gallery or any image on the internet.
  */
 @Component({
-  selector: 'app-image',
-  templateUrl: './image.component.html',
-  styleUrls: ['./image.component.css']
+    selector: 'app-image',
+    templateUrl: './image.component.html',
+    styleUrls: ['./image.component.css'],
+    standalone: false
 })
 export class ImageComponent implements OnInit {
 

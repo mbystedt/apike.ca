@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/server",
+    "target": "ES2022",
+    "module": "es2020",
+    "types": ["node"]
+  },
+  "files": [
+    "src/server.ts"
+  ]
+}

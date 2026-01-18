@@ -6,9 +6,10 @@ let apiLoaded = false;
  * The youtube component displays a video
  */
 @Component({
-  selector: 'app-youtube',
-  templateUrl: './youtube.component.html',
-  styleUrls: ['./youtube.component.css']
+    selector: 'app-youtube',
+    templateUrl: './youtube.component.html',
+    styleUrls: ['./youtube.component.css'],
+    standalone: false
 })
 export class YoutubeComponent implements OnInit {
 

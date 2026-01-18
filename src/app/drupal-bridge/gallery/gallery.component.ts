@@ -9,9 +9,10 @@ import { NodeUserService } from 'src/app/service/node-user/node-user.service';
  * attached to the drupal node.
  */
 @Component({
-  selector: 'app-gallery',
-  templateUrl: './gallery.component.html',
-  styleUrls: ['./gallery.component.css']
+    selector: 'app-gallery',
+    templateUrl: './gallery.component.html',
+    styleUrls: ['./gallery.component.css'],
+    standalone: false
 })
 export class GalleryComponent implements OnInit {
   public galleryOptions: NgxGalleryOptions[] = [

@@ -9,9 +9,10 @@ import { Uid } from '../service/drupal-bridge/drupal-bridge.service';
  * used for all paginated content like tags and the home page.
  */
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+    selector: 'app-home',
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.css'],
+    standalone: false
 })
 export class HomeComponent implements OnInit {
 

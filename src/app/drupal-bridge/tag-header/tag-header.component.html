@@ -1,1 +1,1 @@
-<a *ngIf="tag" routerLink="{{tag.url | drupalUrl}}"><button mat-flat-button color="primary">{{tagHelper.idToName(tag.target_id)}}</button></a>
+<a *ngIf="tag && tag.url" [routerLink]="tag.url | drupalUrl"><button mat-flat-button color="primary">{{tagHelper.idToName(tag.target_id || 0)}}</button></a>

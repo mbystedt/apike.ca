@@ -1,5 +1,5 @@
 import { Component, Injector, Inject, PLATFORM_ID } from '@angular/core';
-import { Angulartics2GoogleGlobalSiteTag } from 'angulartics2/gst';
+// import { Angulartics2GoogleGlobalSiteTag } from 'angulartics2/gst';
 
 import { GalleryComponent } from './drupal-bridge/gallery/gallery.component';
 import { MovieBoxComponent } from './drupal-bridge/movie-box/movie-box.component';
@@ -9,22 +9,23 @@ import { SearchComponent } from './drupal-bridge/search/search.component';
 import { isPlatformBrowser } from '@angular/common';
 import { YoutubeComponent } from './drupal-bridge/youtube/youtube.component';
 
-declare var require: any;
+declare let require: any;
 
 /**
  * The root component for the application.
  */
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css'],
+    standalone: false
 })
 export class AppComponent {
   title = 'app';
   // import Angulartics2GoogleGlobalSiteTag in root component
-  constructor(@Inject(PLATFORM_ID) private platform: Object, injector: Injector, angulartics: Angulartics2GoogleGlobalSiteTag) {
+  constructor(@Inject(PLATFORM_ID) private platform: Object, injector: Injector) {
     // Start tracking
-    angulartics.startTracking();
+    // angulartics.startTracking();
 
     const registerElement = (tagName: string, component: any) => {
       const { createCustomElement } = require('@angular/elements');

@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable, } from 'rxjs';
-import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { TagHelperService } from '../tag-helper/tag-helper.service';
 import { DRUPAL_URL, HOST_URL } from 'src/app/shared/constants';
 
-// tslint:disable-next-line: no-empty-interface
 interface PagedNode {
-  // Maybe when I have a free year or two?
+  [key: string]: unknown;
 }
 
 interface Pager {

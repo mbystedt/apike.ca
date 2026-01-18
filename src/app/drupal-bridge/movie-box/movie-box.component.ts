@@ -1,14 +1,15 @@
-import { Component, OnInit, ElementRef, ViewChild, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 /**
  * The movie box component displays the data parsed from the data attribute.
  */
 @Component({
-  selector: 'app-movie-box',
-  templateUrl: './movie-box.component.html',
-  styleUrls: ['./movie-box.component.css']
+    selector: 'app-movie-box',
+    templateUrl: './movie-box.component.html',
+    styleUrls: ['./movie-box.component.css'],
+    standalone: false
 })
-export class MovieBoxComponent implements OnInit {
+export class MovieBoxComponent {
   @Input()
   get data() {
     return JSON.parse(this._data);
@@ -18,8 +19,4 @@ export class MovieBoxComponent implements OnInit {
   }
 
   private _data = '{}';
-
-  constructor() { }
-
-  ngOnInit() { }
 }

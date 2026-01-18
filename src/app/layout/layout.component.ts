@@ -7,9 +7,10 @@ import { MatExpansionPanel } from '@angular/material/expansion';
  * The layout component displays header and footer of the page.
  */
 @Component({
-  selector: 'app-layout',
-  templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.css']
+    selector: 'app-layout',
+    templateUrl: './layout.component.html',
+    styleUrls: ['./layout.component.css'],
+    standalone: false
 })
 export class LayoutComponent implements OnInit {
 

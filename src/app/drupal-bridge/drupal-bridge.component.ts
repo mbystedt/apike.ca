@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { NodeUser } from '../service/drupal-bridge/drupal-bridge.service';
 import { PageTitleService } from '../service/page-title/page-title.service';
 
 /**
@@ -9,9 +8,10 @@ import { PageTitleService } from '../service/page-title/page-title.service';
  * page of content.
  */
 @Component({
-  selector: 'app-drupal-bridge',
-  templateUrl: './drupal-bridge.component.html',
-  styleUrls: ['./drupal-bridge.component.css']
+    selector: 'app-drupal-bridge',
+    templateUrl: './drupal-bridge.component.html',
+    styleUrls: ['./drupal-bridge.component.css'],
+    standalone: false
 })
 export class DrupalBridgeComponent implements OnInit {
 

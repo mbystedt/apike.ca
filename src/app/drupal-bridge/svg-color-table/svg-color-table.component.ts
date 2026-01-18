@@ -157,9 +157,10 @@ const COLOR_DATA = [{'name': 'aliceblue', 'r': 240, 'g':  248, 'b':  255},
  * Generates an SVG color table. This is a single use component.
  */
 @Component({
-  selector: 'app-svg-color-table',
-  templateUrl: './svg-color-table.component.html',
-  styleUrls: ['./svg-color-table.component.css']
+    selector: 'app-svg-color-table',
+    templateUrl: './svg-color-table.component.html',
+    styleUrls: ['./svg-color-table.component.css'],
+    standalone: false
 })
 export class SvgColorTableComponent implements OnInit {
 

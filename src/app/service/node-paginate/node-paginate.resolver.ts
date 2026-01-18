@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router, Resolve, RouterStateSnapshot,
-         ActivatedRouteSnapshot } from '@angular/router';
+import { Router, ActivatedRouteSnapshot } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
@@ -9,10 +8,10 @@ import { TagHelperService } from '../tag-helper/tag-helper.service';
 import { Uid } from '../drupal-bridge/drupal-bridge.service';
 
 @Injectable()
-export class NodePaginateResolver implements Resolve<any> {
+export class NodePaginateResolver  {
   constructor(private nodePaginate: NodePaginateService, private router: Router, private tagHelper: TagHelperService) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
+  resolve(route: ActivatedRouteSnapshot): Observable<unknown> {
     const queryParams = route.queryParamMap;
     const params = route.paramMap;
     const qIndex = queryParams.get('index');
@@ -36,7 +35,7 @@ export class NodePaginateResolver implements Resolve<any> {
         title,
         results
       })),
-      catchError((err: any, caught) => {
+      catchError((err: unknown) => {
         console.log(err);
         this.router.navigate(['/not-found']);
         return of(null);

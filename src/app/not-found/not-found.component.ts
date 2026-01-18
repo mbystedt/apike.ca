@@ -1,15 +1,16 @@
 import { Component, OnInit, Inject, Optional } from '@angular/core';
 import { PageTitleService } from '../service/page-title/page-title.service';
 import { Response } from 'express';
-import { RESPONSE } from '@nguniversal/express-engine/tokens';
+import { RESPONSE } from '../../express.tokens';
 
 /**
  * This component is displayed when the page to navigate to is not found.
  */
 @Component({
-  selector: 'app-not-found',
-  templateUrl: './not-found.component.html',
-  styleUrls: ['./not-found.component.css']
+    selector: 'app-not-found',
+    templateUrl: './not-found.component.html',
+    styleUrls: ['./not-found.component.css'],
+    standalone: false
 })
 export class NotFoundComponent implements OnInit {
 
