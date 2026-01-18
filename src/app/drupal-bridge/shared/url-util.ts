@@ -1,4 +1,4 @@
-import { DRUPAL_URL } from 'src/app/shared/constants';
+import { DRUPAL_PATH } from 'src/app/shared/constants';
 
 export class UrlUtil {
   /**
@@ -8,7 +8,7 @@ export class UrlUtil {
    * @returns The sanitized url.
    */
   public static removeNodeUrl(url: string): string {
-    if (url.slice(0, 7) === DRUPAL_URL) {
+    if (url.slice(0, 7) === DRUPAL_PATH) {
       return url.slice(7);
     }
     return url;

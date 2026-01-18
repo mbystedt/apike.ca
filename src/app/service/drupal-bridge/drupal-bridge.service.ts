@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
-import { DRUPAL_URL, HOST_URL } from 'src/app/shared/constants';
+import { DRUPAL_PATH, HOST_URL } from 'src/app/shared/constants';
 
 interface StringValue {
   value: string;
@@ -106,7 +106,7 @@ const CACHE_SIZE = 1;
 })
 export class DrupalBridgeService {
 
-  private nodeUrl = DRUPAL_URL;
+  private nodeUrl = DRUPAL_PATH;
   private userUidCache$: { [index: string]: Observable<User> } = {};
 
   constructor(private http: HttpClient) { }

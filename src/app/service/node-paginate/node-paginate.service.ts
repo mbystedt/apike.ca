@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { TagHelperService } from '../tag-helper/tag-helper.service';
-import { DRUPAL_URL, HOST_URL } from 'src/app/shared/constants';
+import { DRUPAL_PATH, HOST_URL } from 'src/app/shared/constants';
 
 interface PagedNode {
   [key: string]: unknown;
@@ -42,7 +42,7 @@ export class NodePaginateService {
         .set('page', pageIndex.toString())
         .set('items_per_page', pageSize.toString())
     };
-    return this.http.get<PagedResults>(`${HOST_URL}${DRUPAL_URL}/api/${this.tagToUrl(tag)}`, options);
+    return this.http.get<PagedResults>(`${HOST_URL}${DRUPAL_PATH}/api/${this.tagToUrl(tag)}`, options);
   }
 
   private tagToUrl(tag: string | null): string {

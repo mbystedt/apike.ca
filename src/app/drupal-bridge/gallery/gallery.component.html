@@ -1,4 +1,6 @@
 <!-- Gallery temporarily disabled - ngx-gallery needs Angular 19 compatible version -->
-<div *ngIf="galleryImages && galleryImages.length > 0">
-  <p><em>Gallery component temporarily disabled during Angular 19 upgrade</em></p>
-</div>
+@if (galleryImages && galleryImages.length > 0) {
+  <div>
+    <p><em>Gallery component temporarily disabled during Angular 19 upgrade</em></p>
+  </div>
+}

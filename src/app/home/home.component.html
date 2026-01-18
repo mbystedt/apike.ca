@@ -1,32 +1,31 @@
 <main>
-<app-tag-header [tag]="tag"></app-tag-header>
+  <app-tag-header [tag]="tag"></app-tag-header>
 
-<h3>Posts</h3>
+  <h3>Posts</h3>
 
-<article *ngFor="let node of results">
-  <a routerLink="{{node.view_node | drupalUrl}}" class="nodes">
-
-    <div *ngIf="node.field_image">
-      <img src="{{node.field_image}}" class="thumbnail" />
-    </div>
-
-    <div>
-      <div class="title" [innerHTML]="node.title"></div>
-
-      <div class="date">By {{node.uid}} on {{node.created}}</div>
-
-      <div class="body" [innerHTML]="node.body"></div>
-
-    </div>
-  </a>
-</article>
+  @for (node of results; track node) {
+    <article>
+      <a routerLink="{{node.view_node | drupalUrl}}" class="nodes">
+        @if (node.field_image) {
+          <div>
+            <img src="{{node.field_image}}" class="thumbnail" />
+          </div>
+        }
+        <div>
+          <div class="title" [innerHTML]="node.title"></div>
+          <div class="date">By {{node.uid}} on {{node.created}}</div>
+          <div class="body" [innerHTML]="node.body"></div>
+        </div>
+      </a>
+    </article>
+  }
 </main>
 
 <nav>
   <mat-paginator [length]="length"
-                [pageSize]="pageSize"
-                [pageIndex]="index"
-                [pageSizeOptions]="pageSizeOptions"
-                (page)="onPageEvent($event)">
+    [pageSize]="pageSize"
+    [pageIndex]="index"
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="onPageEvent($event)">
   </mat-paginator>
 </nav>

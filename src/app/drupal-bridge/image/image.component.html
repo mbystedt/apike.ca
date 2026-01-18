@@ -1,5 +1,7 @@
-<ng-container *ngIf="image">
+@if (image) {
   <img src="{{image.url}}" />
   <div class="image-text">{{text}}</div>
-  <mat-divider *ngIf="!hideDivider"></mat-divider>
-</ng-container>
+  @if (!hideDivider) {
+    <mat-divider></mat-divider>
+  }
+}
